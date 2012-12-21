@@ -45,7 +45,7 @@ namespace TestSQLite
 
             sqlite_conn.CreateTable<Person>();
 
-            sqlite_conn.Insert(new Person() { FirstName = "Keming", LastName = "Chen" });
+            //sqlite_conn.Insert(new Person() { FirstName = "Keming", LastName = "Chen" });
 
             List<Person> personList = sqlite_conn.Query<Person>("SELECT * FROM Person");
 
