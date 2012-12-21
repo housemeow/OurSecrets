@@ -31,7 +31,6 @@ namespace OurSecrets
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            string s;
         }
 
         /// <summary>
