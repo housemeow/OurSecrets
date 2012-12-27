@@ -23,17 +23,47 @@ namespace DropAndDrag
     {
         List<Block> _blocksList;
         Thickness _thickness;
+        Point _point;
+        bool _isPressed;
 
         public MainPage()
         {
             this.InitializeComponent();
             _blocksList = new List<Block>();
             _textBox.Text = _blocksList.Count.ToString();
-            _imgSanta.ManipulationMode = ManipulationModes.All;
-            _imgSanta.ManipulationDelta += DeltaImageManipulation;
-            _imgSanta.ManipulationStarted += StartedImageManipulation;
+            //_imgSanta.ManipulationMode = ManipulationModes.All;
+            _imgSanta.PointerPressed += OnPointerPressed;
+            _imgSanta.PointerMoved += OnPointerMoved;
+            _imgSanta.PointerReleased += OnPointerReleased;
+            //_imgSanta.ManipulationStarted += StartedImageManipulation;
             _thickness = new Thickness(200, 0, 0, 0);
             _imgSanta.Margin = _thickness;
+            _isPressed = false;
+        }
+
+        private void OnPointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            OnPointerMoved(sender, e);
+            _isPressed = false;
+        }
+
+        private void OnPointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            _point = e.GetCurrentPoint(_grid).Position;
+            _isPressed = true;
+        }
+
+        private void OnPointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            if (_isPressed)
+            {
+                Image block = (Image)sender;
+                Point point = e.GetCurrentPoint(_grid).Position;
+                _thickness.Left = block.Margin.Left + (point.X - _point.X);
+                _thickness.Top = block.Margin.Top + (point.Y - _point.Y);
+                block.Margin = _thickness;
+                _point = point;
+            }
         }
 
         /// <summary>
@@ -49,7 +79,6 @@ namespace DropAndDrag
         {
             Point point = e.Position;
             _listBox.Items.Add("start (" + point.X + "," + point.Y + ")");
-            _listBox.Items.Add("Selected");
         }
 
         private void DeltaImageManipulation(object sender, ManipulationDeltaRoutedEventArgs e)
@@ -63,9 +92,12 @@ namespace DropAndDrag
         private void ClickAddButton(object sender, RoutedEventArgs e)
         {
             Block block = new Block();
-            block.Image.ManipulationMode = ManipulationModes.All;
-            block.Image.ManipulationDelta += DeltaImageManipulation;
-            block.Image.ManipulationStarted += StartedImageManipulation;
+            //block.Image.ManipulationMode = ManipulationModes.All;
+            //block.Image.ManipulationDelta += DeltaImageManipulation;
+            //block.Image.ManipulationStarted += StartedImageManipulation;
+            block.Image.PointerPressed += OnPointerPressed;
+            block.Image.PointerMoved += OnPointerMoved;
+            block.Image.PointerReleased += OnPointerReleased;
             _itemControl.Items.Add(block.Image);
             block.X = block.X;
             block.Y = block.Y;

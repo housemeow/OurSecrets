@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="#FFBD2C2C">
+    <Grid x:Name="_grid" Background="#FFBD2C2C">
         <Button x:Name="_AddButton" Content="加入磚" HorizontalAlignment="Left" Margin="30,30,0,0" VerticalAlignment="Top" FontSize="20" Click="ClickAddButton" Background="#FF0E3C4D"/>
         <TextBox x:Name="_textBox" HorizontalAlignment="Left" Margin="30,95,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" TextAlignment="Center"/>
         <Image x:Name="_imgSanta" Source="Assets/test.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="160"></Image>
