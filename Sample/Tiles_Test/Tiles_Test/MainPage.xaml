@@ -19,47 +19,47 @@
                 <RowDefinition Height="150"/>
                 <RowDefinition Height="150"/>
             </Grid.RowDefinitions>
-            <ItemsControl x:Name="First_ItemControl" Grid.Column="1" Margin="0,10,10,10" Grid.RowSpan="2">
-                <ItemsControl.ItemContainerTransitions>
-                    <TransitionCollection>
-                        <AddDeleteThemeTransition/>
-                        <RepositionThemeTransition/>
-                    </TransitionCollection>
-                </ItemsControl.ItemContainerTransitions>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapGrid Height="150"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+            <ScrollViewer Grid.Column="1" Grid.RowSpan="2" IsVerticalScrollChainingEnabled="False" IsVerticalRailEnabled="False">
+                <ItemsControl x:Name="First_ItemControl" AllowDrop="True" Height="138" Width="983">
+                    <ItemsControl.ItemContainerTransitions>
+                        <TransitionCollection>
+                            <AddDeleteThemeTransition/>
+                            <RepositionThemeTransition/>
+                        </TransitionCollection>
+                    </ItemsControl.ItemContainerTransitions>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapGrid Height="150"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+            <ScrollViewer x:Name="SecondScroll" Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Visible" ManipulationStarted="SecondScroll_ManipulationStarted">
+                <ItemsControl x:Name="Second_ItemControl" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Disabled" PointerWheelChanged="Second_ItemControl_PointerWheelChanged">
 
-            <ItemsControl x:Name="Second_ItemControl" Grid.Column="1" Margin="0,10,10,10" Grid.Row="2">
-                <ItemsControl.ItemContainerTransitions>
-                    <TransitionCollection>
-                        <AddDeleteThemeTransition/>
-                    </TransitionCollection>
-                </ItemsControl.ItemContainerTransitions>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapGrid Height="150"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-            <ItemsControl x:Name="Third_ItemControl" Margin="0.141,10,9.859,4.165" Grid.Row="3" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Grid.Column="1">
-                <ItemsControl.RenderTransform>
-                    <CompositeTransform SkewX="0.491" TranslateX="0.738"/>
-                </ItemsControl.RenderTransform>
-                <ItemsControl.ItemContainerTransitions>
-                    <TransitionCollection>
-                        <AddDeleteThemeTransition/>
-                    </TransitionCollection>
-                </ItemsControl.ItemContainerTransitions>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapGrid Height="150"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+                    <ItemsControl.ItemContainerTransitions>
+                        <TransitionCollection>
+                            <AddDeleteThemeTransition/>
+                            <RepositionThemeTransition/>
+                        </TransitionCollection>
+                    </ItemsControl.ItemContainerTransitions>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Height="150" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+            
+                <GridView x:Name="Third_ItemControl" Grid.Row="3" Grid.Column="1" Margin="0,0,0,-31" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" CanReorderItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemClick="Third_ItemControl_ItemClick" IsItemClickEnabled="True">
+                    <GridView.Transitions>
+                        <TransitionCollection>
+                            <AddDeleteThemeTransition/>
+                        </TransitionCollection>
+                    </GridView.Transitions>
+                </GridView>
+            
+            
         </Grid>
         <CheckBox x:Name="First" Content="First" HorizontalAlignment="Left" Height="34" Margin="91,606,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="Third" Content="Third" HorizontalAlignment="Left" Height="34" Margin="91,674,0,0" VerticalAlignment="Top"/>

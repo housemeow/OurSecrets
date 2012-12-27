@@ -26,6 +26,7 @@ namespace Tiles_Test
         public MainPage()
         {
             this.InitializeComponent();
+//            First_ItemControl.sc
         }
 
         /// <summary>
@@ -65,7 +66,10 @@ namespace Tiles_Test
             }
             if ((bool)Third.IsChecked && Third_ItemControl.Items.Count > 0)
             {
-                Third_ItemControl.Items.RemoveAt(0);
+                while (Third_ItemControl.SelectedItems.Count>0)
+                {
+                    Third_ItemControl.Items.Remove(Third_ItemControl.SelectedItems[0]);
+                }
             }
         }
 
@@ -86,6 +90,26 @@ namespace Tiles_Test
         void myRectangle_DragEnter(object sender, DragEventArgs e)
         {
             
+        }
+
+        private void SecondScroll_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
+        {
+            SecondScroll.ScrollToHorizontalOffset(SecondScroll.HorizontalOffset + 5);
+        }
+
+        private void Second_ItemControl_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
+        {
+            SecondScroll.ScrollToHorizontalOffset(SecondScroll.HorizontalOffset + 5);
+        }
+
+        private void SecondScroll_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
+        {
+            
+        }
+
+        private void Third_ItemControl_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            int index = Third_ItemControl.Items.IndexOf(e.ClickedItem);
         }
     }
 }
