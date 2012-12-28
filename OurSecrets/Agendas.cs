@@ -60,16 +60,39 @@ namespace OurSecrets
                     continue;
                 }
 
-                else if (startDateTime >= agenda.StartDateTime && agenda.StartDateTime <= endDateTime)
+                else if (startDateTime <= agenda.StartDateTime && agenda.StartDateTime <= endDateTime)
                 {
                     resultAgenda.Add(agenda);
                 }
-                else if (startDateTime >= agenda.EndDateTime && agenda.EndDateTime <= endDateTime)
+                else if (startDateTime <= agenda.EndDateTime && agenda.EndDateTime <= endDateTime)
                 {
                     resultAgenda.Add(agenda);
                 }
             }
             return resultAgenda;
+        }
+
+        public void RemoveAgenda(Agenda agenda)
+        {
+            _agendaList.Remove(agenda);
+        }
+
+        public List<Day> GetDayList(DateTime startDateTime, DateTime endDateTime)
+        {
+            List<Day> dayList = new List<Day>();
+            DateTime dateTime = startDateTime;
+            for (; dateTime <= endDateTime; dateTime = dateTime.AddDays(1))
+            {
+                Day day = new Day(GetAgendaList(dateTime));
+                dayList.Add(day);
+            }
+            return dayList;
+        }
+
+        public Day GetDay(DateTime dateTime)
+        {
+            Day day = new Day(GetAgendaList(dateTime));
+            return day;
         }
     }
 }
