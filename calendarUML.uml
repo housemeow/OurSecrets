@@ -930,7 +930,7 @@
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">60</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">905</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">111</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">148</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">69</XPD:ATTR>
 <XPD:REF name="Model">0uagEA/Fa0qVhN6ViXrEwgAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="KbaNR2oqnk62DQbs/oH76AAA">
@@ -959,7 +959,7 @@
 <XPD:OBJ name="OwnedViews[21]" type="UMLAssociationView" guid="ibqEAH/qNEK73Eu9JTeCIwAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">170,942;204,944</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">207,944;273,949</XPD:ATTR>
 <XPD:REF name="Model">NIzWNBK9ZkigXyk4DU7aSgAA</XPD:REF>
 <XPD:REF name="Head">6ZgaraE/w0i/Nycl3zKlHAAA</XPD:REF>
 <XPD:REF name="Tail">Cs/0FC6DOUuxeSMaY162wgAA</XPD:REF>
@@ -1043,7 +1043,7 @@
 <XPD:OBJ name="OwnedViews[22]" type="UMLAssociationView" guid="NzOrf01Zw0ygm1JCQHNmrgAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">170,905;308,819</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">185,905;316,819</XPD:ATTR>
 <XPD:REF name="Model">UBO0c4wQRECs1ct5RqyoYQAA</XPD:REF>
 <XPD:REF name="Head">ZVJMBOhd8keM1zYiiNIvUQAA</XPD:REF>
 <XPD:REF name="Tail">Cs/0FC6DOUuxeSMaY162wgAA</XPD:REF>
@@ -2166,6 +2166,11 @@
 <XPD:OBJ name="Operations[1]" type="UMLOperation" guid="XfLRBDubnU+KaSL/GaZBfAAA">
 <XPD:ATTR name="Name" type="string">AgendasChanged</XPD:ATTR>
 <XPD:REF name="Owner">0uagEA/Fa0qVhN6ViXrEwgAA</XPD:REF>
+<XPD:ATTR name="#Parameters" type="integer">1</XPD:ATTR>
+<XPD:OBJ name="Parameters[0]" type="UMLParameter" guid="cQKP2cuubkilo8bmUCpq2gAA">
+<XPD:ATTR name="Name" type="string">Agenda</XPD:ATTR>
+<XPD:REF name="BehavioralFeature">XfLRBDubnU+KaSL/GaZBfAAA</XPD:REF>
+</XPD:OBJ>
 </XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">2</XPD:ATTR>
 <XPD:REF name="Associations[0]">9WM0gvTbjkaNN3DDJKtOzQAA</XPD:REF>

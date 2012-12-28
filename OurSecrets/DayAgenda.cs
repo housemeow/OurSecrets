@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -8,19 +9,15 @@ namespace OurSecrets
     public class DayAgenda
     {
         private List<Agenda> _agendaList;
+        DateTime _dateTime;
+        private Agendas _agendas;
 
-        public DayAgenda()
+        public DayAgenda(Agendas agendas, DateTime dateTime)
         {
-            _agendaList = new List<Agenda>();
-        }
-
-        public DayAgenda(List<Agenda> agendaList)
-            : this()
-        {
-            foreach (Agenda agenda in agendaList)
-            {
-                _agendaList.Add(agenda);
-            }
+            _agendas = agendas;
+            _dateTime = dateTime;
+            _agendas.PropertyChanged += NotifyPropertyChanged;
+            _agendaList = _agendas.GetAgendaList(dateTime);
         }
 
         public int Count
@@ -31,11 +28,6 @@ namespace OurSecrets
             }
         }
 
-        public void AddAgenda(Agenda agenda)
-        {
-            _agendaList.Add(agenda);
-        }
-
         public Agenda this[int key]
         {
             get
@@ -44,9 +36,9 @@ namespace OurSecrets
             }
         }
 
-        public void RemoveAgenda(Agenda agenda)
+        protected void NotifyPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            _agendaList.Remove(agenda);
+            _agendaList = _agendas.GetAgendaList(_dateTime);
         }
     }
 }

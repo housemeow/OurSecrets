@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 
 namespace OurSecrets
 {
@@ -14,6 +12,7 @@ namespace OurSecrets
         private static int _newAgendaID;
         public static int GetNewAgendaID()
         {
+            
             return _newAgendaID++;
         }
 
@@ -28,11 +27,6 @@ namespace OurSecrets
             {
                 return _agendaList.Count;
             }
-        }
-
-        public void AddAgenda(Agenda agenda)
-        {
-            _agendaList.Add(agenda);
         }
 
         public List<Agenda> GetAgendaList(DateTime? dateTime)
@@ -74,9 +68,18 @@ namespace OurSecrets
             return resultAgenda;
         }
 
+        public void AddAgenda(Agenda agenda)
+        {
+            _agendaList.Add(agenda);
+            agenda.PropertyChanged += NotifyPropertyChanged;
+            NotifyPropertyChanged(agenda, new PropertyChangedEventArgs("AddAgenda"));
+        }
+
         public void RemoveAgenda(Agenda agenda)
         {
+            agenda.PropertyChanged -= NotifyPropertyChanged;
             _agendaList.Remove(agenda);
+            NotifyPropertyChanged(agenda, new PropertyChangedEventArgs("RemoveAgenda"));
         }
 
         public List<DayAgenda> GetDayList(DateTime startDateTime, DateTime endDateTime)
@@ -85,7 +88,7 @@ namespace OurSecrets
             DateTime dateTime = startDateTime;
             for (; dateTime <= endDateTime; dateTime = dateTime.AddDays(1))
             {
-                DayAgenda day = new DayAgenda(GetAgendaList(dateTime));
+                DayAgenda day = new DayAgenda(this, dateTime);
                 dayList.Add(day);
             }
             return dayList;
@@ -93,7 +96,7 @@ namespace OurSecrets
 
         public DayAgenda GetDay(DateTime dateTime)
         {
-            DayAgenda day = new DayAgenda(GetAgendaList(dateTime));
+            DayAgenda day = new DayAgenda(this, dateTime);
             return day;
         }
 
