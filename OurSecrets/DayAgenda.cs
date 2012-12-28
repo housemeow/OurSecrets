@@ -5,18 +5,18 @@ using System.Text;
 
 namespace OurSecrets
 {
-    public class Day
+    public class DayAgenda
     {
         private List<Agenda> _agendaList;
 
-        public Day()
+        public DayAgenda()
         {
             _agendaList = new List<Agenda>();
         }
 
-        public Day(List<Agenda> agendaList)
+        public DayAgenda(List<Agenda> agendaList)
+            : this()
         {
-            _agendaList = new List<Agenda>();
             foreach (Agenda agenda in agendaList)
             {
                 _agendaList.Add(agenda);

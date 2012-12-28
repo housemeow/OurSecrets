@@ -8,14 +8,14 @@ using OurSecrets;
 namespace TestProject
 {
     [TestClass]
-    public class DayTest
+    public class DayAgendaTest
     {
-        private Day _day;
+        private DayAgenda _day;
 
         [TestInitialize]
         public void Initialize()
         {
-            _day = new Day();
+            _day = new DayAgenda();
         }
 
         [TestMethod]
@@ -44,7 +44,7 @@ namespace TestProject
             agendaList.Add(agenda3);
             agendaList.Add(agenda4);
             agendaList.Add(agenda5);
-            Day day = new Day(agendaList);
+            DayAgenda day = new DayAgenda(agendaList);
             Assert.AreEqual(5, day.Count);
         }
 
@@ -89,7 +89,6 @@ namespace TestProject
             Assert.AreEqual(1, _day.Count);
             _day.RemoveAgenda(agenda3);
             Assert.AreEqual(0, _day.Count);
-
         }
     }
 }

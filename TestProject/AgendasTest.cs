@@ -82,7 +82,7 @@ namespace TestProject
             _agendas.AddAgenda(agenda3);
             _agendas.AddAgenda(agenda4);
             _agendas.AddAgenda(agenda5);
-            Day day = _agendas.GetDay(dateTime1);
+            DayAgenda day = _agendas.GetDay(dateTime1);
             Assert.AreEqual(3, day.Count);
             for (int i = 0; i < day.Count; i++)
             {
@@ -171,13 +171,22 @@ namespace TestProject
             _agendas.AddAgenda(agenda3);
             _agendas.AddAgenda(agenda4);
             _agendas.AddAgenda(agenda5);
-            List<Day> dayList = _agendas.GetDayList(startDateTime, endDateTime);
+            List<DayAgenda> dayList = _agendas.GetDayList(startDateTime, endDateTime);
             Assert.AreEqual(5, dayList.Count);
             Assert.AreEqual(1, dayList[0].Count);
             Assert.AreEqual(1, dayList[1].Count);
             Assert.AreEqual(1, dayList[2].Count);
             Assert.AreEqual(1, dayList[3].Count);
             Assert.AreEqual(1, dayList[4].Count);
+        }
+
+        [TestMethod]
+        public void TestModifyRefernece()
+        {
+            Agenda agenda = new Agenda();
+            _agendas.AddAgenda(agenda);
+            _agendas[0].Title = "changed";
+            Assert.AreEqual("changed", agenda.Title);
         }
     }
 }

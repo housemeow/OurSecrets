@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
 namespace OurSecrets
 {
-    public class Agendas
+    public class Agendas : INotifyPropertyChanged
     {
         private List<Agenda> _agendaList;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private static int _newAgendaID;
         public static int GetNewAgendaID()
@@ -77,22 +79,39 @@ namespace OurSecrets
             _agendaList.Remove(agenda);
         }
 
-        public List<Day> GetDayList(DateTime startDateTime, DateTime endDateTime)
+        public List<DayAgenda> GetDayList(DateTime startDateTime, DateTime endDateTime)
         {
-            List<Day> dayList = new List<Day>();
+            List<DayAgenda> dayList = new List<DayAgenda>();
             DateTime dateTime = startDateTime;
             for (; dateTime <= endDateTime; dateTime = dateTime.AddDays(1))
             {
-                Day day = new Day(GetAgendaList(dateTime));
+                DayAgenda day = new DayAgenda(GetAgendaList(dateTime));
                 dayList.Add(day);
             }
             return dayList;
         }
 
-        public Day GetDay(DateTime dateTime)
+        public DayAgenda GetDay(DateTime dateTime)
         {
-            Day day = new Day(GetAgendaList(dateTime));
+            DayAgenda day = new DayAgenda(GetAgendaList(dateTime));
             return day;
+        }
+
+        public Agenda this[int index]
+        {
+            get
+            {
+                /* return the specified index here */
+                return _agendaList[index];
+            }
+        }
+
+        protected void NotifyPropertyChanged(object sender,PropertyChangedEventArgs args)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(sender, args);
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OurSecrets;
+using System.ComponentModel;
 
 namespace TestProject
 {
@@ -87,6 +88,49 @@ namespace TestProject
             _agenda.ClearReminder();
             Assert.IsFalse(_agenda.IsRemind);
             Assert.AreEqual(null, _agenda.ReminderDateTime);
+        }
+
+        [TestMethod]
+        public void TestChangeProperty()
+        {
+            List<string> receivedEvents = new List<string>();
+            _agenda.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
+            {
+                receivedEvents.Add(e.PropertyName);
+            };
+
+            //_title = String.Empty;
+            _agenda.Title = "newValue";
+            Assert.AreEqual(1, receivedEvents.Count);
+            Assert.AreEqual("Title", receivedEvents[0]);
+            //_content = String.Empty;
+            _agenda.Content = "newValue";
+            Assert.AreEqual(2, receivedEvents.Count);
+            Assert.AreEqual("Content", receivedEvents[1]);
+            //_place = String.Empty;
+            _agenda.Place = "newValue";
+            Assert.AreEqual(3, receivedEvents.Count);
+            Assert.AreEqual("Place", receivedEvents[2]);
+            //_startDateTime = null;
+            _agenda.StartDateTime = new DateTime(2012, 12, 22);
+            Assert.AreEqual(4, receivedEvents.Count);
+            Assert.AreEqual("StartDateTime", receivedEvents[3]);
+            //_endDateTime = null;
+            _agenda.EndDateTime = new DateTime(2012, 12, 21);
+            Assert.AreEqual(5, receivedEvents.Count);
+            Assert.AreEqual("EndDateTime", receivedEvents[4]);
+            //_reminderDateTime = null;
+            _agenda.ReminderDateTime = new DateTime(2013, 1, 1);
+            Assert.AreEqual(6, receivedEvents.Count);
+            Assert.AreEqual("ReminderDateTime", receivedEvents[5]);
+            //_isRemind = false;
+            _agenda.IsRemind = true;
+            Assert.AreEqual(7, receivedEvents.Count);
+            Assert.AreEqual("IsRemind", receivedEvents[6]);
+            //_value = ValueEnum.Common;
+            _agenda.Value = Agenda.ValueEnum.Important;
+            Assert.AreEqual(8, receivedEvents.Count);
+            Assert.AreEqual("Value", receivedEvents[7]);
         }
     }
 }

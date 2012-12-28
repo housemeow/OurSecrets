@@ -1,14 +1,121 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
 namespace OurSecrets
 {
-    public class Agenda
+    public class Agenda : INotifyPropertyChanged
     {
         private DateTime? _startDateTime;
         private DateTime? _endDateTime;
+        public event PropertyChangedEventHandler PropertyChanged;
+        private ValueEnum _value;
+        private string _title;
+        private string _content;
+        private string _place;
+        private bool _isRemind;
+        private DateTime? _reminderDateTime;
+        private bool _isChecked;
+
+        public ValueEnum Value
+        {
+            get { return _value; }
+            set
+            {
+                Boolean isChanged = value != Value;
+                _value = value;
+                if (isChanged)
+                {
+                    NotifyPropertyChanged("Value");
+                }
+            }
+        }
+
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                Boolean isChanged = value != _title;
+                _title = value;
+                if (isChanged)
+                {
+                    NotifyPropertyChanged("Title");
+                }
+            }
+        }
+
+        public string Content
+        {
+            get { return _content; }
+            set
+            {
+                Boolean isChanged = value != _content;
+                _content = value;
+                if (isChanged)
+                {
+                    NotifyPropertyChanged("Content");
+                }
+            }
+        }
+
+        public string Place
+        {
+            get { return _place; }
+            set
+            {
+                Boolean isChanged = value != _place;
+                _place = value;
+                if (isChanged)
+                {
+                    NotifyPropertyChanged("Place");
+                }
+            }
+        }
+
+        public bool IsRemind
+        {
+            get { return _isRemind; }
+            set
+            {
+                Boolean isChanged = value != _isRemind;
+                _isRemind = value;
+                if (isChanged)
+                {
+                    NotifyPropertyChanged("IsRemind");
+                }
+            }
+        }
+
+        public bool IsChecked
+        {
+            get { return _isChecked; }
+            set
+            {
+                Boolean isChanged = value != _isChecked;
+                _isChecked = value;
+                if (isChanged)
+                {
+                    NotifyPropertyChanged("IsChecked");
+                }
+            }
+        }
+
+        public DateTime? ReminderDateTime
+        {
+            get { return _reminderDateTime; }
+            set
+            {
+                Boolean isChanged = value != _reminderDateTime;
+                _reminderDateTime = value;
+                if (isChanged)
+                {
+                    NotifyPropertyChanged("ReminderDateTime");
+                }
+            }
+        }
 
         public enum ValueEnum
         {
@@ -20,50 +127,21 @@ namespace OurSecrets
         //constructor of agenda
         public Agenda()
         {
-            Title = String.Empty;
-            Content = String.Empty;
-            Place = String.Empty;
+            _title = String.Empty;
+            _content = String.Empty;
+            _place = String.Empty;
             _startDateTime = null;
             _endDateTime = null;
-            ReminderDateTime = null;
-            IsRemind = false;
-            Value = ValueEnum.Common;
+            _reminderDateTime = null;
+            _isRemind = false;
+            _value = ValueEnum.Common;
         }
 
         public Agenda(DateTime dateTime)
+            : this()
         {
-            Title = String.Empty;
-            Content = String.Empty;
-            Place = String.Empty;
             _startDateTime = dateTime;
             _endDateTime = dateTime;
-            ReminderDateTime = null;
-            IsRemind = false;
-            Value = ValueEnum.Common;
-        }
-
-        public int ID
-        {
-            get;
-            set;
-        }
-
-        public String Title
-        {
-            get;
-            set;
-        }
-
-        public String Content
-        {
-            get;
-            set;
-        }
-
-        public String Place
-        {
-            get;
-            set;
         }
 
         public DateTime? StartDateTime
@@ -74,6 +152,7 @@ namespace OurSecrets
             }
             set
             {
+                Boolean isChanged = value != _startDateTime;
                 if (_endDateTime == null)
                 {
                     _startDateTime = value;
@@ -89,6 +168,10 @@ namespace OurSecrets
                 {
                     _startDateTime = value;
                 }
+                if (isChanged)
+                {
+                    NotifyPropertyChanged("StartDateTime");
+                }
             }
         }
 
@@ -100,6 +183,7 @@ namespace OurSecrets
             }
             set
             {
+                Boolean isChanged = value != _endDateTime;
                 if (_startDateTime == null)
                 {
                     _startDateTime = value;
@@ -115,45 +199,33 @@ namespace OurSecrets
                 {
                     _endDateTime = value;
                 }
+                if (isChanged)
+                {
+                    NotifyPropertyChanged("EndDateTime");
+                }
             }
-        }
-
-        public ValueEnum Value
-        {
-            get;
-            set;
-        }
-
-        public DateTime? ReminderDateTime
-        {
-            get;
-            set;
-        }
-
-        public bool IsRemind
-        {
-            get;
-            set;
-        }
-
-        public bool IsChecked
-        {
-            get;
-            set;
         }
 
         //set reminder
         public void SetReminder(DateTime reminderDateTime)
         {
-            IsRemind = true;
-            ReminderDateTime = reminderDateTime;
+            _isRemind = true;
+            _reminderDateTime = reminderDateTime;
         }
 
         //clear reminder
         public void ClearReminder()
         {
-            IsRemind = false;
-            ReminderDateTime = null;
+            _isRemind = false;
+            _reminderDateTime = null;
+        }
+
+        protected void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
     }
 }
