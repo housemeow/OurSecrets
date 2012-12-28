@@ -20,12 +20,23 @@ namespace OurSecrets
         //constructor of agenda
         public Agenda()
         {
-            ID = Agendas.GetNewAgendaID();
             Title = String.Empty;
             Content = String.Empty;
             Place = String.Empty;
-            StartDateTime = null;
-            EndDateTime = null;
+            _startDateTime = null;
+            _endDateTime = null;
+            ReminderDateTime = null;
+            IsRemind = false;
+            Value = ValueEnum.Common;
+        }
+
+        public Agenda(DateTime dateTime)
+        {
+            Title = String.Empty;
+            Content = String.Empty;
+            Place = String.Empty;
+            _startDateTime = dateTime;
+            _endDateTime = dateTime;
             ReminderDateTime = null;
             IsRemind = false;
             Value = ValueEnum.Common;

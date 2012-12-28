@@ -110,6 +110,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgendaTest.cs" />
+    <Compile Include="AgendasTest.cs" />
+    <Compile Include="DayTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

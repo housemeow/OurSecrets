@@ -21,7 +21,6 @@ namespace TestProject
         [TestMethod]
         public void TestConstructor()
         {
-            Assert.AreEqual(0, _agenda.ID);
             Assert.AreEqual(String.Empty, _agenda.Title);
             Assert.AreEqual(String.Empty, _agenda.Content);
             Assert.AreEqual(String.Empty, _agenda.Place);
@@ -34,9 +33,25 @@ namespace TestProject
         }
 
         [TestMethod]
+        public void TestConstructorByDateTime()
+        {
+            DateTime dateTime = new DateTime(2012, 3, 15);
+            Agenda agenda = new Agenda(dateTime);
+            Assert.AreEqual(String.Empty, agenda.Title);
+            Assert.AreEqual(String.Empty, agenda.Content);
+            Assert.AreEqual(String.Empty, agenda.Place);
+            Assert.AreEqual(dateTime, agenda.StartDateTime);
+            Assert.AreEqual(dateTime, agenda.EndDateTime);
+            Assert.AreEqual(Agenda.ValueEnum.Common, agenda.Value);
+            Assert.IsFalse(agenda.IsRemind);
+            Assert.AreEqual(null, agenda.ReminderDateTime);
+            Assert.IsFalse(agenda.IsChecked);
+        }
+
+        [TestMethod]
         public void TestStartDateTime()
         {
-            DateTime startDateTime = new DateTime(2012,10,3);
+            DateTime startDateTime = new DateTime(2012, 10, 3);
             DateTime endDateTime = new DateTime(2012, 10, 5);
             _agenda.EndDateTime = startDateTime;
             Assert.AreEqual(startDateTime, _agenda.StartDateTime);
@@ -56,7 +71,8 @@ namespace TestProject
         }
 
         [TestMethod]
-        public void TestSetReminder() {
+        public void TestSetReminder()
+        {
             DateTime remindDateTime = new DateTime(2012, 3, 15);
             _agenda.SetReminder(remindDateTime);
             Assert.IsTrue(_agenda.IsRemind);
