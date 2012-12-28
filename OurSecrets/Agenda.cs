@@ -57,7 +57,8 @@ namespace OurSecrets
 
         public DateTime? StartDateTime
         {
-            get{
+            get
+            {
                 return _startDateTime;
             }
             set
@@ -66,12 +67,12 @@ namespace OurSecrets
                 {
                     _startDateTime = value;
                     _endDateTime = value;
-                    
+
                 }
                 else if (value > _endDateTime)//value is bigger
                 {
                     _startDateTime = _endDateTime;
-                    _endDateTime = value;   
+                    _endDateTime = value;
                 }
                 else
                 {
@@ -119,6 +120,12 @@ namespace OurSecrets
         }
 
         public bool IsRemind
+        {
+            get;
+            set;
+        }
+
+        public bool IsChecked
         {
             get;
             set;

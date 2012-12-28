@@ -30,6 +30,7 @@ namespace TestProject
             Assert.AreEqual(Agenda.ValueEnum.Common, _agenda.Value);
             Assert.IsFalse(_agenda.IsRemind);
             Assert.AreEqual(null, _agenda.ReminderDateTime);
+            Assert.IsFalse(_agenda.IsChecked);
         }
 
         [TestMethod]
