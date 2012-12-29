@@ -12,7 +12,7 @@ namespace OurSecrets
         private static int _newAgendaID;
         public static int GetNewAgendaID()
         {
-            
+
             return _newAgendaID++;
         }
 
@@ -32,11 +32,37 @@ namespace OurSecrets
         public List<Agenda> GetAgendaList(DateTime? dateTime)
         {
             List<Agenda> resultAgenda = new List<Agenda>();
+            DateTime startDateTime = new DateTime();
+            DateTime endDateTime = new DateTime();
+            if (dateTime != null)
+            {
+                int year = dateTime.Value.Year;
+                int month = dateTime.Value.Month;
+                int day = dateTime.Value.Day;
+                startDateTime = new DateTime(year, month, day, 0, 0, 0);
+                endDateTime = new DateTime(year, month, day, 23, 59, 59);
+            }
             foreach (Agenda agenda in _agendaList)
             {
                 if (dateTime == null ^ agenda.StartDateTime == null)
                 {
                     continue;
+                }
+                else if (agenda.StartDateTime <= startDateTime && startDateTime <= agenda.EndDateTime)
+                {
+                    resultAgenda.Add(agenda);
+                }
+                else if (agenda.StartDateTime <= endDateTime && endDateTime <= agenda.EndDateTime)
+                {
+                    resultAgenda.Add(agenda);
+                }
+                else if (startDateTime <= agenda.StartDateTime && agenda.StartDateTime <= endDateTime)
+                {
+                    resultAgenda.Add(agenda);
+                }
+                else if (startDateTime <= agenda.EndDateTime && agenda.EndDateTime <= endDateTime)
+                {
+                    resultAgenda.Add(agenda);
                 }
                 else if (agenda.StartDateTime <= dateTime && agenda.EndDateTime >= dateTime)
                 {
@@ -109,12 +135,74 @@ namespace OurSecrets
             }
         }
 
-        protected void NotifyPropertyChanged(object sender,PropertyChangedEventArgs args)
+        protected void NotifyPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
             if (PropertyChanged != null)
             {
                 PropertyChanged(sender, args);
             }
+        }
+
+        public List<Agenda> GetFreeTimeAgendaList(DateTime dateTime)
+        {
+            DateTime startDateTime = new DateTime();
+            DateTime endDateTime = new DateTime();
+            int year = dateTime.Year;
+            int month = dateTime.Month;
+            int day = dateTime.Day;
+            startDateTime = new DateTime(year, month, day, 0, 0, 0);
+            endDateTime = new DateTime(year, month, day, 23, 59, 59);
+
+
+            AgendaSorter dateTimeSorter = new DateTimeSorter();
+            List<Agenda> tempList = dateTimeSorter.Sort(GetAgendaList(dateTime));
+            List<Agenda> agendaList = new List<Agenda>();
+            foreach (Agenda agenda in tempList)
+            {
+                Agenda newAgenda = new Agenda(agenda.StartDateTime, agenda.EndDateTime);
+                agendaList.Add(newAgenda);
+            }
+            //merge
+            for (int i = 0; i < agendaList.Count; i++)
+            {
+                for (int j = i + 1; j < agendaList.Count; j++)
+                {
+                    if (agendaList[i].EndDateTime >= agendaList[j].StartDateTime
+                        && agendaList[i].EndDateTime <= agendaList[j].EndDateTime)
+                    {
+                        agendaList[i].EndDateTime = agendaList[j].EndDateTime;
+                        agendaList.RemoveAt(j);
+                    }
+                }
+            }
+            //change
+            List<Agenda> freeTimeAgendaList = new List<Agenda>();
+            //first
+            if (agendaList.Count > 0)
+            {
+                if (startDateTime < agendaList[0].StartDateTime)
+                {//dateTime的前一天
+                    Agenda agenda = new Agenda(startDateTime, agendaList[0].StartDateTime);
+                    freeTimeAgendaList.Add(agenda);
+                }
+                //last
+                for (int i = 0; i < agendaList.Count - 1; i++)
+                {
+                    Agenda agenda = new Agenda(agendaList[i].EndDateTime, agendaList[i + 1].StartDateTime);
+                    freeTimeAgendaList.Add(agenda);
+                }
+                if (agendaList[agendaList.Count - 1].EndDateTime < endDateTime)
+                {//dateTime的前一天
+                    Agenda agenda = new Agenda(agendaList[agendaList.Count - 1].EndDateTime, endDateTime);
+                    freeTimeAgendaList.Add(agenda);
+                }
+            }
+            else
+            {
+                Agenda agenda = new Agenda(startDateTime, endDateTime);
+                freeTimeAgendaList.Add(agenda);
+            }
+            return freeTimeAgendaList;
         }
     }
 }

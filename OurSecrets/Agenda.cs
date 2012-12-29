@@ -144,6 +144,16 @@ namespace OurSecrets
             _endDateTime = dateTime;
         }
 
+        public Agenda(DateTime? startDateTime, DateTime? endDateTime)
+            :this()
+        {
+            // TODO: Complete member initialization
+            StartDateTime = startDateTime;
+            EndDateTime = endDateTime;
+        }
+
+
+
         public DateTime? StartDateTime
         {
             get

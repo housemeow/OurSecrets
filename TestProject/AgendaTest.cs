@@ -50,6 +50,34 @@ namespace TestProject
         }
 
         [TestMethod]
+        public void TestConstructorByDuration()
+        {
+            DateTime startDateTime = new DateTime(2012, 3, 15);
+            DateTime endDateTime = new DateTime(2012,3, 17);
+            Agenda agenda = new Agenda(startDateTime, endDateTime);
+            Assert.AreEqual(String.Empty, agenda.Title);
+            Assert.AreEqual(String.Empty, agenda.Content);
+            Assert.AreEqual(String.Empty, agenda.Place);
+            Assert.AreEqual(startDateTime, agenda.StartDateTime);
+            Assert.AreEqual(endDateTime, agenda.EndDateTime);
+            Assert.AreEqual(Agenda.ValueEnum.Common, agenda.Value);
+            Assert.IsFalse(agenda.IsRemind);
+            Assert.AreEqual(null, agenda.ReminderDateTime);
+            Assert.IsFalse(agenda.IsChecked);
+            //exchange startDateTime and endDateTime
+            agenda = new Agenda(endDateTime, startDateTime);
+            Assert.AreEqual(String.Empty, agenda.Title);
+            Assert.AreEqual(String.Empty, agenda.Content);
+            Assert.AreEqual(String.Empty, agenda.Place);
+            Assert.AreEqual(startDateTime, agenda.StartDateTime);
+            Assert.AreEqual(endDateTime, agenda.EndDateTime);
+            Assert.AreEqual(Agenda.ValueEnum.Common, agenda.Value);
+            Assert.IsFalse(agenda.IsRemind);
+            Assert.AreEqual(null, agenda.ReminderDateTime);
+            Assert.IsFalse(agenda.IsChecked);
+        }
+
+        [TestMethod]
         public void TestStartDateTime()
         {
             DateTime startDateTime = new DateTime(2012, 10, 3);

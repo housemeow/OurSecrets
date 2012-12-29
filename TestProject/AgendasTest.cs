@@ -39,7 +39,7 @@ namespace TestProject
         public void TestGetAgendasByDateTime()
         {
             DateTime dateTime1 = new DateTime(2012, 3, 15);
-            DateTime dateTime2 = new DateTime(2012, 4, 11,3,4,5);
+            DateTime dateTime2 = new DateTime(2012, 4, 11, 3, 4, 5);
             Agenda agenda1 = new Agenda(dateTime1);
             agenda1.Title = "dateTime1";
             Agenda agenda2 = new Agenda(dateTime2);
@@ -259,6 +259,141 @@ namespace TestProject
             _agendas.RemoveAgenda(agenda);
             Assert.AreEqual(4, receivedEvents.Count);
             Assert.AreEqual("RemoveAgenda", receivedEvents[3]);
+        }
+
+        [TestMethod]
+        public void TestGetFreeTimeAgendaList()
+        {
+            //20120301
+            DateTime dateTime01 = new DateTime(2012, 03, 01);
+            DateTime dateTime01_Start = new DateTime(2012, 03, 1, 0, 0, 0);
+            DateTime dateTime01_End = new DateTime(2012, 03, 1, 23, 59, 59);
+            DateTime dateTime0121 = new DateTime(2012, 3, 1, 21, 1, 0);
+            DateTime dateTime0123 = new DateTime(2012, 3, 1, 23, 44, 0);
+            //20120302
+            DateTime dateTime02 = new DateTime(2012, 03, 02);
+            DateTime dateTime02_Start = new DateTime(2012, 03, 2, 0, 0, 0);
+            DateTime dateTime02_End = new DateTime(2012, 03, 2, 23, 59, 59);
+            DateTime dateTime0201 = new DateTime(2012, 3, 2, 1, 1, 0);
+            DateTime dateTime0203 = new DateTime(2012, 3, 2, 3, 1, 0);
+            DateTime dateTime0205 = new DateTime(2012, 3, 2, 5, 1, 0);
+            
+            DateTime dateTime0212 = new DateTime(2012, 3, 2, 12, 1, 0);
+            DateTime dateTime0218 = new DateTime(2012, 3, 2, 18, 1, 0);
+            DateTime dateTime0222 = new DateTime(2012, 3, 2, 22, 1, 0);
+            //20120303
+            DateTime dateTime03 = new DateTime(2012, 03, 03);
+            DateTime dateTime03_Start = new DateTime(2012, 03, 03, 0, 0, 0);
+            DateTime dateTime03_End = new DateTime(2012, 03, 03, 23, 59, 59);
+            DateTime dateTime0303 = new DateTime(2012, 3, 3, 3, 1, 0);
+            DateTime dateTime0305 = new DateTime(2012, 3, 3, 5, 1, 0);
+
+            Agenda agenda0121_0123 = new Agenda(dateTime0121, dateTime0123);
+            Agenda agenda0121_0201 = new Agenda(dateTime0121, dateTime0201);
+            Agenda agenda0121_0203 = new Agenda(dateTime0121, dateTime0203);
+            Agenda agenda0203_0218 = new Agenda(dateTime0203, dateTime0218);
+            Agenda agenda0203_0205 = new Agenda(dateTime0203, dateTime0205);
+            Agenda agenda0203_0222 = new Agenda(dateTime0203, dateTime0222);
+            Agenda agenda0212_0222 = new Agenda(dateTime0212, dateTime0222);
+            Agenda agenda0218_0222 = new Agenda(dateTime0218, dateTime0222);
+
+            Agenda agenda0212_0218 = new Agenda(dateTime0212, dateTime0218);
+            Agenda agenda0222_0303 = new Agenda(dateTime0222, dateTime0303);
+            /*
+             * 0121----0123
+             * 0121------------0203
+             *                 0203---------------0218
+             *                           0212--------------0222
+             *                           
+             *                           0212-----0218
+             *                                             0222---------0303
+             */
+            _agendas.AddAgenda(agenda0121_0123);
+            List<Agenda> agendaList = _agendas.GetFreeTimeAgendaList(dateTime02);
+            Assert.AreEqual(1, agendaList.Count);
+            Assert.AreEqual(dateTime02_Start, agendaList[0].StartDateTime);
+            Assert.AreEqual(dateTime02_End, agendaList[0].EndDateTime);
+            //Assert.AreEqual
+            _agendas.AddAgenda(agenda0203_0218);
+            agendaList = _agendas.GetFreeTimeAgendaList(dateTime02);
+            Assert.AreEqual(2, agendaList.Count);
+            Assert.AreEqual(dateTime02_Start, agendaList[0].StartDateTime);
+            Assert.AreEqual(dateTime0203, agendaList[0].EndDateTime);
+            Assert.AreEqual(dateTime0218, agendaList[1].StartDateTime);
+            Assert.AreEqual(dateTime02_End, agendaList[1].EndDateTime);
+            //
+            _agendas.AddAgenda(agenda0203_0222);
+            agendaList = _agendas.GetFreeTimeAgendaList(dateTime02);
+            Assert.AreEqual(2, agendaList.Count);
+            Assert.AreEqual(dateTime02_Start, agendaList[0].StartDateTime);
+            Assert.AreEqual(dateTime0203, agendaList[0].EndDateTime);
+            Assert.AreEqual(dateTime0222, agendaList[1].StartDateTime);
+            Assert.AreEqual(dateTime02_End, agendaList[1].EndDateTime);
+
+            _agendas.RemoveAgenda(agenda0203_0218);
+            _agendas.RemoveAgenda(agenda0203_0222);
+
+            _agendas.AddAgenda(agenda0212_0222);
+            agendaList = _agendas.GetFreeTimeAgendaList(dateTime02);
+            Assert.AreEqual(2, agendaList.Count);
+            Assert.AreEqual(dateTime02_Start, agendaList[0].StartDateTime);
+            Assert.AreEqual(dateTime0212, agendaList[0].EndDateTime);
+            Assert.AreEqual(dateTime0222, agendaList[1].StartDateTime);
+            Assert.AreEqual(dateTime02_End, agendaList[1].EndDateTime);
+            _agendas.AddAgenda(agenda0203_0205);
+            agendaList = _agendas.GetFreeTimeAgendaList(dateTime02);
+            Assert.AreEqual(3, agendaList.Count);
+            Assert.AreEqual(dateTime02_Start, agendaList[0].StartDateTime);
+            Assert.AreEqual(dateTime0203, agendaList[0].EndDateTime);
+            Assert.AreEqual(dateTime0205, agendaList[1].StartDateTime);
+            Assert.AreEqual(dateTime0212, agendaList[1].EndDateTime);
+            Assert.AreEqual(dateTime0222, agendaList[2].StartDateTime);
+            Assert.AreEqual(dateTime02_End, agendaList[2].EndDateTime);
+
+            _agendas.AddAgenda(agenda0218_0222);
+            agendaList = _agendas.GetFreeTimeAgendaList(dateTime02);
+            Assert.AreEqual(3, agendaList.Count);
+            Assert.AreEqual(dateTime02_Start, agendaList[0].StartDateTime);
+            Assert.AreEqual(dateTime0203, agendaList[0].EndDateTime);
+            Assert.AreEqual(dateTime0205, agendaList[1].StartDateTime);
+            Assert.AreEqual(dateTime0212, agendaList[1].EndDateTime);
+            Assert.AreEqual(dateTime0222, agendaList[2].StartDateTime);
+            Assert.AreEqual(dateTime02_End, agendaList[2].EndDateTime);
+
+
+            _agendas = new Agendas();
+            _agendas.AddAgenda(agenda0121_0201);
+            _agendas.AddAgenda(agenda0203_0205);
+            _agendas.AddAgenda(agenda0212_0218);
+            _agendas.AddAgenda(agenda0218_0222);
+            agendaList = _agendas.GetFreeTimeAgendaList(dateTime02);
+            Assert.AreEqual(3, agendaList.Count);
+            Assert.AreEqual(dateTime0201, agendaList[0].StartDateTime);
+            Assert.AreEqual(dateTime0203, agendaList[0].EndDateTime);
+            Assert.AreEqual(dateTime0205, agendaList[1].StartDateTime);
+            Assert.AreEqual(dateTime0212, agendaList[1].EndDateTime);
+            Assert.AreEqual(dateTime0222, agendaList[2].StartDateTime);
+            Assert.AreEqual(dateTime02_End, agendaList[2].EndDateTime);
+
+            _agendas = new Agendas();
+            _agendas.AddAgenda(agenda0121_0201);
+            _agendas.AddAgenda(agenda0203_0205);
+            _agendas.AddAgenda(agenda0212_0218);
+            _agendas.AddAgenda(agenda0222_0303);
+            agendaList = _agendas.GetFreeTimeAgendaList(dateTime02);
+            Assert.AreEqual(3, agendaList.Count);
+            Assert.AreEqual(dateTime0201, agendaList[0].StartDateTime);
+            Assert.AreEqual(dateTime0203, agendaList[0].EndDateTime);
+            Assert.AreEqual(dateTime0205, agendaList[1].StartDateTime);
+            Assert.AreEqual(dateTime0212, agendaList[1].EndDateTime);
+            Assert.AreEqual(dateTime0218, agendaList[2].StartDateTime);
+            Assert.AreEqual(dateTime0222, agendaList[2].EndDateTime);
+
+
+
+            //_agendas.AddAgenda(agenda030121_030203);
+            //_agendas.AddAgenda(agenda030212_030218);
+            //_agendas.AddAgenda(agenda030222_030303);
         }
     }
 }
