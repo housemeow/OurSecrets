@@ -1,0 +1,15 @@
+﻿<Page
+    x:Class="Gantt.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Gantt"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer x:Name="_srollViewer" HorizontalScrollBarVisibility="Visible" FontFamily="Global User Interface" VerticalScrollMode="Disabled">
+            <Canvas x:Name="_canvas" Background="#FFD82B2B"></Canvas>
+        </ScrollViewer>
+    </Grid>
+</Page>
