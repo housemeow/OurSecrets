@@ -1755,7 +1755,6 @@
     <!--
       用於顯示檔案預覽的 190x130 像素項目範本，如 FileOpenPickerPage 中所見
       包含精巧的工具提示，以顯示標題和描述文字
-  -->
     <DataTemplate x:Key="StandardFileWithTooltip190x130ItemTemplate">
         <Grid>
             <Grid Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
@@ -1801,6 +1800,7 @@
             </ToolTipService.ToolTip>
         </Grid>
     </DataTemplate>
+  -->
 
     <!-- ScrollViewer 樣式 -->
 

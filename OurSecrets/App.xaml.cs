@@ -27,6 +27,7 @@ namespace OurSecrets
         static public EditAgendaPage MyEditAgendaPage { set; get; }
         static public GanttPage MyGanttPage { set; get; }
         static public Agendas AgendasModel = new Agendas();
+        static public DailyPage DailyPage { set; get; }
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -85,6 +86,7 @@ namespace OurSecrets
                 MyMainPage = rootFrame;
                 MyEditAgendaPage = new EditAgendaPage();
                 MyGanttPage = new GanttPage();
+                DailyPage = new DailyPage();
             }
 
             if (rootFrame.Content == null)
