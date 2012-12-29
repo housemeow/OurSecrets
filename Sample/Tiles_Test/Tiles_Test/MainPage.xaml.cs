@@ -27,14 +27,29 @@ namespace Tiles_Test
         public MainPage()
         {
             this.InitializeComponent();
-            GridView[] DayViews = { AddView, FirstDay, SecondDay, ThirdDay,AgendaList };
+            GridView[] DayViews = { FirstDay, SecondDay, ThirdDay,AgendaList };
             foreach (GridView Day in DayViews)
             {
                 Day.Drop += View_Drop;
                 Day.DragItemsStarting += View_DragItemsStarting;
             }
+            AddView.DragItemsStarting += View_DragItemsStarting;
+            Window.Current.CoreWindow.PointerWheelChanged += CoreWindow_PointerWheelChanged;
         }
 
+        void CoreWindow_PointerWheelChanged(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
+        {
+            if (args.KeyModifiers != Windows.System.VirtualKeyModifiers.Control) return;
+            if (args.CurrentPoint.Properties.MouseWheelDelta < 0)
+            {
+                //下一日
+            }
+            else
+            {
+                //上一日
+            }
+        }
+        
         void View_Drop(object sender, DragEventArgs e)
         {
             GridView[] DayViews = { FirstDay, SecondDay, ThirdDay};
@@ -58,6 +73,7 @@ namespace Tiles_Test
                             {
                                 object temp = ItemSource.Items.ElementAt(i);
                                 ItemSource.Items.RemoveAt(itemIndex);
+                                //Agendas.add()
                                 if (index != -1)
                                 {
                                     Day.Items.Insert(index, CreateItem());
@@ -68,8 +84,16 @@ namespace Tiles_Test
                                 }
                             }
                         }
+                        if (IsAddNewItem)
+                        {
+                            IsAddNewItem = false;
+                            Day.Items.Add(CreateItem());
+                        }
                     }
                 }
+            }
+            foreach (GridView Day in DayViews)
+            {
                 Day.Items.Remove(rect);
             }
             rect = null;
@@ -107,8 +131,8 @@ namespace Tiles_Test
                     emptyIndex = items.IndexOf(rect);
                 }
             }
-            else
-            {
+            
+            
                 foreach (object item in DragItems)
                 {
                     if (items.Contains(item))
@@ -116,7 +140,7 @@ namespace Tiles_Test
                         return;
                     }
                 }
-            }
+            
             try
             {
                 if (emptyIndex == 1000)
@@ -178,7 +202,8 @@ namespace Tiles_Test
         private void View_DragItemsStarting(object sender, DragItemsStartingEventArgs e)
         {
             DragItems = e.Items;
-
+            bool a = (sender as GridView).Items.Contains(AddIcon);
+            IsAddNewItem = true;
         }
         /// <summary>
         /// 在此頁面即將顯示在框架中時叫用。
@@ -220,7 +245,14 @@ namespace Tiles_Test
             myRectangle.AllowDrop = true;
             myRectangle.Margin = new Thickness(10);
             myRectangle.DragEnter += myRectangle_DragEnter;
+            myRectangle.Drop += myRectangle_Drop;
             return myRectangle;
+        }
+
+        void myRectangle_Drop(object sender, DragEventArgs e)
+        {
+            //int beDropIndex = ((sender as Rectangle).Parent as GridView).Items.IndexOf(sender);
+            //int DragOneIndex = ((sender as Rectangle).Parent as GridView).Items.IndexOf(e.OriginalSource);
         }
 
         private void AddAgendaClick(object sender, ItemClickEventArgs e)
@@ -243,5 +275,7 @@ namespace Tiles_Test
         public IList<object> DragItems { get; set; }
 
         public object rect { get; set; }
+
+        public bool IsAddNewItem { get; set; }
     }
 }
