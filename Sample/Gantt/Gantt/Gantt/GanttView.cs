@@ -18,7 +18,7 @@ namespace Gantt
         const int HOUR_HEIGHT = 50;
         const int LINE_PADDING = 30;
         const int TIME_LINE_NUMBER = 4;
-        const int TIME_HEIGHT = 40;
+        const int TIME_HEIGHT = 30;
         const int TIME_VERTICAL_THICHNESS = 1;
         const int TIME_HORIZONTAL_THICHNESS = 2;
 
@@ -57,6 +57,7 @@ namespace Gantt
                 for (int i = 0; i < 24; i++)
                 { 
                     GridView gridView = CreateGridView(Colors.Transparent);
+                    gridView.IsEnabled = false;
                     gridView.BorderBrush = new SolidColorBrush(Colors.DimGray);
                     gridView.BorderThickness = new Thickness(TIME_VERTICAL_THICHNESS, 0, 0, TIME_HORIZONTAL_THICHNESS);
                     TextBlock textBlock = new TextBlock();
@@ -115,11 +116,12 @@ namespace Gantt
         //CreateItem
         private GridView CreateGridView(Color color)
         {
-            GridView myGridView = new GridView();
+            GridView gridView = new GridView();
             Random rand = new Random();
-            myGridView.Background = new SolidColorBrush(color);
-            myGridView.AllowDrop = true;
-            return myGridView;
+            gridView.Padding = new Thickness(0);
+            gridView.Background = new SolidColorBrush(color);
+            gridView.AllowDrop = true;
+            return gridView;
         }
 
         //InitialAgendaGridViewList
@@ -128,27 +130,27 @@ namespace Gantt
             List<GridView> gridViewList = new List<GridView>();
             for (int i = 0; i < agendaList.Count; i++)
             {
-                GridView item = CreateGridView(Colors.DarkGreen);
+                GridView gridView = CreateGridView(Colors.DarkGreen);
                 double startHourMin = GetHourMin(agendaList[i].StartDateTime);
                 double endHourMin = GetHourMin(agendaList[i].EndDateTime);
                 double width = (endHourMin - startHourMin) * _hourWidth;
                 double left = startHourMin * _hourWidth;
                 double top = LINE_PADDING;
-                item.Width = width >= HOUR_MIN_WIDTH ? width : HOUR_MIN_WIDTH;
-                item.Height = HOUR_HEIGHT;
+                gridView.Width = width >= HOUR_MIN_WIDTH ? width : HOUR_MIN_WIDTH;
+                gridView.Height = HOUR_HEIGHT;
                 for (int j = 0; j < i; j++)
                 {
-                    GridView gridView = gridViewList[j];
-                    double iLeft = gridView.Margin.Left;
-                    double iRight = iLeft + gridView.Width;
-                    if (top == gridView.Margin.Top && iLeft <= left && left <= iRight)
+                    GridView iGridView = gridViewList[j];
+                    double iLeft = iGridView.Margin.Left;
+                    double iRight = iLeft + iGridView.Width;
+                    if (top == iGridView.Margin.Top && iLeft <= left && left <= iRight)
                     {
                         top += HOUR_HEIGHT + LINE_PADDING;
                         j = 0;
                     }
                 }
-                item.Margin = new Thickness(left, top, 0, 0);
-                gridViewList.Add(item);
+                gridView.Margin = new Thickness(left, top, 0, 0);
+                gridViewList.Add(gridView);
             }
             return gridViewList;
         }
