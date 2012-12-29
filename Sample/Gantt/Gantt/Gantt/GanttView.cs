@@ -90,6 +90,7 @@ namespace Gantt
                     gridView.BorderThickness = new Thickness(TIME_VERTICAL_THICHNESS, 0, 0, TIME_HORIZONTAL_THICHNESS);
                     TextBlock textBlock = new TextBlock();
                     textBlock.Text = i.ToString();
+                    textBlock.Margin = new Thickness(-20, -15, 0, 0);
                     gridView.Items.Add(textBlock);
                     _timeList.Add(gridView);
                 }
