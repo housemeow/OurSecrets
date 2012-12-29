@@ -202,6 +202,7 @@ namespace Gantt
                 height = HOUR_HEIGHT;
                 StackPanel stackPanel = uiLayout.GetMode_B_StackPanel(width, height, left, top, startHourMin, endHourMin, "Test");
                 stackPanel.PointerPressed += OnPointerPressed;
+                stackPanel.Tag = agendaList[i];
                 gridViewList.Add(stackPanel);
             }
             return gridViewList;
@@ -209,7 +210,11 @@ namespace Gantt
 
         private void OnPointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
-            
+            StackPanel stackPanel = (StackPanel)sender;
+            Agenda agenda = (Agenda)stackPanel.Tag;
+
+            ((TextBlock)stackPanel.Children[0]).Text += "AA"; // Time ~ Time
+            ((TextBlock)stackPanel.Children[1]).Text += "BB"; // Title
         }
 
         //GetHourMin
