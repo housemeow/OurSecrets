@@ -23,7 +23,7 @@ namespace OurSecrets
     public sealed partial class EditAgendaPage : OurSecrets.Common.LayoutAwarePage
     {
         public static Agenda nowAgenda;
-        public static Frame PreviousPage;
+        public static UIElement PreviousPage;
 
         private bool _isNew;
         private bool _isEdit;
@@ -196,7 +196,9 @@ namespace OurSecrets
 
         private void GoBack(object sender, RoutedEventArgs e)
         {
-            Window.Current.Content = App.MyMainPage;
+            //Window.Current.Content = App.MyMainPage;
+
+            Window.Current.Content = PreviousPage;
         }
 
         private void ClickButtonSubmit(object sender, RoutedEventArgs e)
@@ -284,7 +286,7 @@ namespace OurSecrets
             Window.Current.Content = PreviousPage;
         }
 
-        internal void SetPreviousPage(Windows.UI.Xaml.Controls.Frame frame)
+        internal void SetPreviousPage(UIElement frame)
         {
             PreviousPage = frame;
         }
