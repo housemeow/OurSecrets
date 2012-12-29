@@ -38,9 +38,12 @@ namespace OurSecrets
         public MainPage()
         {
             this.InitializeComponent();
-            _agendas = new Agendas();
-            _agendas.PropertyChanged += _agendas_PropertyChanged;
-            _agendas.LoadAgendaList();
+            //_textBlock.SetBinding(TextBlock.TextProperty, new Binding()
+            //{
+            //    Source = _agendas,
+            //    Path = new PropertyPath("Count"),
+            //    Mode = BindingMode.TwoWay
+            //});
         }
 
         public IAsyncAction ExecuteOnUIThread(Windows.UI.Core.DispatchedHandler action)
@@ -51,7 +54,7 @@ namespace OurSecrets
         {
             await ExecuteOnUIThread(() =>
             {
-               // _textBlock.Text = _agendas.Count.ToString();
+                //_textBlock.Text = _agendas.Count.ToString();
             });
         }
 
@@ -80,6 +83,10 @@ namespace OurSecrets
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+
+            _agendas = new Agendas();
+            _agendas.PropertyChanged += _agendas_PropertyChanged;
+            _agendas.LoadAgendaList();
         }
 
         int count = 0;

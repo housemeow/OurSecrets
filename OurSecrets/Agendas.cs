@@ -270,7 +270,7 @@ namespace OurSecrets
             {
                 localFile = await ApplicationData.Current.LocalFolder.GetFileAsync("localData.txt");
             }
-            catch (FileNotFoundException ex)
+            catch (FileNotFoundException)
             {
                 localFile = null;
             }
