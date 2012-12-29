@@ -70,5 +70,29 @@ namespace TestProject
             _agendas.AddAgenda(notAgenda);
             Assert.AreEqual(2, month.AgendaCount);
         }
+
+        [TestMethod]
+        public void TestSaveAgendaList()
+        {
+            DateTime dateTime = new DateTime(2012, 1, 2);
+            Agenda agenda1 = new Agenda(dateTime);
+            agenda1.Title = "agenda1";
+            Agenda agenda2 = new Agenda(dateTime);
+            agenda2.Title = "agenda2";
+            Agenda agenda3 = new Agenda(dateTime);
+            agenda3.Title = "agenda3";
+            Agenda agenda4 = new Agenda(dateTime);
+            agenda4.Title = "agenda4";
+            Agenda agenda5 = new Agenda(dateTime);
+            agenda5.Title = "agenda5";
+            _agendas.AddAgenda(agenda1);
+            _agendas.AddAgenda(agenda2);
+            _agendas.AddAgenda(agenda3);
+            _agendas.AddAgenda(agenda4);
+            _agendas.AddAgenda(agenda5);
+
+
+            _agendas.SaveAgendaList();
+        }
     }
 }

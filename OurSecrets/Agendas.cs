@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace OurSecrets
 {
@@ -203,6 +206,28 @@ namespace OurSecrets
                 freeTimeAgendaList.Add(agenda);
             }
             return freeTimeAgendaList;
+        }
+
+        public static string ToXml(List<Agenda> value)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Agenda>));
+            StringBuilder stringBuilder = new StringBuilder();
+            XmlWriterSettings settings = new XmlWriterSettings()
+            {
+                Indent = true,
+                OmitXmlDeclaration = true,
+            };
+            using (XmlWriter xmlWriter = XmlWriter.Create(stringBuilder, settings))
+            {
+                serializer.Serialize(xmlWriter, value);
+            }
+            return stringBuilder.ToString();
+        } 
+		
+        public void SaveAgendaList()
+        {
+            string xml = ToXml(_agendaList);
+
         }
     }
 }
