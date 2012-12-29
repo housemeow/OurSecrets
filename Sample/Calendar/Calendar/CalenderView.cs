@@ -13,8 +13,8 @@ namespace Calendar
 {
     public class CalenderView
     {
-        const int BLOCK_HEIGHT = 30;
-        const int BLOCK_WIDTH = 30;
+        const int BLOCK_HEIGHT = 100;
+        const int BLOCK_WIDTH = 100;
         const int BLOCK_THICKNESS = 5;
         ItemsControl _itemsConrol;
 
@@ -41,19 +41,19 @@ namespace Calendar
 
             for (int i = 0; i < 7; i++)
             { 
-                _itemsConrol.Items.Add(CreateItem(((DayOfWeek)i).ToString()));
+                _itemsConrol.Items.Add(CreateTextBlock(((DayOfWeek)i).ToString()));
             }
             for (int i = 1; i <= nowMonthWeek; i++)
             {
-                _itemsConrol.Items.Add(CreateItem((lastMonthDays - nowMonthWeek + i).ToString()));
+                _itemsConrol.Items.Add(CreateTextBlock((lastMonthDays - nowMonthWeek + i).ToString()));
             }
             for (int i = 1; i <= nowMonthDays; i++)
             {
-                _itemsConrol.Items.Add(CreateItem(i.ToString()));
+                _itemsConrol.Items.Add(CreateTextBlock(i.ToString()));
             }
             for (int i = 1; i <= 7 - nextMonthWeek; i++)
             {
-                _itemsConrol.Items.Add(CreateItem(i.ToString()));
+                _itemsConrol.Items.Add(CreateTextBlock(i.ToString()));
             }
         }
 
@@ -77,8 +77,8 @@ namespace Calendar
             days = DateTime.DaysInMonth(year, month);
         }
 
-        //CreateItem
-        private TextBlock CreateItem(string showText)
+        //CreateTextBlock
+        private TextBlock CreateTextBlock(string showText)
         {
             TextBlock myTextBlock = new TextBlock();
             Random rand = new Random();
