@@ -34,6 +34,7 @@ namespace OurSecrets
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            AgendasModel.LoadAgendaList();
         }
 
         /// <summary>

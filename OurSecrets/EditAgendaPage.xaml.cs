@@ -22,6 +22,139 @@ namespace OurSecrets
     /// </summary>
     public sealed partial class EditAgendaPage : OurSecrets.Common.LayoutAwarePage
     {
+        public static Agenda nowAgenda;
+        public static Frame PreviousPage;
+
+        private bool _isNew;
+        private bool _isEdit;
+        private bool _isView;
+
+        public void SetNewState()
+        {
+            _isNew = true;
+            _isEdit = false;
+            _isView = false;
+            _textBoxTitle.IsReadOnly = false;
+            _textBoxTitle.Text = "";
+
+            _textBoxContent.IsReadOnly = false;
+            _textBoxContent.Text = "";
+
+            _textBoxStartDate.IsReadOnly = false;
+
+            StartDatePicker.IsEnabled = true;
+
+            _textBoxEndDate.IsReadOnly = false;
+
+            EndDatePicker.IsEnabled = true;
+
+            _radioCommon.IsChecked = true;
+
+            _comboBoxStartHour.IsEnabled = true;
+
+            _comboBoxEndHour.IsEnabled = true;
+
+            _radioImportant.IsEnabled = true;
+            _radioCommon.IsEnabled = true;
+            _radioUnimportant.IsEnabled = true;
+            pageTitle.Text = "Add a New Agenda";
+        }
+        public void SetEditState(Agenda agenda)
+        {
+            nowAgenda = agenda;
+            _isNew = false;
+            _isEdit = true;
+            _isView = false;
+
+
+            _textBoxTitle.IsReadOnly = false;
+            _textBoxTitle.Text = agenda.Title;
+
+            _textBoxContent.IsReadOnly = false;
+            _textBoxContent.Text = agenda.Content;
+
+            _textBoxStartDate.IsReadOnly = false;
+            StartDatePicker.IsEnabled = true;
+            //StartDatePicker.SelectedDate = agenda.StartDateTime.Value;
+            _textBoxStartDate.Text = agenda.StartDateTime.Value.ToString("MM/dd/yyyy");
+
+            _comboBoxStartHour.SelectedIndex = agenda.StartDateTime.Value.Hour;
+            _comboBoxStartHour.IsEnabled = true;
+
+            _textBoxEndDate.IsReadOnly = false;
+            EndDatePicker.IsEnabled = true;
+            //EndDatePicker.SelectedDate = agenda.EndDateTime.Value;
+            _textBoxEndDate.Text = agenda.EndDateTime.Value.ToString("MM/dd/yyyy");
+
+            _comboBoxEndHour.SelectedIndex = agenda.EndDateTime.Value.Hour;
+            _comboBoxEndHour.IsEnabled = true;
+
+            if (agenda.Value == Agenda.ValueEnum.Important)
+            {
+                _radioImportant.IsChecked = true;
+            }
+            else if (agenda.Value == Agenda.ValueEnum.Common)
+            {
+                _radioCommon.IsChecked = true;
+            }
+            else
+            {
+                _radioUnimportant.IsChecked = true;
+            }
+            _radioImportant.IsEnabled = true;
+            _radioCommon.IsEnabled = true;
+            _radioUnimportant.IsEnabled = true;
+            pageTitle.Text = "Edit My Agenda";
+        }
+        public void SetViewState(Agenda agenda)
+        {
+            nowAgenda = agenda;
+            _isNew = false;
+            _isEdit = false;
+            _isView = true;
+
+            pageTitle.Text = "Agenda detail";
+
+
+            _textBoxTitle.IsReadOnly = true;
+            _textBoxTitle.Text = agenda.Title;
+            _textBoxContent.IsReadOnly = true;
+            _textBoxContent.Text = agenda.Content;
+
+            _textBoxStartDate.IsReadOnly = true;
+            StartDatePicker.IsEnabled = false;
+            _textBoxStartDate.Text = agenda.StartDateTime.Value.ToString("MM/dd/yyyy");
+            //StartDatePicker.SelectedDate = agenda.StartDateTime.Value;
+
+            _comboBoxStartHour.SelectedIndex = agenda.EndDateTime.Value.Hour;
+            _comboBoxStartHour.IsEnabled = false;
+
+            _textBoxEndDate.IsReadOnly = true;
+            EndDatePicker.IsEnabled = false;
+            _textBoxEndDate.Text = agenda.EndDateTime.Value.ToString("MM/dd/yyyy");
+            //EndDatePicker.SelectedDate = agenda.EndDateTime.Value;
+
+            _comboBoxEndHour.SelectedIndex = agenda.EndDateTime.Value.Hour;
+            _comboBoxEndHour.IsEnabled = false;
+
+
+            if (agenda.Value == Agenda.ValueEnum.Important)
+            {
+                _radioImportant.IsChecked = true;
+            }
+            else if (agenda.Value == Agenda.ValueEnum.Common)
+            {
+                _radioCommon.IsChecked = true;
+            }
+            else
+            {
+                _radioUnimportant.IsChecked = true;
+            }
+            _radioImportant.IsEnabled = false;
+            _radioCommon.IsEnabled = false;
+            _radioUnimportant.IsEnabled = false;
+        }
+
         public EditAgendaPage()
         {
             this.InitializeComponent();
@@ -64,6 +197,96 @@ namespace OurSecrets
         private void GoBack(object sender, RoutedEventArgs e)
         {
             Window.Current.Content = App.MyMainPage;
+        }
+
+        private void ClickButtonSubmit(object sender, RoutedEventArgs e)
+        {
+            if (_isNew)
+            {
+                Agenda agenda = new Agenda();
+                agenda.Title = _textBoxTitle.Text;
+                agenda.Content = _textBoxContent.Text;
+
+                int year, month, day, hour;
+                DateTime startDateTime = Convert.ToDateTime(_textBoxStartDate.Text);
+                year = startDateTime.Year;
+                month = startDateTime.Month;
+                day = startDateTime.Day;
+                hour = _comboBoxStartHour.SelectedIndex;// Convert.ToInt32(_comboBoxStartHour.SelectedIndex);
+                startDateTime = new DateTime(year, month, day, hour, 0, 0);
+                agenda.StartDateTime = startDateTime;
+                DateTime endDateTime = Convert.ToDateTime(_textBoxEndDate.Text);
+                year = endDateTime.Year;
+                month = endDateTime.Month;
+                day = endDateTime.Day;
+                hour = _comboBoxEndHour.SelectedIndex;
+                endDateTime = new DateTime(year, month, day, hour, 0, 0);
+                agenda.EndDateTime = endDateTime;
+                if (_radioImportant.IsChecked.Value)
+                {
+                    agenda.Value = Agenda.ValueEnum.Important;
+                }
+                else if (_radioCommon.IsChecked.Value)
+                {
+                    agenda.Value = Agenda.ValueEnum.Common;
+                }
+                else
+                {
+                    agenda.Value = Agenda.ValueEnum.Unimportant;
+                }
+                App.AgendasModel.AddAgenda(agenda);
+            }
+            else if (_isEdit)
+            {
+                nowAgenda.Title = _textBoxTitle.Text;
+                nowAgenda.Content = _textBoxContent.Text;
+
+                int year, month, day, hour;
+                DateTime startDateTime = Convert.ToDateTime(_textBoxStartDate.Text);
+                year = startDateTime.Year;
+                month = startDateTime.Month;
+                day = startDateTime.Day;
+                hour = _comboBoxStartHour.SelectedIndex;// Convert.ToInt32(_comboBoxStartHour.SelectedIndex);
+                startDateTime = new DateTime(year, month, day, hour, 0, 0);
+
+                DateTime endDateTime = Convert.ToDateTime(_textBoxEndDate.Text);
+                year = endDateTime.Year;
+                month = endDateTime.Month;
+                day = endDateTime.Day;
+                hour = _comboBoxEndHour.SelectedIndex;
+                endDateTime = new DateTime(year, month, day, hour, 0, 0);
+
+                if (startDateTime < endDateTime)
+                {
+                    nowAgenda.StartDateTime = startDateTime;
+                    nowAgenda.EndDateTime = endDateTime;
+                }
+                else
+                {
+                    nowAgenda.StartDateTime = endDateTime;
+                    nowAgenda.EndDateTime = startDateTime;
+                }
+
+                if (_radioImportant.IsChecked.Value)
+                {
+                    nowAgenda.Value = Agenda.ValueEnum.Important;
+                }
+                else if (_radioCommon.IsChecked.Value)
+                {
+                    nowAgenda.Value = Agenda.ValueEnum.Common;
+                }
+                else
+                {
+                    nowAgenda.Value = Agenda.ValueEnum.Unimportant;
+                }
+            }
+            //Window.Current.Content = App.MyMainPage;
+            Window.Current.Content = PreviousPage;
+        }
+
+        internal void SetPreviousPage(Windows.UI.Xaml.Controls.Frame frame)
+        {
+            PreviousPage = frame;
         }
     }
 }

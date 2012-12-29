@@ -29,18 +29,19 @@ namespace OurSecrets
         //{
         //    get { return _objects; }
         //}
-        public List<Agenda> AgendaList
-        {
-            get { return _agendas.GetAgendaList(); }
-        }
+        //public List<Agenda> AgendaList
+        //{
+        //    get { return _agendas.GetAgendaList(); }
+        //}
 
-        Agendas _agendas;
+        //Agendas _agendas;
         public MainPage()
         {
             this.InitializeComponent();
-            _agendas = App.AgendasModel;
-            _agendas.PropertyChanged += _agendas_PropertyChanged;
-            _agendas.LoadAgendaList();
+            App.AgendasModel.PropertyChanged += _agendas_PropertyChanged;
+            //_agendas = App.AgendasModel;
+            //_agendas.PropertyChanged += _agendas_PropertyChanged;
+            //_agendas.LoadAgendaList();
             //_textBlock.SetBinding(TextBlock.TextProperty, new Binding()
             //{
             //    Source = _agendas,
@@ -67,7 +68,7 @@ namespace OurSecrets
             {
                 //_gridView.Items.Add(new Agenda(new DateTime(2012, 12, 21)));
                 _gridView.Items.Clear();
-                foreach (Agenda agenda in _agendas.GetAgendaList())
+                foreach (Agenda agenda in App.AgendasModel.GetAgendaList())
                 {
                     _gridView.Items.Add(agenda);
                 }
@@ -92,26 +93,42 @@ namespace OurSecrets
         int count = 0;
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Agenda agenda1 = new Agenda(new DateTime(2012, 1, 1));
-            agenda1.Title = "agenda" + (count++).ToString();
-            Agenda agenda2 = new Agenda(new DateTime(2012, 1, 2));
-            agenda2.Title = "agenda" + (count++).ToString();
-            Agenda agenda3 = new Agenda(new DateTime(2012, 1, 3));
-            agenda3.Title = "agenda" + (count++).ToString();
-            Agenda agenda4 = new Agenda(new DateTime(2012, 1, 4));
-            agenda4.Title = "agenda" + (count++).ToString();
-            Agenda agenda5 = new Agenda(new DateTime(2012, 1, 5));
-            agenda5.Title = "agenda" + (count++).ToString();
-            _agendas.AddAgenda(agenda1);
-            _agendas.AddAgenda(agenda2);
-            _agendas.AddAgenda(agenda3);
-            _agendas.AddAgenda(agenda4);
-            _agendas.AddAgenda(agenda5);
-            _agendas.SaveAgendaList();
+            //Agenda agenda1 = new Agenda(new DateTime(2012, 1, 1));
+            //agenda1.Title = "agenda" + (count++).ToString();
+            //Agenda agenda2 = new Agenda(new DateTime(2012, 1, 2));
+            //agenda2.Title = "agenda" + (count++).ToString();
+            //Agenda agenda3 = new Agenda(new DateTime(2012, 1, 3));
+            //agenda3.Title = "agenda" + (count++).ToString();
+            //Agenda agenda4 = new Agenda(new DateTime(2012, 1, 4));
+            //agenda4.Title = "agenda" + (count++).ToString();
+            //Agenda agenda5 = new Agenda(new DateTime(2012, 1, 5));
+            //agenda5.Title = "agenda" + (count++).ToString();
+            //_agendas.AddAgenda(agenda1);
+            //_agendas.AddAgenda(agenda2);
+            //_agendas.AddAgenda(agenda3);
+            //_agendas.AddAgenda(agenda4);
+            //_agendas.AddAgenda(agenda5);
+            //_agendas.SaveAgendaList();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void ClickButtonNew(object sender, RoutedEventArgs e)
         {
+            App.MyEditAgendaPage.SetNewState();
+            App.MyEditAgendaPage.SetPreviousPage( App.MyMainPage);
+            Window.Current.Content = App.MyEditAgendaPage;
+        }
+
+        private void ClickButtonEdit(object sender, RoutedEventArgs e)
+        {
+            App.MyEditAgendaPage.SetEditState(App.AgendasModel.GetAgendaList()[0]);
+
+            Window.Current.Content = App.MyEditAgendaPage;
+        }
+
+        private void ClickButtonView(object sender, RoutedEventArgs e)
+        {
+            App.MyEditAgendaPage.SetViewState(App.AgendasModel.GetAgendaList()[0]);
+
             Window.Current.Content = App.MyEditAgendaPage;
         }
     }
