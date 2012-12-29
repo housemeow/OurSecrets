@@ -16,26 +16,38 @@ namespace Gantt
         const int HOUR_MIN_WIDTH = 100;
         const int HOUR_HEIGHT = 50;
         const int LINE_PADDING = 30;
-        const int TIME_LINE_NUMBER = 4;
+        const int LINE_MAX_NUMBER = 6;
         const int TIME_HEIGHT = 30;
         const int TIME_VERTICAL_THICHNESS = 1;
         const int TIME_HORIZONTAL_THICHNESS = 2;
 
-        Canvas _canvas;
+        ScrollViewer _mainScrollViewer;
+        ScrollViewer _timeScrollViewer;
+        Canvas _mainCanvas;
+        Canvas _timeCanvas;
         List<GridView> _timeList;
+        int _collisionCount = 0;
         double _hourWidth = 100;
 
         List<Agenda> _agendaList;
 
         //GanttView
-        public GanttView(Canvas canvas)
+        public GanttView(ScrollViewer scrollViewer)
         {
-            _canvas = canvas;
+            _mainScrollViewer = (scrollViewer.Content as StackPanel).Children[0] as ScrollViewer;
+            _timeScrollViewer = (scrollViewer.Content as StackPanel).Children[1] as ScrollViewer;
+            InitialScrollViews();
+
+            InitialTimeBlock();
+
             _agendaList = new List<Agenda>();
             _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 1:00"), DateTime.Parse("12/29/2012 3:00")));
             _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 2:00"), DateTime.Parse("12/29/2012 5:00")));
             _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 4:00"), DateTime.Parse("12/29/2012 7:00")));
             _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00"), DateTime.Parse("12/29/2012 9:00")));
+            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
             _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
             _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
             _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
@@ -51,6 +63,18 @@ namespace Gantt
             _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 23:15"), DateTime.Parse("12/29/2012 23:50")));
 
             Paint(_agendaList);
+        }
+
+        //InitialScrollView
+        private void InitialScrollViews()
+        {
+            _mainCanvas = new Canvas();
+            _mainScrollViewer.Height = (HOUR_HEIGHT + LINE_PADDING) * LINE_MAX_NUMBER + LINE_PADDING;
+            _mainScrollViewer.Content = _mainCanvas;
+
+            _timeCanvas = new Canvas();
+            _timeScrollViewer.Height = TIME_HEIGHT;
+            _timeScrollViewer.Content = _timeCanvas;
         }
 
         //InitialTimeBlock
@@ -75,7 +99,7 @@ namespace Gantt
                 GridView item = _timeList[i];
                 item.Width = HourWidth;
                 item.Height = TIME_HEIGHT;
-                item.Margin = new Thickness(HourWidth * i, (TIME_LINE_NUMBER - 1) * (HOUR_HEIGHT + LINE_PADDING) + LINE_PADDING, 0, 0);
+                item.Margin = new Thickness(HourWidth * i, 0, 0, 0);
             }
         }
 
@@ -95,24 +119,30 @@ namespace Gantt
         //InitialCanvas
         private void InitialCanvas()
         {
-            _canvas.Width = 24 * HourWidth;
-            _canvas.Height = (HOUR_HEIGHT + LINE_PADDING) * 6 + (TIME_HEIGHT + LINE_PADDING) + LINE_PADDING;
-            _canvas.Children.Clear();
+            int lineNum = _collisionCount <= LINE_MAX_NUMBER ? LINE_MAX_NUMBER : _collisionCount;
+
+            _mainCanvas.Width = 24 * HourWidth;
+            _mainCanvas.Height = (HOUR_HEIGHT + LINE_PADDING) * lineNum + LINE_PADDING;
+            _mainCanvas.Children.Clear();
+
+            _timeCanvas.Width = 24 * HourWidth;
+            _timeCanvas.Height = (HOUR_HEIGHT + LINE_PADDING) * lineNum + LINE_PADDING;
+            _timeCanvas.Children.Clear();
         }
 
         //Paint
         public void Paint(List<Agenda> agendaList)
         {
+            List<GridView> frameList = InitialAgendaGridViewList(agendaList);
             InitialCanvas();
             InitialTimeBlock();
-            List<GridView> frameList = InitialAgendaGridViewList(agendaList);
             for (int i = 0; i < frameList.Count; i++)
             {
-                _canvas.Children.Add(frameList[i]);
+                _mainCanvas.Children.Add(frameList[i]);
             }
             for (int i = 0; i < 24; i++)
             {
-                _canvas.Children.Add(_timeList[i]);
+                _timeCanvas.Children.Add(_timeList[i]);
             }
         }
 
@@ -134,6 +164,7 @@ namespace Gantt
             List<GridView> gridViewList = new List<GridView>();
             for (int i = 0; i < agendaList.Count; i++)
             {
+                int collisionCount = 1;
                 GridView gridView = CreateGridView(Colors.DarkGreen);
                 double startHourMin = GetHourMin(agendaList[i].StartDateTime);
                 double endHourMin = GetHourMin(agendaList[i].EndDateTime);
@@ -149,13 +180,14 @@ namespace Gantt
                     double iRight = iLeft + iGridView.Width;
                     if (top == iGridView.Margin.Top && iLeft <= left && left <= iRight)
                     {
-                        if (top == LINE_PADDING + (HOUR_HEIGHT + LINE_PADDING) * (TIME_LINE_NUMBER - 2))
-                        {
-                            top += TIME_HEIGHT + LINE_PADDING;
-                        }
                         top += HOUR_HEIGHT + LINE_PADDING;
+                        collisionCount++;
                         j = 0;
                     }
+                }
+                if (_collisionCount < collisionCount)
+                {
+                    _collisionCount = collisionCount;
                 }
                 gridView.Margin = new Thickness(left, top, 0, 0);
                 gridViewList.Add(gridView);

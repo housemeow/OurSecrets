@@ -8,8 +8,11 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <ScrollViewer x:Name="_srollViewer" FontFamily="Global User Interface" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" VerticalAlignment="Top" Canvas.ZIndex="100" ZoomMode="Disabled">
-            <Canvas x:Name="_canvas" Background="#FFD82B2B" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ScrollViewer x:Name="_srollViewer" VerticalAlignment="Top" ZoomMode="Disabled" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled">
+            <StackPanel ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                <ScrollViewer HorizontalContentAlignment="Stretch" ZoomMode="Disabled" HorizontalScrollBarVisibility="Hidden" Background="#FF9E1919" VerticalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" HorizontalScrollMode="Disabled"/>
+                <ScrollViewer HorizontalContentAlignment="Stretch" ZoomMode="Disabled" VerticalScrollMode="Disabled"  Background="#FF9E1919" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Disabled"/>
+            </StackPanel>
         </ScrollViewer>
         <Slider x:Name="_slider" ValueChanged="ChangedSliderValue" HorizontalAlignment="Left" Margin="71,630,0,0" VerticalAlignment="Top" Width="100" Minimum="100" Maximum="400" SmallChange="20" Orientation="Horizontal"/>
     </Grid>

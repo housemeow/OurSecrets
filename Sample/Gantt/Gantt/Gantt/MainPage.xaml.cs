@@ -26,7 +26,27 @@ namespace Gantt
         public MainPage()
         {
             this.InitializeComponent();
-            _gantView = new GanttView(_canvas);
+            _gantView = new GanttView(_srollViewer);
+            Window.Current.CoreWindow.PointerWheelChanged += new TypedEventHandler<Windows.UI.Core.CoreWindow, Windows.UI.Core.PointerEventArgs>(ChangedCoreWindowPointerWheel);
+        }
+
+        //ChangedCoreWindowPointerWheel
+        private void ChangedCoreWindowPointerWheel(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
+        {
+            double mouseWheelDelta = args.CurrentPoint.Properties.MouseWheelDelta;
+            if (args.KeyModifiers == Windows.System.VirtualKeyModifiers.None)
+            {
+                double horizontalOffset = ((_srollViewer.Content as StackPanel).Children[0] as ScrollViewer).HorizontalOffset;
+                horizontalOffset -= mouseWheelDelta;
+                ((_srollViewer.Content as StackPanel).Children[0] as ScrollViewer).ScrollToHorizontalOffset(horizontalOffset);
+                ((_srollViewer.Content as StackPanel).Children[1] as ScrollViewer).ScrollToHorizontalOffset(horizontalOffset);
+            }
+            else if (args.KeyModifiers == Windows.System.VirtualKeyModifiers.Control)
+            {
+                double verticalOffset = ((_srollViewer.Content as StackPanel).Children[0] as ScrollViewer).VerticalOffset;
+                verticalOffset -= mouseWheelDelta;
+                ((_srollViewer.Content as StackPanel).Children[0] as ScrollViewer).ScrollToVerticalOffset(verticalOffset);
+            }
         }
 
         /// <summary>
