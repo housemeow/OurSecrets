@@ -155,7 +155,7 @@ namespace OurSecrets
                 }
             }
 
-            frame.Navigate(typeof(SearchResultsPage1), args.QueryText);
+            //frame.Navigate(typeof(SearchResultsPage1), args.QueryText);
             Window.Current.Content = frame;
 
             // 確定目前視窗是作用中
