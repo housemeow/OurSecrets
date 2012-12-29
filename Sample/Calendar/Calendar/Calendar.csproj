@@ -4,18 +4,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D9199D98-A04F-4207-8937-3DDA0648236D}</ProjectGuid>
+    <ProjectGuid>{76B0416F-0D3E-4A6F-918A-1CC1B73F12A0}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OurSecrets</RootNamespace>
-    <AssemblyName>OurSecrets</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
+    <RootNamespace>Calendar</RootNamespace>
+    <AssemblyName>Calendar</AssemblyName>
+    <DefaultLanguage>zh-TW</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>OurSecrets_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>Calendar_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -101,34 +101,22 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <SDKReference Include="Microsoft.VCLibs, Version=11.0">
-      <Name>Microsoft Visual C++ Runtime Package</Name>
-    </SDKReference>
-    <SDKReference Include="SQLite.WinRT, Version=3.7.15">
-      <Name>SQLite for Windows Runtime</Name>
-    </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Agenda.cs" />
-    <Compile Include="Agendas.cs" />
-    <Compile Include="AgendaSorter.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DateTimeSorter.cs" />
-    <Compile Include="DayAgenda.cs" />
+    <Compile Include="CalenderView.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MonthAgenda.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValueSorter.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="OurSecrets_TemporaryKey.pfx" />
+    <None Include="Calendar_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.png" />
