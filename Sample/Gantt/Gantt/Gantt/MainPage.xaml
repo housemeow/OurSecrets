@@ -8,8 +8,8 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <ScrollViewer x:Name="_srollViewer" HorizontalScrollBarVisibility="Visible" FontFamily="Global User Interface" VerticalScrollMode="Disabled">
-            <Canvas x:Name="_canvas" Background="#FFD82B2B"></Canvas>
+        <ScrollViewer x:Name="_srollViewer" FontFamily="Global User Interface" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Visible" VerticalAlignment="Top">
+            <Canvas x:Name="_canvas" Background="#FFD82B2B" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </ScrollViewer>
     </Grid>
 </Page>
