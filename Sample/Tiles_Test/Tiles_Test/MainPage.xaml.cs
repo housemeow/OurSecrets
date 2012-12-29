@@ -104,11 +104,9 @@ namespace Tiles_Test
             }
         }
 
-
         /* 原始版的拖曳事件*/
         private void myRectangle_DragEnter(object sender, DragEventArgs e)
         {
-            e.Data.OperationCompleted += Data_OperationCompleted;
             ItemContainerGenerator gen = (((Rectangle)sender).Parent as GridView).ItemContainerGenerator;
             GridView view = (((Rectangle)sender).Parent as GridView);
             ItemCollection items = view.Items;
@@ -147,8 +145,6 @@ namespace Tiles_Test
                 {
                     textblock.Text = "part0\n" + i + "  " + i;
                     Rectangle r = new Rectangle();
-                    r.Drop+=rect_Drop;
-                    r.DragOver += r_DragOver;
                     rect = r;
                     //items.Insert(i, rect);
                     object a = items.ElementAt(i);
@@ -170,8 +166,6 @@ namespace Tiles_Test
                         (((Rectangle)rect).Parent as GridView).Items.Remove(rect);
                     Rectangle r = new Rectangle();
                     rect = r;
-                    r.DragOver += r_DragOver;
-                    r.Drop += rect_Drop;
                     object a = items.ElementAt(i);
                     items.RemoveAt(i);
                     items.Insert(i, rect);
@@ -182,21 +176,6 @@ namespace Tiles_Test
             {
                 textblock.Text += er.Message;
             }
-        }
-
-        void r_DragOver(object sender, DragEventArgs e)
-        {
-            
-        }
-
-        private void rect_Drop(object sender, DragEventArgs e)
-        {
-            
-        }
-
-        void Data_OperationCompleted(Windows.ApplicationModel.DataTransfer.DataPackage sender, Windows.ApplicationModel.DataTransfer.OperationCompletedEventArgs args)
-        {
-            
         }
 
         private void View_DragItemsStarting(object sender, DragItemsStartingEventArgs e)
@@ -245,14 +224,7 @@ namespace Tiles_Test
             myRectangle.AllowDrop = true;
             myRectangle.Margin = new Thickness(10);
             myRectangle.DragEnter += myRectangle_DragEnter;
-            myRectangle.Drop += myRectangle_Drop;
             return myRectangle;
-        }
-
-        void myRectangle_Drop(object sender, DragEventArgs e)
-        {
-            //int beDropIndex = ((sender as Rectangle).Parent as GridView).Items.IndexOf(sender);
-            //int DragOneIndex = ((sender as Rectangle).Parent as GridView).Items.IndexOf(e.OriginalSource);
         }
 
         private void AddAgendaClick(object sender, ItemClickEventArgs e)
