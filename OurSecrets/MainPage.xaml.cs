@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -26,8 +27,25 @@ namespace OurSecrets
         {
             this.InitializeComponent();
             _agendas = new Agendas();
+            _agendas.PropertyChanged += _agendas_PropertyChanged;
             _agendas.LoadAgendaList();
-            _textBlock.Text = _agendas.Count.ToString();
+        }
+
+        public IAsyncAction ExecuteOnUIThread(Windows.UI.Core.DispatchedHandler action)
+        {
+            return Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, action);
+        }
+        public async Task Update()
+        {
+            await ExecuteOnUIThread(() =>
+            {
+                _textBlock.Text = _agendas.Count.ToString();
+            });
+        }
+
+        private void _agendas_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            Update();
         }
 
         /// <summary>

@@ -256,7 +256,11 @@ namespace OurSecrets
 
         public Task SaveAgendaList()
         {
-            return Task.Run( () => SaveState());
+            return Task.Run(() =>
+            {
+                SaveState();
+                this.NotifyPropertyChanged(this, new PropertyChangedEventArgs("AgendaList"));
+            });
         }
 
         public async void LoadAgendaList()
@@ -275,6 +279,7 @@ namespace OurSecrets
                 string localData = await FileIO.ReadTextAsync(localFile);
                 _agendaList = FromXml(localData);
             }
+            this.NotifyPropertyChanged(this, new PropertyChangedEventArgs("AgendaList"));
         }
     }
 }
