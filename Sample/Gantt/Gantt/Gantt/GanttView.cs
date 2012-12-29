@@ -13,7 +13,6 @@ namespace Gantt
 {
     public class GanttView
     {
-        double _hourWidth = 100;
         const int HOUR_MIN_WIDTH = 100;
         const int HOUR_HEIGHT = 50;
         const int LINE_PADDING = 30;
@@ -23,9 +22,10 @@ namespace Gantt
         const int TIME_HORIZONTAL_THICHNESS = 2;
 
         Canvas _canvas;
+        List<GridView> _timeList;
+        double _hourWidth = 100;
 
         List<Agenda> _agendaList;
-        List<GridView> _timeList;
 
         //GanttView
         public GanttView(Canvas canvas)
@@ -36,6 +36,11 @@ namespace Gantt
             _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 2:00"), DateTime.Parse("12/29/2012 5:00")));
             _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 4:00"), DateTime.Parse("12/29/2012 7:00")));
             _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00"), DateTime.Parse("12/29/2012 9:00")));
+            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
             _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
 
             _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 12:15"), DateTime.Parse("12/29/2012 13:15")));
@@ -57,7 +62,6 @@ namespace Gantt
                 for (int i = 0; i < 24; i++)
                 { 
                     GridView gridView = CreateGridView(Colors.Transparent);
-                    gridView.IsEnabled = false;
                     gridView.BorderBrush = new SolidColorBrush(Colors.DimGray);
                     gridView.BorderThickness = new Thickness(TIME_VERTICAL_THICHNESS, 0, 0, TIME_HORIZONTAL_THICHNESS);
                     TextBlock textBlock = new TextBlock();
@@ -82,23 +86,22 @@ namespace Gantt
             {
                 return _hourWidth;
             }
-            set
+            set 
             {
                 _hourWidth = value;
-                Paint(_agendaList);
             }
         }
 
         //InitialCanvas
         private void InitialCanvas()
         {
-            _canvas.Width = 24 * _hourWidth;
-            _canvas.Height = (HOUR_HEIGHT + LINE_PADDING) * 6 + (TIME_HEIGHT + LINE_PADDING);
+            _canvas.Width = 24 * HourWidth;
+            _canvas.Height = (HOUR_HEIGHT + LINE_PADDING) * 6 + (TIME_HEIGHT + LINE_PADDING) + LINE_PADDING;
             _canvas.Children.Clear();
         }
 
         //Paint
-        private void Paint(List<Agenda> agendaList)
+        public void Paint(List<Agenda> agendaList)
         {
             InitialCanvas();
             InitialTimeBlock();
@@ -118,6 +121,7 @@ namespace Gantt
         {
             GridView gridView = new GridView();
             Random rand = new Random();
+            gridView.IsEnabled = false;
             gridView.Padding = new Thickness(0);
             gridView.Background = new SolidColorBrush(color);
             gridView.AllowDrop = true;
@@ -133,8 +137,8 @@ namespace Gantt
                 GridView gridView = CreateGridView(Colors.DarkGreen);
                 double startHourMin = GetHourMin(agendaList[i].StartDateTime);
                 double endHourMin = GetHourMin(agendaList[i].EndDateTime);
-                double width = (endHourMin - startHourMin) * _hourWidth;
-                double left = startHourMin * _hourWidth;
+                double width = (endHourMin - startHourMin) * HourWidth;
+                double left = startHourMin * HourWidth;
                 double top = LINE_PADDING;
                 gridView.Width = width >= HOUR_MIN_WIDTH ? width : HOUR_MIN_WIDTH;
                 gridView.Height = HOUR_HEIGHT;
@@ -145,6 +149,10 @@ namespace Gantt
                     double iRight = iLeft + iGridView.Width;
                     if (top == iGridView.Margin.Top && iLeft <= left && left <= iRight)
                     {
+                        if (top == LINE_PADDING + (HOUR_HEIGHT + LINE_PADDING) * (TIME_LINE_NUMBER - 2))
+                        {
+                            top += TIME_HEIGHT + LINE_PADDING;
+                        }
                         top += HOUR_HEIGHT + LINE_PADDING;
                         j = 0;
                     }
