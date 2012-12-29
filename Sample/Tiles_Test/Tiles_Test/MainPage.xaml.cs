@@ -86,6 +86,8 @@ namespace Tiles_Test
             
         }
 
+        int count = 0;
+
         /* 原始版的拖曳事件*/
         private void myRectangle2_DragEnter(object sender, DragEventArgs e)
         {
@@ -167,6 +169,7 @@ namespace Tiles_Test
             {
                 textblock.Text += er.Message;
             }
+            textblock.Text += "_" +(count++).ToString();
         }
 
         private void AddView_DragItemsStarting(object sender, DragItemsStartingEventArgs e)
