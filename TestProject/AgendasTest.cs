@@ -389,11 +389,17 @@ namespace TestProject
             Assert.AreEqual(dateTime0218, agendaList[2].StartDateTime);
             Assert.AreEqual(dateTime0222, agendaList[2].EndDateTime);
 
+        }
 
+        [TestMethod]
+        public void TestLoadAgendaList()
+        {
+            _agendas.SaveAgendaList();
 
-            //_agendas.AddAgenda(agenda030121_030203);
-            //_agendas.AddAgenda(agenda030212_030218);
-            //_agendas.AddAgenda(agenda030222_030303);
+            _agendas = new Agendas();
+            Assert.AreEqual(0, _agendas.Count);
+            _agendas.LoadAgendaList();
+            Assert.AreEqual(5, _agendas.Count);
         }
     }
 }

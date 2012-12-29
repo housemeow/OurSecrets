@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using Windows.Storage;
 
 namespace OurSecrets
 {
@@ -222,12 +224,69 @@ namespace OurSecrets
                 serializer.Serialize(xmlWriter, value);
             }
             return stringBuilder.ToString();
+        }
+
+        protected async void SaveState()
+        {
+            try
+            {
+                string localData = ToXml(_agendaList);
+                if (!string.IsNullOrEmpty(localData))
+                {
+                    StorageFile localFile =
+                        await ApplicationData.Current.LocalFolder.CreateFileAsync(
+                            "localData.txt",
+                            CreationCollisionOption.ReplaceExisting);
+                    await FileIO.WriteTextAsync(localFile, localData);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static List<Agenda> FromXml(string xml)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Agenda>));
+            List<Agenda> value;
+            using (StringReader stringReader = new StringReader(xml))
+            {
+                object deserialized = serializer.Deserialize(stringReader);
+                value = (List<Agenda>)deserialized;
+            }
+            return value;
         } 
-		
+
+        //protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        //{
+        //    StorageFile localFile;
+        //    try
+        //    {
+        //        localFile = await ApplicationData.Current.LocalFolder.GetFileAsync("localData.txt");
+        //    }
+        //    catch (FileNotFoundException ex)
+        //    {
+        //        localFile = null;
+        //    }
+        //    if (localFile != null)
+        //    {
+        //        string localData = await FileIO.ReadTextAsync(localFile);
+
+
+        //        itemCollection = ObjectSerializer<ObservableCollection<Person>>.FromXml(localData);
+        //    }
+        //    gvData.ItemsSource = itemCollection;
+        //} 
+
         public void SaveAgendaList()
         {
-            string xml = ToXml(_agendaList);
+            SaveState();
+        }
 
+        public void LoadAgendaList()
+        {
+            _agendaList = FromXml("localData.txt");
         }
     }
 }
