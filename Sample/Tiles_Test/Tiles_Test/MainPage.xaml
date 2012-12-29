@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" >
 
-    <Grid x:Name="grid" Background="#FFDC6262" ManipulationMode="All">
+    <Grid x:Name="grid" Background="#FFDC6262" ManipulationMode="All" ManipulationCompleted="grid_ManipulationCompleted">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60"/>
             <ColumnDefinition/>
@@ -29,18 +29,8 @@
                 <RowDefinition Height="150"/>
             </Grid.RowDefinitions>
 
-            <GridView x:Name="FirstDay" Grid.Column="1" Grid.RowSpan="2" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" CanReorderItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" ManipulationMode="All" RenderTransformOrigin="-1,0">
-                <GridView.ItemContainerTransitions>
-                    <TransitionCollection>
-                        <EntranceThemeTransition FromVerticalOffset="-800" FromHorizontalOffset="800"/>
-                    </TransitionCollection>
-                </GridView.ItemContainerTransitions>
-                <GridView.Transitions>
-                    <TransitionCollection>
-                        <AddDeleteThemeTransition/>
-                    </TransitionCollection>
-                </GridView.Transitions>
-                
+            <GridView x:Name="FirstDay" Grid.Column="1" Grid.RowSpan="2" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" CanReorderItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" ManipulationMode="All" RenderTransformOrigin="-1,0" FontFamily="Global User Interface" HorizontalAlignment="Left" Width="1041">
+
             </GridView>
             <GridView x:Name="SecondDay" Grid.Column="1" Grid.Row="2" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" CanReorderItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True">
                 <GridView.ItemContainerTransitions>
@@ -61,8 +51,6 @@
                     </TransitionCollection>
                 </GridView.Transitions>
             </GridView>
-            
-            
         </Grid>
         <Grid HorizontalAlignment="Left" Height="138" Grid.Row="2" VerticalAlignment="Top" Width="1366" Grid.ColumnSpan="2">
             <Grid.Background>
@@ -90,6 +78,7 @@
                         <AddDeleteThemeTransition/>
                     </TransitionCollection>
                 </GridView.Transitions>
+                <TextBlock x:Name="textblock" TextWrapping="Wrap" Text="TextBlock" Height="128" Width="225"/>
             </GridView>
             <GridView x:Name="AddView" VerticalAlignment="Top" Height="141" CanDragItems="True" IsItemClickEnabled="True" AllowDrop="True" Margin="0,-3,0,0" Grid.Column="1" ItemClick="AddAgendaClick" ManipulationMode="All">
                 <GridViewItem x:Name="AddIcon" Content="+" Margin="0,24,0,0" Background="#FF11A313" FontSize="72" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="1.02,0.93" Padding="0,-11,0,15" ManipulationMode="All"/>

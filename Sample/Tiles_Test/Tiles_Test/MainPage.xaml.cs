@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 
@@ -29,78 +30,142 @@ namespace Tiles_Test
             AddView.DragItemsStarting+=AddView_DragItemsStarting;
             FirstDay.Drop += FirstDay_Drop;
             FirstDay.DragItemsStarting += AddView_DragItemsStarting;
-            FirstDay.SizeChanged += FirstDay_SizeChanged;
             SecondDay.Drop += FirstDay_Drop;
             SecondDay.DragItemsStarting += AddView_DragItemsStarting;
             ThirdDay.Drop += FirstDay_Drop;
             ThirdDay.DragItemsStarting += AddView_DragItemsStarting;
-            isChanging = false;
+            FirstDay.Resources.Add("unique_id", DragOverBeginStory);
+            FirstDay.DragEnter += FirstDragEnter;
         }
 
-        void FirstDay_SizeChanged(object sender, SizeChangedEventArgs e)
+        void FirstDragEnter(object sender, DragEventArgs e)
         {
-            isChanging = false;
+            DragOverBeginStory.Stop();
+            DragOverBeginStory.Children.Clear();
         }
 
+        private void grid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
 
+        }
 
         void FirstDay_Drop(object sender, DragEventArgs e)
         {
-            //rect = null;
             GridView[] DayViews = { FirstDay, SecondDay, ThirdDay };
             foreach (GridView Day in DayViews)
             {
                 Day.Items.Remove(rect);
                 rect = null;
             }
-
+            DragOverBeginStory.Stop();
+            DragOverBeginStory.Children.Clear();
             for (int i = 0; i < DragItems.Count; i++)
             {
-                //FirstDay.Items.Add(DragItems[i]);
+                //FirstDay.Items.Add(DragItems[i])
                 //(((Rectangle)sender).Parent as GridView).Items.Insert(,DragItems[i]);
             }
             rect = null;
         }
 
+        Storyboard DragOverBeginStory = new Storyboard();
+        
         private void myRectangle_DragEnter(object sender, DragEventArgs e)
         {
             ItemContainerGenerator gen = (((Rectangle)sender).Parent as GridView).ItemContainerGenerator;
             ItemCollection items = (((Rectangle)sender).Parent as GridView).Items;
             int i = items.IndexOf(sender);
-            //if(DragItems==null||items.Contains(DragItems[0]))
+            DragOverBeginStory.Stop();
+            DragOverThemeAnimation ani = new DragOverThemeAnimation();
+            ani.ToOffset = 50;
+            ani.Duration = new Duration(TimeSpan.FromSeconds(2));
+            ani.FillBehavior = FillBehavior.HoldEnd;
+            Storyboard.SetTarget(ani, (items.ElementAt(i) as Rectangle));
+            DragOverBeginStory.Children.Clear();
+            DragOverBeginStory.Children.Add(ani);
+            DragOverBeginStory.Begin();
+            
+        }
+
+        /* 原始版的拖曳事件*/
+        private void myRectangle2_DragEnter(object sender, DragEventArgs e)
+        {
+            //double X = e.GetPosition((((Rectangle)sender).Parent as GridView)).X;
+            //double Y = e.GetPosition((((Rectangle)sender).Parent as GridView)).Y;
+            
+            //if (Math.Abs(X - tempX) < 1 && Math.Abs(Y - tempY) < 1)
             //{
             //    return;
             //}
-            if (isChanging) return;
-            bool isNew;
-            
-            if (rect == null)
+            //tempX = X;
+            //tempY = Y;
+            ItemContainerGenerator gen = (((Rectangle)sender).Parent as GridView).ItemContainerGenerator;
+            ItemCollection items = (((Rectangle)sender).Parent as GridView).Items;
+            int i = items.IndexOf(sender);
+            int emptyIndex = 100;
+            if (rect != null)
             {
-                Rectangle r = new Rectangle();
-                //r.DragEnter += myRectangle_DragEnter;
-                r.Margin = new Thickness(-50, 0, 0, 0);
-                rect = r;
-                items.Insert(i, rect);
-                object a = (((Rectangle)sender).Parent as GridView).Items.ElementAt(i);
-                (a as Rectangle).HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Left;
-                isChanging = true;
-            }
-            else
-            {
-                try
+                if (!items.Contains(rect))
                 {
-                    (((Rectangle)rect).Parent as GridView).Items.Remove(rect);
+                    GridView[] DayViews = { FirstDay, SecondDay, ThirdDay };
+                    foreach (GridView Day in DayViews)
+                    {
+                        Day.Items.Remove(rect);
+                    }
+                    rect = null;
+                    emptyIndex = 1000;
+                }
+                else
+                {
+                    emptyIndex = items.IndexOf(rect);
+                }
+                
+                //ItemCollection itemCollection = (((Rectangle)sender).Parent as GridView).Items;
+                //emptyIndex = itemCollection.IndexOf(rect);
+                //(((Rectangle)rect).Parent as GridView).Items.Remove(rect);
+            }
+
+            //if (DragItems == null || items.Contains(DragItems[0]))
+            //{
+            //    return;
+            //}
+            
+            try
+            {
+                //textblock.Text = "before Insert";
+
+                textblock.Text = i.ToString();
+                if (emptyIndex == 1000)
+                {
+                    textblock.Text = "part0\n" + i + "  " + i;
                     Rectangle r = new Rectangle();
-                    //r.DragEnter += myRectangle_DragEnter;
-                    r.Margin = new Thickness(-50, 0, 0, 0);
+                    rect = r;
+                    //items.Insert(i, rect);
+
+                    object a = items.ElementAt(i);
+                    items.RemoveAt(i);
+                    items.Insert(i, rect);
+                    items.Insert(i + 1, a);
+                }
+                else if ((i < emptyIndex && rect != null) || emptyIndex==1000)
+                {
+                    textblock.Text = "part1\n" + i + "  " + emptyIndex;
+                    object a = items.ElementAt(i);
+                    items.RemoveAt(i);
+                    items.Insert(i+1 , a);
+                }
+                else
+                {
+                    textblock.Text = "part2\n" + i + "  " + emptyIndex;
+                    if(rect!=null)
+                        (((Rectangle)rect).Parent as GridView).Items.Remove(rect);
+                    Rectangle r = new Rectangle();
                     rect = r;
                     items.Insert(i, rect);
-                    Rectangle a = (Rectangle)(((Rectangle)sender).Parent as GridView).Items.ElementAt(i);
-                    isChanging = true;
                 }
-                catch (Exception er)
-                {
-                }
+            }
+            catch (Exception er)
+            {
+                textblock.Text += er.Message;
             }
         }
 
@@ -119,17 +184,26 @@ namespace Tiles_Test
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
+            
             if ((bool)First.IsChecked)
             {
-                FirstDay.Items.Add(CreateItem());
+                Rectangle r = CreateItem();
+                r.DragEnter += myRectangle2_DragEnter;
+                //r.DragEnter += myRectangle_DragEnter;
+                FirstDay.Items.Add(r);
             }
             if ((bool)Second.IsChecked)
             {
-                SecondDay.Items.Add(CreateItem());
+                Rectangle r = CreateItem();
+                r.DragEnter += myRectangle2_DragEnter;
+                //r.DragEnter += myRectangle2_DragEnter;
+                SecondDay.Items.Add(r);
             }
             if ((bool)Third.IsChecked)
             {
-                ThirdDay.Items.Add(CreateItem());
+                Rectangle r = CreateItem();
+                r.DragEnter += myRectangle2_DragEnter;
+                ThirdDay.Items.Add(r);
             }
         }
 
@@ -168,7 +242,7 @@ namespace Tiles_Test
             myRectangle.Height = 100;
             myRectangle.AllowDrop = true;
             myRectangle.Margin = new Thickness(10);
-            myRectangle.DragEnter+=myRectangle_DragEnter;
+            //myRectangle.DragEnter+=myRectangle_DragEnter;
             //myRectangle.DragOver += myRectangle_DragEnter;
             return myRectangle;
         }
@@ -199,7 +273,8 @@ namespace Tiles_Test
 
         public object rect { get; set; }
 
+        public double tempX { get; set; }
 
-        public bool isChanging { get; set; }
+        public double tempY { get; set; }
     }
 }
