@@ -277,7 +277,7 @@ namespace TestProject
             DateTime dateTime0201 = new DateTime(2012, 3, 2, 1, 1, 0);
             DateTime dateTime0203 = new DateTime(2012, 3, 2, 3, 1, 0);
             DateTime dateTime0205 = new DateTime(2012, 3, 2, 5, 1, 0);
-            
+
             DateTime dateTime0212 = new DateTime(2012, 3, 2, 12, 1, 0);
             DateTime dateTime0218 = new DateTime(2012, 3, 2, 18, 1, 0);
             DateTime dateTime0222 = new DateTime(2012, 3, 2, 22, 1, 0);
@@ -389,11 +389,42 @@ namespace TestProject
             Assert.AreEqual(dateTime0218, agendaList[2].StartDateTime);
             Assert.AreEqual(dateTime0222, agendaList[2].EndDateTime);
 
+        }
 
-
-            //_agendas.AddAgenda(agenda030121_030203);
-            //_agendas.AddAgenda(agenda030212_030218);
-            //_agendas.AddAgenda(agenda030222_030303);
+        [TestMethod]
+        public void TestLoadAgendaList()
+        {
+            Agenda agenda1 = new Agenda(new DateTime(2012, 1, 1));
+            agenda1.Title = "agenda1";
+            Agenda agenda2 = new Agenda(new DateTime(2012, 1, 2));
+            agenda2.Title = "agenda2";
+            Agenda agenda3 = new Agenda(new DateTime(2012, 1, 3));
+            agenda3.Title = "agenda3";
+            Agenda agenda4 = new Agenda(new DateTime(2012, 1, 4));
+            agenda4.Title = "agenda4";
+            Agenda agenda5 = new Agenda(new DateTime(2012, 1, 5));
+            agenda5.Title = "agenda5";
+            _agendas.AddAgenda(agenda1);
+            _agendas.AddAgenda(agenda2);
+            _agendas.AddAgenda(agenda3);
+            _agendas.AddAgenda(agenda4);
+            _agendas.AddAgenda(agenda5);
+            _agendas.SaveAgendaList().ContinueWith((T) =>
+            {
+                _agendas = new Agendas();
+                Assert.AreEqual(0, _agendas.Count);
+                _agendas.LoadAgendaList();
+                Assert.AreEqual(5, _agendas.Count);
+            }).ContinueWith((T) =>
+            {
+                _agendas.SaveAgendaList().ContinueWith((X) =>
+                {
+                    _agendas = new Agendas();
+                    Assert.AreEqual(0, _agendas.Count);
+                    _agendas.LoadAgendaList();
+                    Assert.AreEqual(5, _agendas.Count);
+                });
+            });
         }
     }
 }

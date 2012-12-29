@@ -1,6 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
+using Windows.Foundation;
+using Windows.Storage;
 
 namespace OurSecrets
 {
@@ -203,6 +210,81 @@ namespace OurSecrets
                 freeTimeAgendaList.Add(agenda);
             }
             return freeTimeAgendaList;
+        }
+
+        public static string ToXml(List<Agenda> value)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Agenda>));
+            StringBuilder stringBuilder = new StringBuilder();
+            XmlWriterSettings settings = new XmlWriterSettings()
+            {
+                Indent = true,
+                OmitXmlDeclaration = true,
+            };
+            using (XmlWriter xmlWriter = XmlWriter.Create(stringBuilder, settings))
+            {
+                serializer.Serialize(xmlWriter, value);
+            }
+            return stringBuilder.ToString();
+        }
+
+        protected async void SaveState()
+        {
+            string localData = ToXml(_agendaList);
+            if (!string.IsNullOrEmpty(localData))
+            {
+                StorageFile localFile =
+                    await ApplicationData.Current.LocalFolder.CreateFileAsync(
+                        "localData.txt",
+                        CreationCollisionOption.ReplaceExisting);
+                await FileIO.WriteTextAsync(localFile, localData);
+            }
+        }
+
+        public static List<Agenda> FromXml(string xml)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Agenda>));
+            List<Agenda> value;
+
+            using (StringReader stringReader = new StringReader(xml))
+            {
+                object deserialized = serializer.Deserialize(stringReader);
+                value = (List<Agenda>)deserialized;
+            }
+            return value;
+        }
+
+        public Task SaveAgendaList()
+        {
+            return Task.Run(() =>
+            {
+                SaveState();
+                this.NotifyPropertyChanged(this, new PropertyChangedEventArgs("AgendaList"));
+            });
+        }
+
+        public async void LoadAgendaList()
+        {
+            StorageFile localFile;
+            try
+            {
+                localFile = await ApplicationData.Current.LocalFolder.GetFileAsync("localData.txt");
+            }
+            catch (FileNotFoundException ex)
+            {
+                localFile = null;
+            }
+            if (localFile != null)
+            {
+                string localData = await FileIO.ReadTextAsync(localFile);
+                _agendaList = FromXml(localData);
+            }
+            this.NotifyPropertyChanged(this, new PropertyChangedEventArgs("AgendaList"));
+        }
+
+        internal List<Agenda> GetAgendaList()
+        {
+            return _agendaList;
         }
     }
 }

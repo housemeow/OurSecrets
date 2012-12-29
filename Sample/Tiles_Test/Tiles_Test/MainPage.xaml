@@ -29,40 +29,13 @@
                 <RowDefinition Height="150"/>
             </Grid.RowDefinitions>
 
-            <GridView x:Name="FirstDay" Grid.Column="1" Grid.RowSpan="2" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" CanReorderItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" ManipulationMode="All" RenderTransformOrigin="-1,0">
-                <GridView.ItemContainerTransitions>
-                    <TransitionCollection>
-                        <EntranceThemeTransition FromVerticalOffset="-800" FromHorizontalOffset="800"/>
-                    </TransitionCollection>
-                </GridView.ItemContainerTransitions>
-                <GridView.Transitions>
-                    <TransitionCollection>
-                        <AddDeleteThemeTransition/>
-                    </TransitionCollection>
-                </GridView.Transitions>
-                
+            <GridView x:Name="FirstDay" Grid.Column="1" Grid.RowSpan="2" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" ManipulationMode="All" RenderTransformOrigin="-1,0" FontFamily="Global User Interface" HorizontalAlignment="Left" Width="1041" IsSynchronizedWithCurrentItem="False">
             </GridView>
-            <GridView x:Name="SecondDay" Grid.Column="1" Grid.Row="2" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" CanReorderItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True">
-                <GridView.ItemContainerTransitions>
-                    <TransitionCollection>
-                        <AddDeleteThemeTransition/>
-                    </TransitionCollection>
-                </GridView.ItemContainerTransitions>
-                <GridView.Transitions>
-                    <TransitionCollection>
-                        <AddDeleteThemeTransition/>
-                    </TransitionCollection>
-                </GridView.Transitions>
+            <GridView x:Name="SecondDay" Grid.Column="1" Grid.Row="2" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" IsSynchronizedWithCurrentItem="False">
             </GridView>
-            <GridView x:Name="ThirdDay" Grid.Row="3" Grid.Column="1" Margin="0,0,0,-31" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" CanReorderItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True">
-                <GridView.Transitions>
-                    <TransitionCollection>
-                        <AddDeleteThemeTransition/>
-                    </TransitionCollection>
-                </GridView.Transitions>
+            <GridView x:Name="ThirdDay" Grid.Row="3" Grid.Column="1" Margin="0,0,0,-31" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" IsSynchronizedWithCurrentItem="False">
+
             </GridView>
-            
-            
         </Grid>
         <Grid HorizontalAlignment="Left" Height="138" Grid.Row="2" VerticalAlignment="Top" Width="1366" Grid.ColumnSpan="2">
             <Grid.Background>
@@ -80,16 +53,7 @@
                 <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
             <GridView x:Name="AgendaList" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" CanReorderItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" Grid.Column="2">
-                <GridView.ItemContainerTransitions>
-                    <TransitionCollection>
-                        <AddDeleteThemeTransition/>
-                    </TransitionCollection>
-                </GridView.ItemContainerTransitions>
-                <GridView.Transitions>
-                    <TransitionCollection>
-                        <AddDeleteThemeTransition/>
-                    </TransitionCollection>
-                </GridView.Transitions>
+                <TextBlock x:Name="textblock" TextWrapping="Wrap" Text="TextBlock" Height="128" Width="100"/>
             </GridView>
             <GridView x:Name="AddView" VerticalAlignment="Top" Height="141" CanDragItems="True" IsItemClickEnabled="True" AllowDrop="True" Margin="0,-3,0,0" Grid.Column="1" ItemClick="AddAgendaClick" ManipulationMode="All">
                 <GridViewItem x:Name="AddIcon" Content="+" Margin="0,24,0,0" Background="#FF11A313" FontSize="72" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="1.02,0.93" Padding="0,-11,0,15" ManipulationMode="All"/>
@@ -99,7 +63,6 @@
                 <CheckBox x:Name="Third" Content="Third" HorizontalAlignment="Left" Height="34" Margin="0,68,0,0" VerticalAlignment="Top" Width="63"/>
                 <CheckBox x:Name="Second" Content="Second" HorizontalAlignment="Left" Height="34" Margin="0,34,0,0" VerticalAlignment="Top" Width="77"/>
                 <Button x:Name="Add" Content="Add" HorizontalAlignment="Left" Margin="157,0,0,0" VerticalAlignment="Top" Click="Add_Click" Height="38" Width="62"/>
-                <Button x:Name="Remove" Content="Remove" HorizontalAlignment="Left" Margin="157,43,0,0" VerticalAlignment="Top" Click="Remove_Click" Height="38" Width="88" RenderTransformOrigin="0.5,0.5"/>
             </Grid>
             <GridView x:Name="DeleteView" VerticalAlignment="Top" Height="141" CanDragItems="True" IsItemClickEnabled="True" AllowDrop="True" Margin="0,0,0,-3" Grid.Column="4" ItemClick="DeleteItem">
                 <GridViewItem Content="+" Margin="0,24,0,0" FontSize="72" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="1.02,0.93">
