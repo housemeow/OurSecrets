@@ -29,11 +29,11 @@
                 <RowDefinition Height="150"/>
             </Grid.RowDefinitions>
 
-            <GridView x:Name="FirstDay" Grid.Column="1" Grid.RowSpan="2" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" ManipulationMode="All" RenderTransformOrigin="-1,0" FontFamily="Global User Interface" HorizontalAlignment="Left" Width="1041" IsSynchronizedWithCurrentItem="False">
+            <GridView x:Name="FirstDay" Grid.Column="1" Grid.RowSpan="2" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" ManipulationMode="All" RenderTransformOrigin="-1,0" FontFamily="Global User Interface" HorizontalAlignment="Left" Width="1041" IsSynchronizedWithCurrentItem="False" CanReorderItems="True">
             </GridView>
-            <GridView x:Name="SecondDay" Grid.Column="1" Grid.Row="2" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" IsSynchronizedWithCurrentItem="False">
+            <GridView x:Name="SecondDay" Grid.Column="1" Grid.Row="2" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" IsSynchronizedWithCurrentItem="False" CanReorderItems="True">
             </GridView>
-            <GridView x:Name="ThirdDay" Grid.Row="3" Grid.Column="1" Margin="0,0,0,-31" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" IsSynchronizedWithCurrentItem="False">
+            <GridView x:Name="ThirdDay" Grid.Row="3" Grid.Column="1" Margin="0,0,0,-31" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" IsSynchronizedWithCurrentItem="False" CanReorderItems="True">
 
             </GridView>
         </Grid>
@@ -64,7 +64,7 @@
                 <CheckBox x:Name="Second" Content="Second" HorizontalAlignment="Left" Height="34" Margin="0,34,0,0" VerticalAlignment="Top" Width="77"/>
                 <Button x:Name="Add" Content="Add" HorizontalAlignment="Left" Margin="157,0,0,0" VerticalAlignment="Top" Click="Add_Click" Height="38" Width="62"/>
             </Grid>
-            <GridView x:Name="DeleteView" VerticalAlignment="Top" Height="141" CanDragItems="True" IsItemClickEnabled="True" AllowDrop="True" Margin="0,0,0,-3" Grid.Column="4" ItemClick="DeleteItem">
+            <GridView x:Name="DeleteView" VerticalAlignment="Top" Height="141" IsItemClickEnabled="True" AllowDrop="True" Margin="0,0,0,-3" Grid.Column="4" ItemClick="DeleteItem" SelectionMode="None">
                 <GridViewItem Content="+" Margin="0,24,0,0" FontSize="72" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="1.02,0.93">
                     <GridViewItem.Background>
                         <ImageBrush ImageSource="Assets/Delete.png"/>

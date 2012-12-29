@@ -27,7 +27,7 @@ namespace Tiles_Test
         public MainPage()
         {
             this.InitializeComponent();
-            GridView[] DayViews = { AddView, FirstDay, SecondDay, ThirdDay };
+            GridView[] DayViews = { AddView, FirstDay, SecondDay, ThirdDay,AgendaList };
             foreach (GridView Day in DayViews)
             {
                 Day.Drop += View_Drop;
@@ -37,9 +37,39 @@ namespace Tiles_Test
 
         void View_Drop(object sender, DragEventArgs e)
         {
-            GridView[] DayViews = { FirstDay, SecondDay, ThirdDay };
+            GridView[] DayViews = { FirstDay, SecondDay, ThirdDay};
+            GridView[] ItemSources = {FirstDay, SecondDay, ThirdDay,AddView,AgendaList};
+            int index = -1;
             foreach (GridView Day in DayViews)
             {
+                //放置的VIEW
+                if(sender.Equals(Day))
+                {
+                    //放置的位置
+                    index = Day.Items.IndexOf(rect);
+                    //拖曳的ITEM
+                    for (int i = DragItems.Count - 1; i >= 0; i--)
+                    {
+                        //拖曳的ITEM來源VIEW
+                        foreach (GridView ItemSource in ItemSources)
+                        {
+                            int itemIndex = ItemSource.Items.IndexOf(DragItems.ElementAt(i));
+                            if (itemIndex != -1)
+                            {
+                                object temp = ItemSource.Items.ElementAt(i);
+                                ItemSource.Items.RemoveAt(itemIndex);
+                                if (index != -1)
+                                {
+                                    Day.Items.Insert(index, CreateItem());
+                                }
+                                else
+                                {
+                                    Day.Items.Add(CreateItem());
+                                }
+                            }
+                        }
+                    }
+                }
                 Day.Items.Remove(rect);
             }
             rect = null;
@@ -48,15 +78,16 @@ namespace Tiles_Test
                 //FirstDay.Items.Add(DragItems[i])
                 //(((Rectangle)sender).Parent as GridView).Items.Insert(,DragItems[i]);
             }
-            rect = null;
         }
 
 
         /* 原始版的拖曳事件*/
         private void myRectangle_DragEnter(object sender, DragEventArgs e)
         {
+            e.Data.OperationCompleted += Data_OperationCompleted;
             ItemContainerGenerator gen = (((Rectangle)sender).Parent as GridView).ItemContainerGenerator;
-            ItemCollection items = (((Rectangle)sender).Parent as GridView).Items;
+            GridView view = (((Rectangle)sender).Parent as GridView);
+            ItemCollection items = view.Items;
             int i = items.IndexOf(sender);
             int emptyIndex = 100;
             if (rect != null)
@@ -76,15 +107,24 @@ namespace Tiles_Test
                     emptyIndex = items.IndexOf(rect);
                 }
             }
+            else
+            {
+                foreach (object item in DragItems)
+                {
+                    if (items.Contains(item))
+                    {
+                        return;
+                    }
+                }
+            }
             try
             {
-                //textblock.Text = "before Insert";
-
-                textblock.Text = i.ToString();
                 if (emptyIndex == 1000)
                 {
                     textblock.Text = "part0\n" + i + "  " + i;
                     Rectangle r = new Rectangle();
+                    r.Drop+=rect_Drop;
+                    r.DragOver += r_DragOver;
                     rect = r;
                     //items.Insert(i, rect);
                     object a = items.ElementAt(i);
@@ -106,8 +146,8 @@ namespace Tiles_Test
                         (((Rectangle)rect).Parent as GridView).Items.Remove(rect);
                     Rectangle r = new Rectangle();
                     rect = r;
-                    //items.Insert(i, rect);
-
+                    r.DragOver += r_DragOver;
+                    r.Drop += rect_Drop;
                     object a = items.ElementAt(i);
                     items.RemoveAt(i);
                     items.Insert(i, rect);
@@ -120,9 +160,25 @@ namespace Tiles_Test
             }
         }
 
+        void r_DragOver(object sender, DragEventArgs e)
+        {
+            
+        }
+
+        private void rect_Drop(object sender, DragEventArgs e)
+        {
+            
+        }
+
+        void Data_OperationCompleted(Windows.ApplicationModel.DataTransfer.DataPackage sender, Windows.ApplicationModel.DataTransfer.OperationCompletedEventArgs args)
+        {
+            
+        }
+
         private void View_DragItemsStarting(object sender, DragItemsStartingEventArgs e)
         {
             DragItems = e.Items;
+
         }
         /// <summary>
         /// 在此頁面即將顯示在框架中時叫用。
@@ -139,20 +195,16 @@ namespace Tiles_Test
             if ((bool)First.IsChecked)
             {
                 Rectangle r = CreateItem();
-                r.DragEnter += myRectangle_DragEnter;
-                //r.DragEnter += myRectangle_DragEnter;
                 FirstDay.Items.Add(r);
             }
             if ((bool)Second.IsChecked)
             {
                 Rectangle r = CreateItem();
-                r.DragEnter += myRectangle_DragEnter;
                 SecondDay.Items.Add(r);
             }
             if ((bool)Third.IsChecked)
             {
                 Rectangle r = CreateItem();
-                r.DragEnter += myRectangle_DragEnter;
                 ThirdDay.Items.Add(r);
             }
         }
@@ -167,6 +219,7 @@ namespace Tiles_Test
             myRectangle.Height = 100;
             myRectangle.AllowDrop = true;
             myRectangle.Margin = new Thickness(10);
+            myRectangle.DragEnter += myRectangle_DragEnter;
             return myRectangle;
         }
 
