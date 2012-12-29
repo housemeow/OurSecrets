@@ -35,6 +35,15 @@ namespace Tiles_Test
             }
             AddView.DragItemsStarting += View_DragItemsStarting;
             Window.Current.CoreWindow.PointerWheelChanged += CoreWindow_PointerWheelChanged;
+            //Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
+        }
+
+        void CoreWindow_PointerPressed(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
+        {
+            if (args.CurrentPoint.Properties.IsRightButtonPressed)
+            {
+                BottomAppBar.IsOpen = !BottomAppBar.IsOpen;
+            }
         }
 
         void CoreWindow_PointerWheelChanged(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
@@ -249,5 +258,14 @@ namespace Tiles_Test
         public object rect { get; set; }
 
         public bool IsAddNewItem { get; set; }
+
+        private void SwithchFree(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void GoToDay(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

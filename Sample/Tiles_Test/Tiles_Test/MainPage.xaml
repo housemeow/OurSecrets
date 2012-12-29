@@ -75,4 +75,17 @@
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="0,57,0,0" TextWrapping="Wrap" Text="Agenda" VerticalAlignment="Top" Height="50" Width="280" FontSize="48"/>
         <Button Content="Button" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.333,-0.263" Background="{x:Null}" Style="{StaticResource BackButtonStyle}"/>
     </Grid>
+    <Page.BottomAppBar>
+        <AppBar x:Name="bottomAppBar" Padding="10,0,10,0">
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="switchBarButton" Style="{StaticResource SwitchAppsAppBarButtonStyle}" Click="SwithchFree"    
+        AutomationProperties.Name="Free/Busy"/>
+                    <Button Style="{StaticResource GoToTodayAppBarButtonStyle}" Click="GoToDay"/>
+                </StackPanel>
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
 </Page>
