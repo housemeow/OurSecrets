@@ -26,9 +26,88 @@ namespace Tiles_Test
         public MainPage()
         {
             this.InitializeComponent();
-//            First_ItemControl.sc
+            AddView.DragItemsStarting+=AddView_DragItemsStarting;
+            FirstDay.Drop += FirstDay_Drop;
+            FirstDay.DragItemsStarting += AddView_DragItemsStarting;
+            FirstDay.SizeChanged += FirstDay_SizeChanged;
+            SecondDay.Drop += FirstDay_Drop;
+            SecondDay.DragItemsStarting += AddView_DragItemsStarting;
+            ThirdDay.Drop += FirstDay_Drop;
+            ThirdDay.DragItemsStarting += AddView_DragItemsStarting;
+            isChanging = false;
         }
 
+        void FirstDay_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            isChanging = false;
+        }
+
+
+
+        void FirstDay_Drop(object sender, DragEventArgs e)
+        {
+            //rect = null;
+            GridView[] DayViews = { FirstDay, SecondDay, ThirdDay };
+            foreach (GridView Day in DayViews)
+            {
+                Day.Items.Remove(rect);
+                rect = null;
+            }
+
+            for (int i = 0; i < DragItems.Count; i++)
+            {
+                //FirstDay.Items.Add(DragItems[i]);
+                //(((Rectangle)sender).Parent as GridView).Items.Insert(,DragItems[i]);
+            }
+            rect = null;
+        }
+
+        private void myRectangle_DragEnter(object sender, DragEventArgs e)
+        {
+            ItemContainerGenerator gen = (((Rectangle)sender).Parent as GridView).ItemContainerGenerator;
+            ItemCollection items = (((Rectangle)sender).Parent as GridView).Items;
+            int i = items.IndexOf(sender);
+            //if(DragItems==null||items.Contains(DragItems[0]))
+            //{
+            //    return;
+            //}
+            if (isChanging) return;
+            bool isNew;
+            
+            if (rect == null)
+            {
+                Rectangle r = new Rectangle();
+                //r.DragEnter += myRectangle_DragEnter;
+                r.Margin = new Thickness(-50, 0, 0, 0);
+                rect = r;
+                items.Insert(i, rect);
+                object a = (((Rectangle)sender).Parent as GridView).Items.ElementAt(i);
+                (a as Rectangle).HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Left;
+                isChanging = true;
+            }
+            else
+            {
+                try
+                {
+                    (((Rectangle)rect).Parent as GridView).Items.Remove(rect);
+                    Rectangle r = new Rectangle();
+                    //r.DragEnter += myRectangle_DragEnter;
+                    r.Margin = new Thickness(-50, 0, 0, 0);
+                    rect = r;
+                    items.Insert(i, rect);
+                    Rectangle a = (Rectangle)(((Rectangle)sender).Parent as GridView).Items.ElementAt(i);
+                    isChanging = true;
+                }
+                catch (Exception er)
+                {
+                }
+            }
+        }
+
+        private void AddView_DragItemsStarting(object sender, DragItemsStartingEventArgs e)
+        {
+            DragItems = e.Items;
+        }
         /// <summary>
         /// 在此頁面即將顯示在框架中時叫用。
         /// </summary>
@@ -42,33 +121,39 @@ namespace Tiles_Test
         {
             if ((bool)First.IsChecked)
             {
-                First_ItemControl.Items.Add(CreateItem());
+                FirstDay.Items.Add(CreateItem());
             }
             if ((bool)Second.IsChecked)
             {
-                Second_ItemControl.Items.Add(CreateItem());
+                SecondDay.Items.Add(CreateItem());
             }
             if ((bool)Third.IsChecked)
             {
-                Third_ItemControl.Items.Add(CreateItem());
+                ThirdDay.Items.Add(CreateItem());
             }
         }
 
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)First.IsChecked && First_ItemControl.Items.Count>0)
+            if ((bool)First.IsChecked && FirstDay.Items.Count > 0)
             {
-                First_ItemControl.Items.RemoveAt(0);
-            }
-            if ((bool)Second.IsChecked && Second_ItemControl.Items.Count > 0)
-            {
-                Second_ItemControl.Items.RemoveAt(0);
-            }
-            if ((bool)Third.IsChecked && Third_ItemControl.Items.Count > 0)
-            {
-                while (Third_ItemControl.SelectedItems.Count>0)
+                while (FirstDay.SelectedItems.Count > 0)
                 {
-                    Third_ItemControl.Items.Remove(Third_ItemControl.SelectedItems[0]);
+                    FirstDay.Items.Remove(FirstDay.SelectedItems[0]);
+                }
+            }
+            if ((bool)Second.IsChecked && SecondDay.Items.Count > 0)
+            {
+                while (SecondDay.SelectedItems.Count > 0)
+                {
+                    SecondDay.Items.Remove(SecondDay.SelectedItems[0]);
+                }
+            }
+            if ((bool)Third.IsChecked && ThirdDay.Items.Count > 0)
+            {
+                while (ThirdDay.SelectedItems.Count>0)
+                {
+                    ThirdDay.Items.Remove(ThirdDay.SelectedItems[0]);
                 }
             }
         }
@@ -83,33 +168,38 @@ namespace Tiles_Test
             myRectangle.Height = 100;
             myRectangle.AllowDrop = true;
             myRectangle.Margin = new Thickness(10);
-            myRectangle.DragEnter += myRectangle_DragEnter;
+            myRectangle.DragEnter+=myRectangle_DragEnter;
+            //myRectangle.DragOver += myRectangle_DragEnter;
             return myRectangle;
         }
 
-        void myRectangle_DragEnter(object sender, DragEventArgs e)
+        void myRectangle_DragLeave(object sender, DragEventArgs e)
         {
             
         }
 
-        private void SecondScroll_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
+        private void AddAgendaClick(object sender, ItemClickEventArgs e)
         {
-            SecondScroll.ScrollToHorizontalOffset(SecondScroll.HorizontalOffset + 5);
+            AgendaList.Items.Add(CreateItem());
         }
 
-        private void Second_ItemControl_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
+        private void DeleteItem(object sender, ItemClickEventArgs e)
         {
-            SecondScroll.ScrollToHorizontalOffset(SecondScroll.HorizontalOffset + 5);
+            GridView[] DayViews = { FirstDay, SecondDay, ThirdDay };
+            foreach(GridView Day in DayViews)
+            {
+                while (Day.SelectedItems.Count > 0)
+                {
+                    Day.Items.Remove(Day.SelectedItems[0]);
+                }
+            }
         }
 
-        private void SecondScroll_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
-        {
-            
-        }
+        public IList<object> DragItems { get; set; }
 
-        private void Third_ItemControl_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            int index = Third_ItemControl.Items.IndexOf(e.ClickedItem);
-        }
+        public object rect { get; set; }
+
+
+        public bool isChanging { get; set; }
     }
 }
