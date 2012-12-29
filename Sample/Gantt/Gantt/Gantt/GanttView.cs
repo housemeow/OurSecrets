@@ -116,17 +116,23 @@ namespace Gantt
             }
         }
 
+        public double TotalHeight
+        {
+            get
+            {
+                return (HOUR_HEIGHT + LINE_PADDING) * LINE_MAX_NUMBER + LINE_PADDING + TIME_HEIGHT;
+            }
+        }
+
         //InitialCanvas
         private void InitialCanvas()
         {
-            int lineNum = _collisionCount <= LINE_MAX_NUMBER ? LINE_MAX_NUMBER : _collisionCount;
-
             _mainCanvas.Width = 24 * HourWidth;
-            _mainCanvas.Height = (HOUR_HEIGHT + LINE_PADDING) * lineNum + LINE_PADDING;
+            _mainCanvas.Height = TotalHeight;
             _mainCanvas.Children.Clear();
 
             _timeCanvas.Width = 24 * HourWidth;
-            _timeCanvas.Height = (HOUR_HEIGHT + LINE_PADDING) * lineNum + LINE_PADDING;
+            _timeCanvas.Height = TotalHeight;
             _timeCanvas.Children.Clear();
         }
 

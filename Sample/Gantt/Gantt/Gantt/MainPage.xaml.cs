@@ -31,21 +31,25 @@ namespace Gantt
         }
 
         //ChangedCoreWindowPointerWheel
-        private void ChangedCoreWindowPointerWheel(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
+        private void ChangedCoreWindowPointerWheel(object sender, Windows.UI.Core.PointerEventArgs args)
         {
-            double mouseWheelDelta = args.CurrentPoint.Properties.MouseWheelDelta;
-            if (args.KeyModifiers == Windows.System.VirtualKeyModifiers.None)
+            Windows.UI.Input.PointerPoint currentPoint = args.CurrentPoint;
+            double mouseWheelDelta = currentPoint.Properties.MouseWheelDelta;
+            if (currentPoint.Position.Y <= _gantView.TotalHeight)
             {
-                double horizontalOffset = ((_srollViewer.Content as StackPanel).Children[0] as ScrollViewer).HorizontalOffset;
-                horizontalOffset -= mouseWheelDelta;
-                ((_srollViewer.Content as StackPanel).Children[0] as ScrollViewer).ScrollToHorizontalOffset(horizontalOffset);
-                ((_srollViewer.Content as StackPanel).Children[1] as ScrollViewer).ScrollToHorizontalOffset(horizontalOffset);
-            }
-            else if (args.KeyModifiers == Windows.System.VirtualKeyModifiers.Control)
-            {
-                double verticalOffset = ((_srollViewer.Content as StackPanel).Children[0] as ScrollViewer).VerticalOffset;
-                verticalOffset -= mouseWheelDelta;
-                ((_srollViewer.Content as StackPanel).Children[0] as ScrollViewer).ScrollToVerticalOffset(verticalOffset);
+                if (args.KeyModifiers == Windows.System.VirtualKeyModifiers.None)
+                {
+                    double horizontalOffset = ((_srollViewer.Content as StackPanel).Children[0] as ScrollViewer).HorizontalOffset;
+                    horizontalOffset -= mouseWheelDelta;
+                    ((_srollViewer.Content as StackPanel).Children[0] as ScrollViewer).ScrollToHorizontalOffset(horizontalOffset);
+                    ((_srollViewer.Content as StackPanel).Children[1] as ScrollViewer).ScrollToHorizontalOffset(horizontalOffset);
+                }
+                else if (args.KeyModifiers == Windows.System.VirtualKeyModifiers.Control)
+                {
+                    double verticalOffset = ((_srollViewer.Content as StackPanel).Children[0] as ScrollViewer).VerticalOffset;
+                    verticalOffset -= mouseWheelDelta;
+                    ((_srollViewer.Content as StackPanel).Children[0] as ScrollViewer).ScrollToVerticalOffset(verticalOffset);
+                }
             }
         }
 
