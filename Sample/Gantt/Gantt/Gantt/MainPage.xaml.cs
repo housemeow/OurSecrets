@@ -21,10 +21,12 @@ namespace Gantt
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        GanttView _gantView;
+
         public MainPage()
         {
             this.InitializeComponent();
-            GanttView gantView = new GanttView(_canvas);
+            _gantView = new GanttView(_canvas);
         }
 
         /// <summary>
@@ -34,6 +36,20 @@ namespace Gantt
         /// 屬性通常用來設定頁面。</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+        }
+
+        private void ChangedSliderValue(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            /*
+            if (_gantView != null)
+            {
+                double horizontalOffset = _srollViewer.HorizontalOffset;
+                horizontalOffset += 100;
+                horizontalOffset = horizontalOffset / e.OldValue * e.NewValue;
+                horizontalOffset -= 100;
+                _gantView.HourWidth = e.NewValue;
+                _srollViewer.ScrollToHorizontalOffset(horizontalOffset);
+            }*/
         }
     }
 }
