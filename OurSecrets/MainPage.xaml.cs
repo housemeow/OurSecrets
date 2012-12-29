@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +23,17 @@ namespace OurSecrets
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        //private readonly ObservableCollection<Agenda> _objects = new ObservableCollection<Agenda>();
+
+        //public ObservableCollection<Agenda> Objects
+        //{
+        //    get { return _objects; }
+        //}
+        public List<Agenda> AgendaList
+        {
+            get { return _agendas.GetAgendaList(); }
+        }
+
         Agendas _agendas;
         public MainPage()
         {
@@ -39,13 +51,26 @@ namespace OurSecrets
         {
             await ExecuteOnUIThread(() =>
             {
-                _textBlock.Text = _agendas.Count.ToString();
+               // _textBlock.Text = _agendas.Count.ToString();
             });
         }
 
+        public async Task AddAgendaToGridView()
+        {
+            await ExecuteOnUIThread(() =>
+            {
+                //_gridView.Items.Add(new Agenda(new DateTime(2012, 12, 21)));
+                _gridView.Items.Clear();
+                foreach (Agenda agenda in _agendas.GetAgendaList())
+                {
+                    _gridView.Items.Add(agenda);
+                }
+            });
+        }
         private void _agendas_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             Update();
+            AddAgendaToGridView();
         }
 
         /// <summary>
@@ -57,18 +82,19 @@ namespace OurSecrets
         {
         }
 
+        int count = 0;
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             Agenda agenda1 = new Agenda(new DateTime(2012, 1, 1));
-            agenda1.Title = "agenda1";
+            agenda1.Title = "agenda" + (count++).ToString();
             Agenda agenda2 = new Agenda(new DateTime(2012, 1, 2));
-            agenda2.Title = "agenda2";
+            agenda2.Title = "agenda" + (count++).ToString();
             Agenda agenda3 = new Agenda(new DateTime(2012, 1, 3));
-            agenda3.Title = "agenda3";
+            agenda3.Title = "agenda" + (count++).ToString();
             Agenda agenda4 = new Agenda(new DateTime(2012, 1, 4));
-            agenda4.Title = "agenda4";
+            agenda4.Title = "agenda" + (count++).ToString();
             Agenda agenda5 = new Agenda(new DateTime(2012, 1, 5));
-            agenda5.Title = "agenda5";
+            agenda5.Title = "agenda" + (count++).ToString();
             _agendas.AddAgenda(agenda1);
             _agendas.AddAgenda(agenda2);
             _agendas.AddAgenda(agenda3);

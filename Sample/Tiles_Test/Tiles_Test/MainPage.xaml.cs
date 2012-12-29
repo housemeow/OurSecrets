@@ -51,6 +51,8 @@ namespace Tiles_Test
             rect = null;
         }
 
+
+        /* 原始版的拖曳事件*/
         private void myRectangle_DragEnter(object sender, DragEventArgs e)
         {
             ItemContainerGenerator gen = (((Rectangle)sender).Parent as GridView).ItemContainerGenerator;

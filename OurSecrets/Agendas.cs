@@ -281,5 +281,10 @@ namespace OurSecrets
             }
             this.NotifyPropertyChanged(this, new PropertyChangedEventArgs("AgendaList"));
         }
+
+        internal List<Agenda> GetAgendaList()
+        {
+            return _agendaList;
+        }
     }
 }
