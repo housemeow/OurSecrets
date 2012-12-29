@@ -8,8 +8,10 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <ScrollViewer x:Name="_srollViewer" FontFamily="Global User Interface" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Visible" VerticalAlignment="Top">
+        <ScrollViewer x:Name="_srollViewer" FontFamily="Global User Interface" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" VerticalAlignment="Top" Canvas.ZIndex="100" ZoomMode="Disabled">
             <Canvas x:Name="_canvas" Background="#FFD82B2B" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </ScrollViewer>
+        <Slider x:Name="_slider" ValueChanged="ChangedSliderValue" HorizontalAlignment="Left" Margin="71,630,0,0" VerticalAlignment="Top" Width="100" Minimum="100" Maximum="400" SmallChange="20" Orientation="Horizontal"/>
+        <TextBlock HorizontalAlignment="Left" Margin="23,718,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Canvas.ZIndex="-1"/>
     </Grid>
 </Page>
