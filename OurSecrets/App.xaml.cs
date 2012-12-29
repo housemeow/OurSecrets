@@ -25,6 +25,7 @@ namespace OurSecrets
     {
         static public Frame MyMainPage { set; get; }
         static public EditAgendaPage MyEditAgendaPage { set; get; }
+        static public GanttPage MyGanttPage { set; get; }
         static public Agendas AgendasModel = new Agendas();
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -58,11 +59,32 @@ namespace OurSecrets
                 {
                     //TODO: Load state from previously suspended application
                 }
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 1:00"), DateTime.Parse("12/29/2012 3:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 2:00"), DateTime.Parse("12/29/2012 5:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 4:00"), DateTime.Parse("12/29/2012 7:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 6:00"), DateTime.Parse("12/29/2012 9:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 12:15"), DateTime.Parse("12/29/2012 13:15")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 12:20"), DateTime.Parse("12/29/2012 16:15")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 17:15"), DateTime.Parse("12/29/2012 17:20")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 18:20"), DateTime.Parse("12/29/2012 18:50")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 20:00"), DateTime.Parse("12/29/2012 22:15")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 23:15"), DateTime.Parse("12/29/2012 23:50")));
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
                 MyMainPage = rootFrame;
                 MyEditAgendaPage = new EditAgendaPage();
+                MyGanttPage = new GanttPage();
             }
 
             if (rootFrame.Content == null)

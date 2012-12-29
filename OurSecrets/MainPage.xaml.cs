@@ -121,15 +121,20 @@ namespace OurSecrets
         private void ClickButtonEdit(object sender, RoutedEventArgs e)
         {
             App.MyEditAgendaPage.SetEditState(App.AgendasModel.GetAgendaList()[0]);
-
+            App.MyEditAgendaPage.SetPreviousPage(App.MyMainPage);
             Window.Current.Content = App.MyEditAgendaPage;
         }
 
         private void ClickButtonView(object sender, RoutedEventArgs e)
         {
             App.MyEditAgendaPage.SetViewState(App.AgendasModel.GetAgendaList()[0]);
-
+            App.MyEditAgendaPage.SetPreviousPage(App.MyMainPage);
             Window.Current.Content = App.MyEditAgendaPage;
+        }
+
+        private void ClickButtonGantt(object sender, RoutedEventArgs e)
+        {
+            Window.Current.Content = App.MyGanttPage;
         }
     }
 }

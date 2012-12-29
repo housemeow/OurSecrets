@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="OurSecrets.GanttPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:OurSecrets"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer x:Name="_srollViewer" VerticalAlignment="Top" ZoomMode="Disabled" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled" ManipulationMode="All">
+            <StackPanel ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                <ScrollViewer HorizontalContentAlignment="Stretch" ZoomMode="Disabled" HorizontalScrollBarVisibility="Hidden" Background="#FF9E1919" VerticalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" HorizontalScrollMode="Disabled"/>
+                <ScrollViewer HorizontalContentAlignment="Stretch" ZoomMode="Disabled" VerticalScrollMode="Disabled"  Background="#FF9E1919" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Disabled"/>
+            </StackPanel>
+        </ScrollViewer>
+        <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}" Margin="36,0,0,664"/>
+    </Grid>
+</Page>

@@ -8,8 +8,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
+using OurSecrets;
 
-namespace Gantt
+namespace OurSecrets
 {
     public class GanttView
     {
@@ -29,7 +30,7 @@ namespace Gantt
         int _collisionCount = 0;
         double _hourWidth = 100;
 
-        List<Agenda> _agendaList;
+        //List<Agenda> _agendaList;
 
         //GanttView
         public GanttView(ScrollViewer scrollViewer)
@@ -40,29 +41,29 @@ namespace Gantt
 
             InitialTimeBlock();
 
-            _agendaList = new List<Agenda>();
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 1:00"), DateTime.Parse("12/29/2012 3:00")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 2:00"), DateTime.Parse("12/29/2012 5:00")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 4:00"), DateTime.Parse("12/29/2012 7:00")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00"), DateTime.Parse("12/29/2012 9:00")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+            //_agendaList = new List<Agenda>();
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 1:00"), DateTime.Parse("12/29/2012 3:00")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 2:00"), DateTime.Parse("12/29/2012 5:00")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 4:00"), DateTime.Parse("12/29/2012 7:00")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00"), DateTime.Parse("12/29/2012 9:00")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 6:00")));
 
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 12:15"), DateTime.Parse("12/29/2012 13:15")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 12:20"), DateTime.Parse("12/29/2012 16:15")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 17:15"), DateTime.Parse("12/29/2012 17:20")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 18:20"), DateTime.Parse("12/29/2012 18:50")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 20:00"), DateTime.Parse("12/29/2012 22:15")));
-            _agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 23:15"), DateTime.Parse("12/29/2012 23:50")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 12:15"), DateTime.Parse("12/29/2012 13:15")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 12:20"), DateTime.Parse("12/29/2012 16:15")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 17:15"), DateTime.Parse("12/29/2012 17:20")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 18:20"), DateTime.Parse("12/29/2012 18:50")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 20:00"), DateTime.Parse("12/29/2012 22:15")));
+            //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 23:15"), DateTime.Parse("12/29/2012 23:50")));
 
-            Paint(_agendaList);
+            Paint(App.AgendasModel.GetAgendaList());
         }
 
         //InitialScrollView
@@ -84,7 +85,7 @@ namespace Gantt
             {
                 _timeList = new List<GridView>();
                 for (int i = 0; i < 24; i++)
-                { 
+                {
                     GridView gridView = CreateGridView(Colors.Transparent);
                     gridView.BorderBrush = new SolidColorBrush(Colors.DimGray);
                     gridView.BorderThickness = new Thickness(TIME_VERTICAL_THICHNESS, 0, 0, TIME_HORIZONTAL_THICHNESS);
@@ -111,7 +112,7 @@ namespace Gantt
             {
                 return _hourWidth;
             }
-            set 
+            set
             {
                 _hourWidth = value;
             }
@@ -200,7 +201,7 @@ namespace Gantt
                 UILayout uiLayout = new UILayout();
                 width = width >= HOUR_MIN_WIDTH ? width : HOUR_MIN_WIDTH;
                 height = HOUR_HEIGHT;
-                StackPanel stackPanel = uiLayout.GetMode_B_StackPanel(width, height, left, top, startHourMin, endHourMin, "Test");
+                StackPanel stackPanel = uiLayout.GetMode_B_StackPanel(width, height, left, top, startHourMin, endHourMin, agendaList[i].Title);
                 stackPanel.PointerPressed += OnPointerPressed;
                 stackPanel.Tag = agendaList[i];
                 gridViewList.Add(stackPanel);
@@ -212,9 +213,14 @@ namespace Gantt
         {
             StackPanel stackPanel = (StackPanel)sender;
             Agenda agenda = (Agenda)stackPanel.Tag;
+            App.MyEditAgendaPage.SetEditState(agenda);
 
-            ((TextBlock)stackPanel.Children[0]).Text += "AA"; // Time ~ Time
-            ((TextBlock)stackPanel.Children[1]).Text += "BB"; // Title
+
+            App.MyEditAgendaPage.SetPreviousPage(App.MyGanttPage);
+            Window.Current.Content = App.MyEditAgendaPage;
+
+            //((TextBlock)stackPanel.Children[0]).Text += "AA"; // Time ~ Time
+            //((TextBlock)stackPanel.Children[1]).Text += "BB"; // Title
         }
 
         //GetHourMin
