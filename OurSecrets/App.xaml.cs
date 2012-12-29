@@ -23,6 +23,9 @@ namespace OurSecrets
     /// </summary>
     sealed partial class App : Application
     {
+        static public Frame MyMainPage { set; get; }
+        static public EditAgendaPage MyEditAgendaPage { set; get; }
+        static public Agendas AgendasModel = new Agendas();
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -57,6 +60,8 @@ namespace OurSecrets
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
+                MyMainPage = rootFrame;
+                MyEditAgendaPage = new EditAgendaPage();
             }
 
             if (rootFrame.Content == null)

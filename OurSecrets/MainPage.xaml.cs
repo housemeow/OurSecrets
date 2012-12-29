@@ -38,6 +38,9 @@ namespace OurSecrets
         public MainPage()
         {
             this.InitializeComponent();
+            _agendas = App.AgendasModel;
+            _agendas.PropertyChanged += _agendas_PropertyChanged;
+            _agendas.LoadAgendaList();
             //_textBlock.SetBinding(TextBlock.TextProperty, new Binding()
             //{
             //    Source = _agendas,
@@ -83,10 +86,7 @@ namespace OurSecrets
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-
-            _agendas = new Agendas();
-            _agendas.PropertyChanged += _agendas_PropertyChanged;
-            _agendas.LoadAgendaList();
+            ;
         }
 
         int count = 0;
@@ -108,6 +108,11 @@ namespace OurSecrets
             _agendas.AddAgenda(agenda4);
             _agendas.AddAgenda(agenda5);
             _agendas.SaveAgendaList();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Window.Current.Content = App.MyEditAgendaPage;
         }
     }
 }

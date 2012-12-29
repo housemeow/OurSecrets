@@ -60,5 +60,10 @@ namespace OurSecrets
             var selectedItem = this.flipView.SelectedItem;
             // TODO: Derive a serializable navigation parameter and assign it to pageState["SelectedItem"]
         }
+
+        private void GoBack(object sender, RoutedEventArgs e)
+        {
+            Window.Current.Content = App.MyMainPage;
+        }
     }
 }
