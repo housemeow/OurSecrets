@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using Windows.Foundation;
 using Windows.Storage;
 
 namespace OurSecrets
@@ -228,21 +230,14 @@ namespace OurSecrets
 
         protected async void SaveState()
         {
-            try
+            string localData = ToXml(_agendaList);
+            if (!string.IsNullOrEmpty(localData))
             {
-                string localData = ToXml(_agendaList);
-                if (!string.IsNullOrEmpty(localData))
-                {
-                    StorageFile localFile =
-                        await ApplicationData.Current.LocalFolder.CreateFileAsync(
-                            "localData.txt",
-                            CreationCollisionOption.ReplaceExisting);
-                    await FileIO.WriteTextAsync(localFile, localData);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                StorageFile localFile =
+                    await ApplicationData.Current.LocalFolder.CreateFileAsync(
+                        "localData.txt",
+                        CreationCollisionOption.ReplaceExisting);
+                await FileIO.WriteTextAsync(localFile, localData);
             }
         }
 
@@ -250,43 +245,36 @@ namespace OurSecrets
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<Agenda>));
             List<Agenda> value;
+
             using (StringReader stringReader = new StringReader(xml))
             {
                 object deserialized = serializer.Deserialize(stringReader);
                 value = (List<Agenda>)deserialized;
             }
             return value;
-        } 
-
-        //protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
-        //{
-        //    StorageFile localFile;
-        //    try
-        //    {
-        //        localFile = await ApplicationData.Current.LocalFolder.GetFileAsync("localData.txt");
-        //    }
-        //    catch (FileNotFoundException ex)
-        //    {
-        //        localFile = null;
-        //    }
-        //    if (localFile != null)
-        //    {
-        //        string localData = await FileIO.ReadTextAsync(localFile);
-
-
-        //        itemCollection = ObjectSerializer<ObservableCollection<Person>>.FromXml(localData);
-        //    }
-        //    gvData.ItemsSource = itemCollection;
-        //} 
-
-        public void SaveAgendaList()
-        {
-            SaveState();
         }
 
-        public void LoadAgendaList()
+        public Task SaveAgendaList()
         {
-            _agendaList = FromXml("localData.txt");
+            return Task.Run( () => SaveState());
+        }
+
+        public async void LoadAgendaList()
+        {
+            StorageFile localFile;
+            try
+            {
+                localFile = await ApplicationData.Current.LocalFolder.GetFileAsync("localData.txt");
+            }
+            catch (FileNotFoundException ex)
+            {
+                localFile = null;
+            }
+            if (localFile != null)
+            {
+                string localData = await FileIO.ReadTextAsync(localFile);
+                _agendaList = FromXml(localData);
+            }
         }
     }
 }

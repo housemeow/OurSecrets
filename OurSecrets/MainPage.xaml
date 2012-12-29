@@ -8,6 +8,8 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Button Content="Button" HorizontalAlignment="Left" Margin="500,107,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+        <TextBlock x:Name="_textBlock" HorizontalAlignment="Left" Height="84" Margin="918,76,0,0" TextWrapping="Wrap" Text="{Binding _agendas.Count, Mode=TwoWay}" VerticalAlignment="Top" Width="179"/>
 
     </Grid>
 </Page>
