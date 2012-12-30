@@ -272,9 +272,19 @@ namespace OurSecrets
 
         private void GoToDay(object sender, RoutedEventArgs e)
         {
-
+            Window.Current.Content = App.MyMainPage;
         }
 
+        private void GoGantt(object sender, RoutedEventArgs e)
+        {
+            Window.Current.Content = App.MyGanttPage;
+        }
+
+        private void GoCalendar(object sender, RoutedEventArgs e)
+        {
+            Window.Current.Content = App.MyMainPage;
+        }
+        
         private void GoBack(object sender, RoutedEventArgs e)
         {
             Window.Current.Content = App.MyMainPage;
