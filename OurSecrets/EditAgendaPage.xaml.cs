@@ -86,16 +86,16 @@ namespace OurSecrets
 
             _textBoxStartDate.IsReadOnly = false;
             StartDatePicker.IsEnabled = true;
-            //StartDatePicker.SelectedDate = agenda.StartDateTime.Value;
             _textBoxStartDate.Text = agenda.StartDateTime.Value.ToString("MM/dd/yyyy");
+            //StartDatePicker.SelectedDate = agenda.StartDateTime.Value;
 
             _comboBoxStartHour.SelectedIndex = agenda.StartDateTime.Value.Hour;
             _comboBoxStartHour.IsEnabled = true;
 
             _textBoxEndDate.IsReadOnly = false;
             EndDatePicker.IsEnabled = true;
-            //EndDatePicker.SelectedDate = agenda.EndDateTime.Value;
             _textBoxEndDate.Text = agenda.EndDateTime.Value.ToString("MM/dd/yyyy");
+            //EndDatePicker.SelectedDate = agenda.EndDateTime.Value;
 
             _comboBoxEndHour.SelectedIndex = agenda.EndDateTime.Value.Hour;
             _comboBoxEndHour.IsEnabled = true;
@@ -294,6 +294,7 @@ namespace OurSecrets
             }
             //Window.Current.Content = App.MyMainPage;
             App.DailyPage.Refresh();
+            App.MyGanttPage.RePaint();
             Window.Current.Content = PreviousPage;
         }
 
