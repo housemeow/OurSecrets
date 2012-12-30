@@ -53,6 +53,97 @@
                     <Setter Property="Margin" Value="0,137,0,0"/>
                 </Style>
             </FlipView.ItemContainerStyle>
+            <Grid HorizontalAlignment="Left" Width="1247" Margin="126,0,-13,-3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35*"/>
+                    <RowDefinition Height="94*"/>
+                    <RowDefinition Height="70*"/>
+                    <RowDefinition Height="73*"/>
+                    <RowDefinition Height="42*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="271*"/>
+                    <ColumnDefinition Width="32*"/>
+                    <ColumnDefinition Width="628*"/>
+                    <ColumnDefinition Width="316*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="Titile" FontSize="40" TextAlignment="Right" FontFamily="Global User Interface"/>
+                <TextBlock Grid.Row="1" TextWrapping="Wrap" Text="Content" FontSize="40" TextAlignment="Right" Height="90" VerticalAlignment="Top"/>
+                <TextBlock Margin="10,0,0,82" Grid.Row="2" TextWrapping="Wrap" Text="StartDateTime" FontSize="40" RenderTransformOrigin="0.533,0.021" TextAlignment="Right" />
+                <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="EndDateTime" FontSize="40" TextAlignment="Right"/>
+                <TextBlock Grid.Row="4" TextWrapping="Wrap" Text="Important" FontSize="40" TextAlignment="Right" Margin="0,0,0,36"/>
+                <TextBox x:Name="_textBoxTitle" Grid.Column="2" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="66" Width="482" FontSize="30"/>
+                <TextBox x:Name="_textBoxContent" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="168" Width="838" FontSize="30" Grid.ColumnSpan="2"/>
+                <RadioButton x:Name="_radioImportant" Content="Important" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4" VerticalAlignment="Top" Height="52" Width="207" FontSize="30"/>
+                <RadioButton x:Name="_radioCommon" Content="Common" Grid.Column="2" HorizontalAlignment="Left" Margin="193,10,0,0" Grid.Row="4" VerticalAlignment="Top" Height="52" Width="150" FontSize="30" IsChecked="True"/>
+                <RadioButton x:Name="_radioUnimportant" Content="Unimportant" Grid.Column="2" HorizontalAlignment="Left" Margin="368,10,0,0" Grid.Row="4" VerticalAlignment="Top" Height="52" Width="229" FontSize="30"/>
+
+                <ComboBox x:Name="_comboBoxStartHour" Grid.Column="3" Grid.Row="2" Margin="70,62,38,38">
+                    <ListBoxItem Content="0"/>
+                    <ListBoxItem Content="1"/>
+                    <ListBoxItem Content="2"/>
+                    <ListBoxItem Content="3"/>
+                    <ListBoxItem Content="4"/>
+                    <ListBoxItem Content="5"/>
+                    <ListBoxItem Content="6"/>
+                    <ListBoxItem Content="7"/>
+                    <ListBoxItem Content="8"/>
+                    <ListBoxItem Content="9"/>
+                    <ListBoxItem Content="10"/>
+                    <ListBoxItem Content="11"/>
+                    <ListBoxItem Content="12" IsSelected="True"/>
+                    <ListBoxItem Content="13"/>
+                    <ListBoxItem Content="14"/>
+                    <ListBoxItem Content="15"/>
+                    <ListBoxItem Content="16"/>
+                    <ListBoxItem Content="17"/>
+                    <ListBoxItem Content="18"/>
+                    <ListBoxItem Content="19"/>
+                    <ListBoxItem Content="20"/>
+                    <ListBoxItem Content="21"/>
+                    <ListBoxItem Content="22"/>
+                    <ListBoxItem Content="23"/>
+                </ComboBox>
+                <ComboBox x:Name="_comboBoxEndHour" Grid.Column="3" Grid.Row="3" Margin="70,49,38,57">
+                    <ListBoxItem Content="0"/>
+                    <ListBoxItem Content="1"/>
+                    <ListBoxItem Content="2"/>
+                    <ListBoxItem Content="3"/>
+                    <ListBoxItem Content="4"/>
+                    <ListBoxItem Content="5"/>
+                    <ListBoxItem Content="6"/>
+                    <ListBoxItem Content="7"/>
+                    <ListBoxItem Content="8"/>
+                    <ListBoxItem Content="9"/>
+                    <ListBoxItem Content="10"/>
+                    <ListBoxItem Content="11"/>
+                    <ListBoxItem Content="12" IsSelected="True"/>
+                    <ListBoxItem Content="13"/>
+                    <ListBoxItem Content="14"/>
+                    <ListBoxItem Content="15"/>
+                    <ListBoxItem Content="16"/>
+                    <ListBoxItem Content="17"/>
+                    <ListBoxItem Content="18"/>
+                    <ListBoxItem Content="19"/>
+                    <ListBoxItem Content="20"/>
+                    <ListBoxItem Content="21"/>
+                    <ListBoxItem Content="22"/>
+                    <ListBoxItem Content="23"/>
+                </ComboBox>
+                <Grid Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" >
+                    <StackPanel Orientation="Vertical">
+                        <TextBox x:Name="_textBoxStartDate" Text="{Binding SelectedDate, Converter={StaticResource ShortDateConverter}, ElementName=StartDatePicker, Mode=TwoWay}" Margin="260,10,0,10" HorizontalAlignment="Left" Width="102"/>
+                        <c:DateSpinner x:Name="StartDatePicker" Height="84" HorizontalAlignment="Left" Width="596"/>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" >
+                    <StackPanel Orientation="Vertical">
+                        <TextBox x:Name="_textBoxEndDate" Text="{Binding SelectedDate, Converter={StaticResource ShortDateConverter}, ElementName=EndDatePicker, Mode=TwoWay}" Margin="260,10,0,10" HorizontalAlignment="Left" Width="100"/>
+                        <c:DateSpinner x:Name="EndDatePicker" Height="84" Margin="0,0,0,0" HorizontalAlignment="Left" Width="594"/>
+                    </StackPanel>
+                </Grid>
+                <Button x:Name="_buttonOK" Content="OK" HorizontalAlignment="Left" Height="52" VerticalAlignment="Top" Width="183" Grid.Column="3" Margin="70,10,0,0" Grid.Row="4" FontSize="30" Click="ClickButtonSubmit"/>
+            </Grid>
         </FlipView>
 
         <!-- Back button and page title -->
@@ -63,97 +154,6 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <TextBlock x:Name="pageTitle" Style="{StaticResource PageHeaderTextStyle}" Grid.Column="1" IsHitTestVisible="false" Text="Edit My Agenda"/>
-        </Grid>
-        <Grid HorizontalAlignment="Left" Width="1247" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="1" Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="35*"/>
-                <RowDefinition Height="94*"/>
-                <RowDefinition Height="70*"/>
-                <RowDefinition Height="73*"/>
-                <RowDefinition Height="42*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="271*"/>
-                <ColumnDefinition Width="32*"/>
-                <ColumnDefinition Width="628*"/>
-                <ColumnDefinition Width="316*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Margin="10,0,0,0" TextWrapping="Wrap" Text="Titile" FontSize="40" TextAlignment="Right" FontFamily="Global User Interface"/>
-            <TextBlock Grid.Row="1" TextWrapping="Wrap" Text="Content" FontSize="40" TextAlignment="Right" Height="90" VerticalAlignment="Top"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="2" TextWrapping="Wrap" Text="StartDateTime" FontSize="40" RenderTransformOrigin="0.533,0.021" TextAlignment="Right"/>
-            <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="EndDateTime" FontSize="40" TextAlignment="Right"/>
-            <TextBlock Grid.Row="4" TextWrapping="Wrap" Text="Important" FontSize="40" TextAlignment="Right" Margin="0,0,0,36"/>
-            <TextBox x:Name="_textBoxTitle" Grid.Column="2" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="66" Width="482" FontSize="30"/>
-            <TextBox x:Name="_textBoxContent" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="168" Width="838" FontSize="30" Grid.ColumnSpan="2"/>
-            <RadioButton x:Name="_radioImportant" Content="Important" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4" VerticalAlignment="Top" Height="52" Width="207" FontSize="30"/>
-            <RadioButton x:Name="_radioCommon" Content="Common" Grid.Column="2" HorizontalAlignment="Left" Margin="193,10,0,0" Grid.Row="4" VerticalAlignment="Top" Height="52" Width="150" FontSize="30" IsChecked="True"/>
-            <RadioButton x:Name="_radioUnimportant" Content="Unimportant" Grid.Column="2" HorizontalAlignment="Left" Margin="368,10,0,0" Grid.Row="4" VerticalAlignment="Top" Height="52" Width="229" FontSize="30"/>
-
-            <ComboBox x:Name="_comboBoxStartHour" Grid.Column="3" Grid.Row="2" Margin="70,62,38,38">
-                <ListBoxItem Content="0"/>
-                <ListBoxItem Content="1"/>
-                <ListBoxItem Content="2"/>
-                <ListBoxItem Content="3"/>
-                <ListBoxItem Content="4"/>
-                <ListBoxItem Content="5"/>
-                <ListBoxItem Content="6"/>
-                <ListBoxItem Content="7"/>
-                <ListBoxItem Content="8"/>
-                <ListBoxItem Content="9"/>
-                <ListBoxItem Content="10"/>
-                <ListBoxItem Content="11"/>
-                <ListBoxItem Content="12" IsSelected="True"/>
-                <ListBoxItem Content="13"/>
-                <ListBoxItem Content="14"/>
-                <ListBoxItem Content="15"/>
-                <ListBoxItem Content="16"/>
-                <ListBoxItem Content="17"/>
-                <ListBoxItem Content="18"/>
-                <ListBoxItem Content="19"/>
-                <ListBoxItem Content="20"/>
-                <ListBoxItem Content="21"/>
-                <ListBoxItem Content="22"/>
-                <ListBoxItem Content="23"/>
-            </ComboBox>
-            <ComboBox x:Name="_comboBoxEndHour" Grid.Column="3" Grid.Row="3" Margin="70,49,38,57">
-                <ListBoxItem Content="0"/>
-                <ListBoxItem Content="1"/>
-                <ListBoxItem Content="2"/>
-                <ListBoxItem Content="3"/>
-                <ListBoxItem Content="4"/>
-                <ListBoxItem Content="5"/>
-                <ListBoxItem Content="6"/>
-                <ListBoxItem Content="7"/>
-                <ListBoxItem Content="8"/>
-                <ListBoxItem Content="9"/>
-                <ListBoxItem Content="10"/>
-                <ListBoxItem Content="11"/>
-                <ListBoxItem Content="12" IsSelected="True"/>
-                <ListBoxItem Content="13"/>
-                <ListBoxItem Content="14"/>
-                <ListBoxItem Content="15"/>
-                <ListBoxItem Content="16"/>
-                <ListBoxItem Content="17"/>
-                <ListBoxItem Content="18"/>
-                <ListBoxItem Content="19"/>
-                <ListBoxItem Content="20"/>
-                <ListBoxItem Content="21"/>
-                <ListBoxItem Content="22"/>
-                <ListBoxItem Content="23"/>
-            </ComboBox>
-            <Grid Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" >
-                <StackPanel Orientation="Vertical">
-                    <TextBox x:Name="_textBoxStartDate" Text="{Binding SelectedDate, Converter={StaticResource ShortDateConverter}, ElementName=StartDatePicker, Mode=TwoWay}" Margin="260,10,0,10" HorizontalAlignment="Left" Width="102"/>
-                    <c:DateSpinner x:Name="StartDatePicker" Height="84" HorizontalAlignment="Left" Width="596"/>
-                </StackPanel>
-            </Grid>
-            <Grid Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" >
-                <StackPanel Orientation="Vertical">
-                    <TextBox x:Name="_textBoxEndDate" Text="{Binding SelectedDate, Converter={StaticResource ShortDateConverter}, ElementName=EndDatePicker, Mode=TwoWay}" Margin="260,10,0,10" HorizontalAlignment="Left" Width="100"/>
-                    <c:DateSpinner x:Name="EndDatePicker" Height="84" Margin="0,0,0,0" HorizontalAlignment="Left" Width="594"/>
-                </StackPanel>
-            </Grid>
-            <Button x:Name="_buttonOK" Content="OK" HorizontalAlignment="Left" Height="52" VerticalAlignment="Top" Width="183" Grid.Column="3" Margin="70,10,0,0" Grid.Row="4" FontSize="30" Click="ClickButtonSubmit"/>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>

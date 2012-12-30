@@ -27,6 +27,7 @@ namespace OurSecrets
         static public EditAgendaPage MyEditAgendaPage { set; get; }
         static public GanttPage MyGanttPage { set; get; }
         static public Agendas AgendasModel = new Agendas();
+        static public DailyPage DailyPage { set; get; }
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -85,6 +86,7 @@ namespace OurSecrets
                 MyMainPage = rootFrame;
                 MyEditAgendaPage = new EditAgendaPage();
                 MyGanttPage = new GanttPage();
+                DailyPage = new DailyPage();
             }
 
             if (rootFrame.Content == null)
@@ -113,6 +115,51 @@ namespace OurSecrets
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        /// <summary>
+        /// 在啟用應用程式以顯示搜尋結果時叫用。
+        /// </summary>
+        /// <param name="args">有關啟用要求的詳細資料。</param>
+        protected async override void OnSearchActivated(Windows.ApplicationModel.Activation.SearchActivatedEventArgs args)
+        {
+            // TODO: 在 OnWindowCreated 中註冊 Windows.ApplicationModel.Search.SearchPane.GetForCurrentView().QuerySubmitted
+            // 事件，以加速已經執行之應用程式的搜尋速度
+
+            // 如果視窗尚未使用框架巡覽，則插入我們自己的框架
+            var previousContent = Window.Current.Content;
+            var frame = previousContent as Frame;
+
+            // 如果應用程式不包含最上層框架，這可能是
+            // 應用程式的初始啟動。一般而言，這個方法和 App.xaml.cs 中的 OnLaunched 
+            // 可以呼叫共同的方法。
+            if (frame == null)
+            {
+                // 建立框架做為巡覽內容，並與
+                // SuspensionManager 機碼產生關聯
+                frame = new Frame();
+                OurSecrets.Common.SuspensionManager.RegisterFrame(frame, "AppFrame");
+
+                if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                {
+                    // 只在適當時還原儲存的工作階段狀態
+                    try
+                    {
+                        await OurSecrets.Common.SuspensionManager.RestoreAsync();
+                    }
+                    catch (OurSecrets.Common.SuspensionManagerException)
+                    {
+                        //發生狀況，還原狀態。
+                        //假定沒有狀態，並繼續
+                    }
+                }
+            }
+
+            //frame.Navigate(typeof(SearchResultsPage1), args.QueryText);
+            Window.Current.Content = frame;
+
+            // 確定目前視窗是作用中
+            Window.Current.Activate();
         }
     }
 }

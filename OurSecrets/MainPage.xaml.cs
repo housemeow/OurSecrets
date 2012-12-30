@@ -136,5 +136,10 @@ namespace OurSecrets
         {
             Window.Current.Content = App.MyGanttPage;
         }
+
+        private void ClickButtonDaliyPage(object sender, RoutedEventArgs e)
+        {
+            Window.Current.Content = App.DailyPage;
+        }
     }
 }
