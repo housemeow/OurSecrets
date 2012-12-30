@@ -32,6 +32,14 @@ namespace OurSecrets
             Window.Current.CoreWindow.PointerWheelChanged += new TypedEventHandler<Windows.UI.Core.CoreWindow, Windows.UI.Core.PointerEventArgs>(ChangedCoreWindowPointerWheel);
         }
 
+        public void RePaint()
+        {
+            if (_gantView != null)
+            {
+                _gantView.Paint(App.AgendasModel.GetAgendaList());
+            }
+        }
+
         void AgendasModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             _gantView.Paint(App.AgendasModel.GetAgendaList());
@@ -85,6 +93,25 @@ namespace OurSecrets
 
         private void GoBack(object sender, RoutedEventArgs e)
         {
+            Window.Current.Content = App.MyMainPage;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void SwithchFree(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void GoToDay(object sender, RoutedEventArgs e)
+        {
+
+            Window.Current.Content = App.DailyPage;
+        }
+        private void GoCalendar(object sender, RoutedEventArgs e)
+        {
+
             Window.Current.Content = App.MyMainPage;
         }
     }

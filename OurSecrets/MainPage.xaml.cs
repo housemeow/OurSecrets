@@ -48,6 +48,8 @@ namespace OurSecrets
             //    Path = new PropertyPath("Count"),
             //    Mode = BindingMode.TwoWay
             //});
+            CalenderView calenderView = new CalenderView(_itemsControl);
+            calenderView.Paint(2012, 12, 28);
         }
 
         public IAsyncAction ExecuteOnUIThread(Windows.UI.Core.DispatchedHandler action)
@@ -66,12 +68,12 @@ namespace OurSecrets
         {
             await ExecuteOnUIThread(() =>
             {
-                //_gridView.Items.Add(new Agenda(new DateTime(2012, 12, 21)));
-                _gridView.Items.Clear();
-                foreach (Agenda agenda in App.AgendasModel.GetAgendaList())
-                {
-                    _gridView.Items.Add(agenda);
-                }
+                ////_gridView.Items.Add(new Agenda(new DateTime(2012, 12, 21)));
+                //_gridView.Items.Clear();
+                //foreach (Agenda agenda in App.AgendasModel.GetAgendaList())
+                //{
+                //    _gridView.Items.Add(agenda);
+                //}
             });
         }
         private void _agendas_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -141,6 +143,21 @@ namespace OurSecrets
         {
             App.DailyPage.Refresh();
             Window.Current.Content = App.DailyPage;
+        }
+
+        private void SwithchFree(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void GoToDay(object sender, RoutedEventArgs e)
+        {
+
+            Window.Current.Content = App.DailyPage;
+        }
+        private void GoGantt(object sender, RoutedEventArgs e)
+        {
+
+            Window.Current.Content = App.MyGanttPage;
         }
     }
 }

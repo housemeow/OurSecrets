@@ -8,8 +8,8 @@ namespace OurSecrets
 {
     public class Agenda : INotifyPropertyChanged
     {
-        private DateTime? _startDateTime;
-        private DateTime? _endDateTime;
+        public DateTime? _startDateTime;
+        public DateTime? _endDateTime;
         public event PropertyChangedEventHandler PropertyChanged;
         private ValueEnum _value;
         private string _title;

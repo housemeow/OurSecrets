@@ -178,9 +178,9 @@ namespace OurSecrets
                 //GridView gridView = CreateGridView(Colors.DarkGreen);
                 double startHourMin = GetHourMin(agendaList[i].StartDateTime);
                 double endHourMin = GetHourMin(agendaList[i].EndDateTime);
-                double width = (endHourMin - startHourMin) * HourWidth;
+                double width = (endHourMin - startHourMin) / 60.0 * HourWidth;
                 double height;
-                double left = startHourMin * HourWidth;
+                double left = startHourMin / 60.0 * HourWidth;
                 double top = LINE_PADDING;
                 for (int j = 0; j < i; j++)
                 {
@@ -228,7 +228,7 @@ namespace OurSecrets
         {
             int hour = dateTime.Value.Hour;
             int min = dateTime.Value.Minute;
-            return (double)hour + (double)min / (double)60;
+            return (double)hour*60 + (double)min;
         }
     }
 }
