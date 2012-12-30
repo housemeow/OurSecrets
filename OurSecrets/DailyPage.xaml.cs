@@ -446,6 +446,20 @@ namespace OurSecrets
 
         void stackPanel_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            DateTime Day = firstDate;
+            GridView[] days = { FirstDay, SecondDay, ThirdDay };
+            for (int DayTitleIndex = 0; DayTitleIndex < days.Length; DayTitleIndex++)
+            {
+                for (int AgendaIndex = 0; AgendaIndex < days[DayTitleIndex].Items.Count; AgendaIndex++)
+			    {
+                    if ((days[DayTitleIndex].Items[AgendaIndex] as GridView).Items.Contains(sender))
+                    {
+                        Day = firstDate.AddDays(DayTitleIndex);
+                        break;
+                    }
+			    }
+            }
+            App.MyGanttPage.dateTime = Day;
             Window.Current.Content = App.MyGanttPage;
         }
 
