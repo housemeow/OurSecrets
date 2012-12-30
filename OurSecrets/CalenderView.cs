@@ -169,7 +169,8 @@ namespace OurSecrets
             if (stackPanel.Tag != null)
             {
                 App.DailyPage.firstDate = (DateTime)stackPanel.Tag;
-                App.MyGanttPage._gantView.DateTime = (DateTime)stackPanel.Tag;
+                App.MyGanttPage.GantView.DateTime = (DateTime)stackPanel.Tag;
+                App.MyGanttPage.SetText((DateTime)stackPanel.Tag);
                 App.DailyPage.Refresh();
                 Window.Current.Content = App.DailyPage;
             }

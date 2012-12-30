@@ -22,25 +22,25 @@ namespace OurSecrets
     /// </summary>
     public sealed partial class GanttPage : Page
     {
-        public GanttView _gantView;
+        public GanttView GantView;
 
         public GanttPage()
         {
             this.InitializeComponent();
-            _gantView = new GanttView(_srollViewer);
+            GantView = new GanttView(_srollViewer);
             App.AgendasModel.PropertyChanged += AgendasModel_PropertyChanged;
             Window.Current.CoreWindow.PointerWheelChanged += new TypedEventHandler<Windows.UI.Core.CoreWindow, Windows.UI.Core.PointerEventArgs>(ChangedCoreWindowPointerWheel);
         }
 
         public void RePaint()
         {
-            if (_gantView != null)
+            if (GantView != null)
             {
                 //DateTimeSorter sorter = new DateTimeSorter();
                 //List<Agenda> agneda = sorter.Sort(App.AgendasModel.GetAgendaList(_gantView.DateTime));
                 //_gantView.PaintGantt(agneda);
 
-                _gantView.PaintGantt(App.AgendasModel.GetAgendaList(_gantView.DateTime));
+                GantView.PaintGantt(App.AgendasModel.GetAgendaList(GantView.DateTime));
             }
         }
 
@@ -50,7 +50,7 @@ namespace OurSecrets
             //List<Agenda> agneda = sorter.Sort(App.AgendasModel.GetAgendaList(_gantView.DateTime));
             //_gantView.PaintGantt(agneda);
 
-            _gantView.PaintGantt(App.AgendasModel.GetAgendaList(_gantView.DateTime));
+            GantView.PaintGantt(App.AgendasModel.GetAgendaList(GantView.DateTime));
         }
 
         //ChangedCoreWindowPointerWheel
@@ -58,7 +58,7 @@ namespace OurSecrets
         {
             Windows.UI.Input.PointerPoint currentPoint = args.CurrentPoint;
             double mouseWheelDelta = currentPoint.Properties.MouseWheelDelta;
-            if (currentPoint.Position.Y <= _gantView.TotalHeight)
+            if (currentPoint.Position.Y <= GantView.TotalHeight)
             {
                 if (args.KeyModifiers == Windows.System.VirtualKeyModifiers.None)
                 {
@@ -122,6 +122,11 @@ namespace OurSecrets
 
             App.DailyPage.Refresh();
             Window.Current.Content = App.MyMainPage;
+        }
+
+        internal void SetText(DateTime dateTime)
+        {
+            _textBoxDate.Text = dateTime.ToString("MM/dd/yyyy");
         }
     }
 }

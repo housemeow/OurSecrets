@@ -15,6 +15,7 @@
             </StackPanel>
         </ScrollViewer>
         <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}" Margin="36,0,0,664"/>
+        <TextBlock x:Name="_textBoxDate" HorizontalAlignment="Left" Margin="36,615,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Height="44" Width="257" FontSize="40"/>
     </Grid>
 
     <Page.BottomAppBar>
