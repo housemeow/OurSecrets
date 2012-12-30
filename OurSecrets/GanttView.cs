@@ -63,7 +63,7 @@ namespace OurSecrets
             //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 20:00"), DateTime.Parse("12/29/2012 22:15")));
             //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 23:15"), DateTime.Parse("12/29/2012 23:50")));
 
-            Paint(App.AgendasModel.GetAgendaList());
+            Paint(App.AgendasModel.GetAgendaList(DateTime.Now));
         }
 
         //InitialScrollView

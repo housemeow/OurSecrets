@@ -23,11 +23,13 @@ namespace OurSecrets
     public sealed partial class GanttPage : Page
     {
         GanttView _gantView;
+        public DateTime dateTime;
 
         public GanttPage()
         {
             this.InitializeComponent();
             _gantView = new GanttView(_srollViewer);
+            dateTime = DateTime.Now;
             App.AgendasModel.PropertyChanged += AgendasModel_PropertyChanged;
             Window.Current.CoreWindow.PointerWheelChanged += new TypedEventHandler<Windows.UI.Core.CoreWindow, Windows.UI.Core.PointerEventArgs>(ChangedCoreWindowPointerWheel);
         }
@@ -36,13 +38,13 @@ namespace OurSecrets
         {
             if (_gantView != null)
             {
-                _gantView.Paint(App.AgendasModel.GetAgendaList());
+                _gantView.Paint(App.AgendasModel.GetAgendaList(dateTime));
             }
         }
 
         void AgendasModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            _gantView.Paint(App.AgendasModel.GetAgendaList());
+            RePaint();
         }
 
         //ChangedCoreWindowPointerWheel

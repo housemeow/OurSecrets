@@ -14,7 +14,7 @@
                 <ScrollViewer HorizontalContentAlignment="Stretch" ZoomMode="Disabled" VerticalScrollMode="Disabled"  Background="#FF9E1919" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Disabled"/>
             </StackPanel>
         </ScrollViewer>
-        <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}" Margin="36,0,0,664"/>
+        <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}" Margin="36,36,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
     </Grid>
 
     <Page.BottomAppBar>
