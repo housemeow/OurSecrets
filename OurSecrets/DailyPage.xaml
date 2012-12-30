@@ -36,6 +36,9 @@
             <GridView x:Name="ThirdDay" Grid.Row="3" Grid.Column="1" Margin="0,0,0,-31" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" IsSynchronizedWithCurrentItem="False" CanReorderItems="True">
 
             </GridView>
+            <GridView x:Name="First_" HorizontalAlignment="Left" Grid.RowSpan="2" VerticalAlignment="Top" Width="152" Height="150" ManipulationMode="None" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" SelectionMode="None"/>
+            <GridView x:Name="Second_" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Width="152" Height="150" ManipulationMode="None" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" SelectionMode="None"/>
+            <GridView x:Name="Third_" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top" Width="152" Height="181" Margin="0,0,0,-31" ManipulationMode="None" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" SelectionMode="None"/>
         </Grid>
         <Grid HorizontalAlignment="Left" Height="138" Grid.Row="2" VerticalAlignment="Top" Width="1366" Grid.ColumnSpan="2">
             <Grid.Background>

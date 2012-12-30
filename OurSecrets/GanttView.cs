@@ -29,7 +29,7 @@ namespace OurSecrets
         List<GridView> _timeList;
         int _collisionCount = 0;
         double _hourWidth = 100;
-
+        
         //List<Agenda> _agendaList;
 
         //GanttView

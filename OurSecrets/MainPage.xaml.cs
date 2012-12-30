@@ -139,6 +139,7 @@ namespace OurSecrets
 
         private void ClickButtonDaliyPage(object sender, RoutedEventArgs e)
         {
+            App.DailyPage.Refresh();
             Window.Current.Content = App.DailyPage;
         }
     }
