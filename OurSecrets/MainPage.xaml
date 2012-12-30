@@ -24,9 +24,9 @@
         <TextBlock HorizontalAlignment="Left" Height="59" TextWrapping="Wrap" Text="CalenDrag" VerticalAlignment="Top" Width="397" FontFamily="Global User Interface" FontSize="50" Margin="45,10,0,0" />
 
         <TextBlock x:Name="_textBlock" HorizontalAlignment="Left" Height="84" Margin="918,76,0,0" TextWrapping="Wrap" Text="{Binding _agendas.Count, Mode=TwoWay}" VerticalAlignment="Top" Width="179"/>
-        <Button Content="NewAgenda" HorizontalAlignment="Left" Margin="1017,274,0,0" VerticalAlignment="Top" Click="ClickButtonNew"/>
-        <Button Content="EditAgenda" HorizontalAlignment="Left" Margin="1017,50,0,0" VerticalAlignment="Top" Click="ClickButtonEdit"/>
-        <Button Content="ViewAgenda" HorizontalAlignment="Left" Margin="1102,204,0,0" VerticalAlignment="Top" Click="ClickButtonView"/>
+        <Button Content="NewAgenda" HorizontalAlignment="Left" Margin="1017,274,0,0" VerticalAlignment="Top" Click="ClickButtonNew" Visibility="Collapsed"/>
+        <Button Content="EditAgenda" HorizontalAlignment="Left" Margin="1017,50,0,0" VerticalAlignment="Top" Click="ClickButtonEdit" Visibility="Collapsed"/>
+        <Button Content="ViewAgenda" HorizontalAlignment="Left" Margin="1102,204,0,0" VerticalAlignment="Top" Click="ClickButtonView" Visibility="Collapsed"/>
 
         <!--
         <Grid >
@@ -43,8 +43,8 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="switchBarButton" Style="{StaticResource SwitchAppsAppBarButtonStyle}" Click="SwithchFree"    
-        AutomationProperties.Name="Free/Busy"/>
+                    <!--<Button x:Name="switchBarButton" Style="{StaticResource SwitchAppsAppBarButtonStyle}" Click="SwithchFree"    
+        AutomationProperties.Name="Free/Busy"/>-->
                     <Button Style="{StaticResource GoToTodayAppBarButtonStyle}" Click="GoToDay"/>
                     <Button Style="{StaticResource GoToStartAppBarButtonStyle}" Click="GoGantt" AutomationProperties.Name="Go Gantt"/>
                 </StackPanel>

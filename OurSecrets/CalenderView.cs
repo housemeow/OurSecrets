@@ -42,22 +42,30 @@ namespace OurSecrets
 
             int count = 0;
             for (int i = 0; i < 7; i++)
-            { 
-                _itemsConrol.Items.Add(CreateStackPanel(((DayOfWeek)i).ToString(), WeekColor(-1)));
+            {
+                StackPanel stackPanel = CreateStackPanel(((DayOfWeek)i).ToString(), WeekColor(-1));
+                stackPanel.Tag = null;
+                _itemsConrol.Items.Add(stackPanel);
             }
             for (int i = 1; i <= nowMonthWeek; i++)
             {
-                _itemsConrol.Items.Add(CreateStackPanel(month - 1 < 1 ? month - 1 + 12 : month - 1, lastMonthDays - nowMonthWeek + i, WeekColor(7)));
+                StackPanel stackPanel = CreateStackPanel(month - 1 < 1 ? month - 1 + 12 : month - 1, lastMonthDays - nowMonthWeek + i, WeekColor(7));
+                stackPanel.Tag = new DateTime(year, month - 1 < 1 ? month - 1 + 12 : month - 1, lastMonthDays - nowMonthWeek + i);
+                _itemsConrol.Items.Add(stackPanel);
                 count = (count + 1) % 7;
             }
             for (int i = 1; i <= nowMonthDays; i++)
             {
-                _itemsConrol.Items.Add(CreateStackPanel(month, i, WeekColor(count)));
+                StackPanel stackPanel = CreateStackPanel(month, i, WeekColor(count));
+                stackPanel.Tag = new DateTime(year, month, i);
+                _itemsConrol.Items.Add(stackPanel);
                 count = (count + 1) % 7;
             }
             for (int i = 1; i <= 7 - nextMonthWeek; i++)
             {
-                _itemsConrol.Items.Add(CreateStackPanel(month + 1 > 12 ? month + 1 - 12 : month + 1, i, WeekColor(7)));
+                StackPanel stackPanel = CreateStackPanel(month + 1 > 12 ? month + 1 - 12 : month + 1, i, WeekColor(7));
+                stackPanel.Tag = new DateTime(year, month + 1 > 12 ? month + 1 - 12 : month + 1, i);
+                _itemsConrol.Items.Add(stackPanel);
                 count = (count + 1) % 7;
             }
         }
@@ -135,7 +143,13 @@ namespace OurSecrets
 
         private void OnPointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
-            
+            StackPanel stackPanel = (StackPanel)sender;
+            if (stackPanel.Tag != null)
+            {
+                App.DailyPage.firstDate = (DateTime)stackPanel.Tag;
+                App.DailyPage.Refresh();
+                Window.Current.Content = App.DailyPage;
+            }
         }
     }
 }

@@ -127,6 +127,7 @@ namespace OurSecrets
                             }
                             else if (dayindex < 3)
                             {
+//<<<<<<< HEAD
                                 DateTime leftTime = firstDate.AddDays(dayindex);
                                 DateTime rightTime= firstDate.AddDays(dayindex);
 
@@ -175,6 +176,30 @@ namespace OurSecrets
                                     App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
                                     Window.Current.Content = App.MyEditAgendaPage;
                                 }
+//=======
+//                                App.MyEditAgendaPage.SetStartDate(firstDate);
+//                                App.MyEditAgendaPage.SetEndDate(firstDate);
+//                                App.MyEditAgendaPage.SetNewState();
+//                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+//                                Window.Current.Content = App.MyEditAgendaPage;
+//                            }
+//                            else if (dayindex == 1)
+//                            {
+//                                App.MyEditAgendaPage.SetStartDate(firstDate.AddDays(1));
+//                                App.MyEditAgendaPage.SetEndDate(firstDate.AddDays(1));
+//                                App.MyEditAgendaPage.SetNewState();
+//                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+//                                Window.Current.Content = App.MyEditAgendaPage;
+//                            }
+//                            else if (dayindex == 2)
+//                            {
+//                                App.MyEditAgendaPage.SetStartDate(firstDate.AddDays(2));
+//                                App.MyEditAgendaPage.SetEndDate(firstDate.AddDays(2));
+//                                App.MyEditAgendaPage.SetNewState();
+//                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+//                                //App.MyEditAgendaPage.
+//                                Window.Current.Content = App.MyEditAgendaPage;
+//>>>>>>> e6102835d3c1c886f6af430444fbd69730937cd3
                             }
                             else
                             {

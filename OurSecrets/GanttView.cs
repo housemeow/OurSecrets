@@ -70,7 +70,8 @@ namespace OurSecrets
         private void InitialScrollViews()
         {
             _mainCanvas = new Canvas();
-            _mainScrollViewer.Height = (HOUR_HEIGHT + LINE_PADDING) * LINE_MAX_NUMBER + LINE_PADDING;
+            //_mainScrollViewer.Height = (HOUR_HEIGHT + LINE_PADDING) * LINE_MAX_NUMBER + LINE_PADDING;
+            _mainScrollViewer.Height = Window.Current.Bounds.Height - TIME_HEIGHT;
             _mainScrollViewer.Content = _mainCanvas;
 
             _timeCanvas = new Canvas();
@@ -130,9 +131,9 @@ namespace OurSecrets
         private void InitialCanvas()
         {
             int linesNum = _collisionCount <= LINE_MAX_NUMBER ? LINE_MAX_NUMBER : _collisionCount;
-
+            double height = (HOUR_HEIGHT + LINE_PADDING) * linesNum + LINE_PADDING;
             _mainCanvas.Width = 24 * HourWidth;
-            _mainCanvas.Height = (HOUR_HEIGHT + LINE_PADDING) * linesNum + LINE_PADDING;
+            _mainCanvas.Height = height >= Window.Current.Bounds.Height - TIME_HEIGHT ? height : Window.Current.Bounds.Height - TIME_HEIGHT;
             _mainCanvas.Children.Clear();
 
             _timeCanvas.Width = 24 * HourWidth;

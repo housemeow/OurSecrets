@@ -82,8 +82,8 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="switchBarButton" Style="{StaticResource SwitchAppsAppBarButtonStyle}" Click="SwithchFree"    
-        AutomationProperties.Name="Free/Busy"/>
+                   <!-- <Button x:Name="switchBarButton" Style="{StaticResource SwitchAppsAppBarButtonStyle}" Click="SwithchFree"    
+        AutomationProperties.Name="Free/Busy"/>-->
                     <Button Style="{StaticResource GoToTodayAppBarButtonStyle}" Click="GoCalendar" AutomationProperties.Name="Go Calendar"/>
                     <Button Style="{StaticResource GoToStartAppBarButtonStyle}" Click="GoGantt" AutomationProperties.Name="Go Gantt"/>
                 </StackPanel>
