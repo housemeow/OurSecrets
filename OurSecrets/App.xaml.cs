@@ -72,7 +72,19 @@ namespace OurSecrets
                 AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 6:00")));
                 AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 6:00")));
                 AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/24/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/24/2012 12:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/25/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/27/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/28/2012 18:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/28/2012 18:00")));
                 AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/30/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/21/2012 12:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/21/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/22/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/18/2012 6:00")));
+                AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/20/2012 7:00")));
 
                 AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 12:15"), DateTime.Parse("12/29/2012 13:15")));
                 AgendasModel.AddAgenda(new Agenda(DateTime.Parse("12/29/2012 12:20"), DateTime.Parse("12/29/2012 16:15")));

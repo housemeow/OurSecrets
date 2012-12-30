@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="#FF760909">
         <ScrollViewer x:Name="_srollViewer" VerticalAlignment="Top" ZoomMode="Disabled" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled" ManipulationMode="All">
             <StackPanel ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                 <ScrollViewer HorizontalContentAlignment="Stretch" ZoomMode="Disabled" HorizontalScrollBarVisibility="Hidden" Background="#FF9E1919" VerticalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" HorizontalScrollMode="Disabled"/>
