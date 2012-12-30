@@ -176,8 +176,8 @@ namespace OurSecrets
         /* 原始版的拖曳事件*/
         private void myRectangle_DragEnter(object sender, DragEventArgs e)
         {
-            ItemContainerGenerator gen = (((Rectangle)sender).Parent as GridView).ItemContainerGenerator;
-            GridView view = (((Rectangle)sender).Parent as GridView);
+            ItemContainerGenerator gen = (((GridView)sender).Parent as GridView).ItemContainerGenerator;
+            GridView view = (((GridView)sender).Parent as GridView);
             ItemCollection items = view.Items;
             int i = items.IndexOf(sender);
             int emptyIndex = 100;
@@ -344,29 +344,35 @@ namespace OurSecrets
             First_.Items.Clear();
             Second_.Items.Clear();
             Third_.Items.Clear();
-            GridView[] days = { First_, Second_, Third_ };
-            GridView[] dayLists = { FirstDay, SecondDay, ThirdDay };
+            GridView[] dayTitles = { First_, Second_, Third_ };
+            GridView[] dayAgendas = { FirstDay, SecondDay, ThirdDay };
             DayAgenda day = App.AgendasModel.GetDay(DateTime.Today);
             DateTime time = firstDate;
-            for (int i = 0; i < days.Length; i++)
+            for (int titleIndex = 0; titleIndex < dayTitles.Length; titleIndex++)
             {
                 UILayout uiLayout = new UILayout();
                 uiLayout.SolidColorBrush = Colors.LightSeaGreen;
                 StackPanel stackPanel = uiLayout.GetMode_A_StackPanel(100, 100, 5,time.Month , time.Day);
-                days[i].Items.Add(stackPanel);
+                dayTitles[titleIndex].Items.Add(stackPanel);
 
-                dayLists[i].Items.Clear();
+                dayAgendas[titleIndex].Items.Clear();
                 List<Agenda> agendaList = App.AgendasModel.GetAgendaList(time);
-                for (int j = 0; j < agendaList.Count; j++)
+                for (int agendaIndex = 0; agendaIndex < agendaList.Count; agendaIndex++)
                 {
                     //DayAgenda day = App.AgendasModel.GetDayList(time).ElementAt(i);
                     UILayout uiLayout2 = new UILayout();
-                    int hour = agendaList[i].StartDateTime.Value.Hour;
-                    int min = agendaList[i].StartDateTime.Value.Minute;
-                    int hour2 = agendaList[i].EndDateTime.Value.Hour;
-                    int min2 = agendaList[i].EndDateTime.Value.Minute;
-                    StackPanel stackPanel2 = uiLayout2.GetMode_B_StackPanel(150, 100,0,0,hour*60+min,hour2*60+min2,agendaList[i].Title);
-                    dayLists[i].Items.Add(stackPanel2);
+                    int hour = agendaList[agendaIndex].StartDateTime.Value.Hour;
+                    int min = agendaList[agendaIndex].StartDateTime.Value.Minute;
+                    int hour2 = agendaList[agendaIndex].EndDateTime.Value.Hour;
+                    int min2 = agendaList[agendaIndex].EndDateTime.Value.Minute;
+                    StackPanel stackPanel2 = uiLayout2.GetMode_B_StackPanel(150, 100,0,0,hour*60+min,hour2*60+min2,agendaList[agendaIndex].Title);
+
+                    GridView agenda = new GridView();
+                    agenda.AllowDrop = true;
+                    agenda.DragEnter += myRectangle_DragEnter;
+                    agenda.Items.Add(stackPanel2);
+                    dayAgendas[titleIndex].Items.Add(agenda);
+                    uiLayout2 = null;
                 }
 
                 time = time.AddDays(1);
