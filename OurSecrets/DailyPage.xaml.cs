@@ -136,46 +136,52 @@ namespace OurSecrets
                                     //新增第一筆資料
 
                                 }
-                                else if (index==0)
-                                {
-                                    //抓右邊
-                                    rightTime = ((Agenda)((Day.Items[1] as GridView).Items[0] as StackPanel).Tag)._startDateTime.Value;
-                                    leftTime = ((Agenda)((Day.Items[1] as GridView).Items[0] as StackPanel).Tag)._startDateTime.Value;
-                                }
-                                else if (index == Day.Items.Count - 1 || index == -1 && Day.Items.Count != 0)
-                                {
-                                    //抓左邊
-                                    if (index == -1)
-                                    {
-                                        index = Day.Items.Count;
-                                    }
-                                    StackPanel a = (StackPanel)(Day.Items[index - 1] as GridView).Items[0];
-                                    Agenda Iagenda = (Agenda)((Day.Items[index - 1] as GridView).Items[0] as StackPanel).Tag;
-                                    rightTime = Iagenda.EndDateTime.Value;
-                                    leftTime = Iagenda.EndDateTime.Value;
-                                }
-                                else
-                                {
-                                    //抓兩邊
-                                    rightTime = ((Agenda)((Day.Items[index + 1] as GridView).Items[0] as StackPanel).Tag)._startDateTime.Value;
-                                    leftTime = ((Agenda)((Day.Items[index - 1] as GridView).Items[0] as StackPanel).Tag).EndDateTime.Value;
-                                }
-                                if (index == -1 && Day.Items.Count == 0)
-                                {
-                                    App.MyEditAgendaPage.SetStartDate(firstDate.AddDays(dayindex));
-                                    App.MyEditAgendaPage.SetEndDate(firstDate.AddDays(dayindex));
-                                    App.MyEditAgendaPage.SetNewState();
-                                    App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
-                                    Window.Current.Content = App.MyEditAgendaPage;
-                                }
-                                else
-                                {
-                                    App.MyEditAgendaPage.SetStartDate(leftTime);
-                                    App.MyEditAgendaPage.SetEndDate(rightTime);
-                                    App.MyEditAgendaPage.SetNewState();
-                                    App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
-                                    Window.Current.Content = App.MyEditAgendaPage;
-                                }
+                                //else if (index==0)
+                                //{
+                                //    //抓右邊
+                                //    rightTime = ((Agenda)((Day.Items[1] as GridView).Items[0] as StackPanel).Tag)._startDateTime.Value;
+                                //    leftTime = ((Agenda)((Day.Items[1] as GridView).Items[0] as StackPanel).Tag)._startDateTime.Value;
+                                //}
+                                //else if (index == Day.Items.Count - 1 || index == -1 && Day.Items.Count != 0)
+                                //{
+                                //    //抓左邊
+                                //    if (index == -1)
+                                //    {
+                                //        index = Day.Items.Count;
+                                //    }
+                                //    StackPanel a = (StackPanel)(Day.Items[index - 1] as GridView).Items[0];
+                                //    Agenda Iagenda = (Agenda)((Day.Items[index - 1] as GridView).Items[0] as StackPanel).Tag;
+                                //    rightTime = Iagenda.EndDateTime.Value;
+                                //    leftTime = Iagenda.EndDateTime.Value;
+                                //}
+                                //else
+                                //{
+                                //    //抓兩邊
+                                //    rightTime = ((Agenda)((Day.Items[index + 1] as GridView).Items[0] as StackPanel).Tag)._startDateTime.Value;
+                                //    leftTime = ((Agenda)((Day.Items[index - 1] as GridView).Items[0] as StackPanel).Tag).EndDateTime.Value;
+                                //}
+                                //if (index == -1 && Day.Items.Count == 0)
+                                //{
+                                //    App.MyEditAgendaPage.SetStartDate(firstDate.AddDays(dayindex));
+                                //    App.MyEditAgendaPage.SetEndDate(firstDate.AddDays(dayindex));
+                                //    App.MyEditAgendaPage.SetNewState();
+                                //    App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+                                //    Window.Current.Content = App.MyEditAgendaPage;
+                                //}
+                                App.MyEditAgendaPage.SetStartDate(firstDate.AddDays(dayindex));
+                                App.MyEditAgendaPage.SetEndDate(firstDate.AddDays(dayindex));
+                                App.MyEditAgendaPage.SetNewState();
+                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+                                Window.Current.Content = App.MyEditAgendaPage;
+                                //}
+                                //else
+                                //{
+                                //    App.MyEditAgendaPage.SetStartDate(leftTime);
+                                //    App.MyEditAgendaPage.SetEndDate(rightTime);
+                                //    App.MyEditAgendaPage.SetNewState();
+                                //    App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+                                //    Window.Current.Content = App.MyEditAgendaPage;
+                                //}
 //=======
 //                                App.MyEditAgendaPage.SetStartDate(firstDate);
 //                                App.MyEditAgendaPage.SetEndDate(firstDate);
