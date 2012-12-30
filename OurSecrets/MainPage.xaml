@@ -10,17 +10,24 @@
     <Page.Resources>
         <c:ShortDateConverter x:Key="ShortDateConverter"/>
     </Page.Resources>
-    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <Button Content="Button" HorizontalAlignment="Left" Margin="500,107,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
-        <TextBlock x:Name="_textBlock" HorizontalAlignment="Left" Height="84" Margin="918,76,0,0" TextWrapping="Wrap" Text="{Binding _agendas.Count, Mode=TwoWay}" VerticalAlignment="Top" Width="179"/>
-        <GridView x:Name="_gridView" HorizontalAlignment="Left" Margin="103,10,0,-12" VerticalAlignment="Top" Width="419" Height="770">
 
-        </GridView>
-        <Button Content="NewAgenda" HorizontalAlignment="Left" Margin="833,204,0,0" VerticalAlignment="Top" Click="ClickButtonNew"/>
-        <Button Content="EditAgenda" HorizontalAlignment="Left" Margin="968,204,0,0" VerticalAlignment="Top" Click="ClickButtonEdit"/>
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+
+        <ItemsControl x:Name="_itemsControl">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapGrid Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <TextBlock HorizontalAlignment="Left" Height="59" TextWrapping="Wrap" Text="CalenDrag" VerticalAlignment="Top" Width="397" FontFamily="Global User Interface" FontSize="50" Margin="45,10,0,0" />
+
+        <TextBlock x:Name="_textBlock" HorizontalAlignment="Left" Height="84" Margin="918,76,0,0" TextWrapping="Wrap" Text="{Binding _agendas.Count, Mode=TwoWay}" VerticalAlignment="Top" Width="179"/>
+        <Button Content="NewAgenda" HorizontalAlignment="Left" Margin="1017,274,0,0" VerticalAlignment="Top" Click="ClickButtonNew"/>
+        <Button Content="EditAgenda" HorizontalAlignment="Left" Margin="1017,50,0,0" VerticalAlignment="Top" Click="ClickButtonEdit"/>
         <Button Content="ViewAgenda" HorizontalAlignment="Left" Margin="1102,204,0,0" VerticalAlignment="Top" Click="ClickButtonView"/>
-        <Button Content="Gantt" HorizontalAlignment="Left" Margin="722,242,0,0" VerticalAlignment="Top" Click="ClickButtonGantt"/>
-        <Button Content="DailyPage" HorizontalAlignment="Left" Margin="833,107,0,0" VerticalAlignment="Top" Click="ClickButtonDaliyPage"/>
+
         <!--
         <Grid >
             <StackPanel Orientation="Vertical">
@@ -30,4 +37,18 @@
         </Grid>
         -->
     </Grid>
+    <Page.BottomAppBar>
+        <AppBar x:Name="bottomAppBar" Padding="10,0,10,0">
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="switchBarButton" Style="{StaticResource SwitchAppsAppBarButtonStyle}" Click="SwithchFree"    
+        AutomationProperties.Name="Free/Busy"/>
+                    <Button Style="{StaticResource GoToTodayAppBarButtonStyle}" Click="GoToDay"/>
+                    <Button Style="{StaticResource GoToStartAppBarButtonStyle}" Click="GoGantt" AutomationProperties.Name="Go Gantt"/>
+                </StackPanel>
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
 </Page>

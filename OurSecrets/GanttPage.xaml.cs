@@ -95,5 +95,24 @@ namespace OurSecrets
         {
             Window.Current.Content = App.MyMainPage;
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void SwithchFree(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void GoToDay(object sender, RoutedEventArgs e)
+        {
+
+            Window.Current.Content = App.DailyPage;
+        }
+        private void GoCalendar(object sender, RoutedEventArgs e)
+        {
+
+            Window.Current.Content = App.MyMainPage;
+        }
     }
 }

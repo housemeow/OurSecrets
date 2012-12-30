@@ -16,4 +16,19 @@
         </ScrollViewer>
         <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}" Margin="36,0,0,664"/>
     </Grid>
+
+    <Page.BottomAppBar>
+        <AppBar x:Name="bottomAppBar" Padding="10,0,10,0">
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="switchBarButton" Style="{StaticResource SwitchAppsAppBarButtonStyle}" Click="SwithchFree"    
+        AutomationProperties.Name="Free/Busy"/>
+                    <Button Style="{StaticResource GoToTodayAppBarButtonStyle}" Click="GoToDay"/>
+                    <Button Style="{StaticResource GoToStartAppBarButtonStyle}" Click="GoCalendar" AutomationProperties.Name="Go Calendar"/>
+                </StackPanel>
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
 </Page>
