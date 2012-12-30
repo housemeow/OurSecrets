@@ -22,12 +22,22 @@ namespace OurSecrets
     /// </summary>
     public sealed partial class GanttPage : Page
     {
+        //<<<<<<< HEAD
         public GanttView GantView;
+        //=======
+        //        GanttView _gantView;
+        //public DateTime dateTime;
+        //>>>>>>> 15e4197158387a14fb3e1114550e2ff780f71c62
 
         public GanttPage()
         {
             this.InitializeComponent();
+//<<<<<<< HEAD
             GantView = new GanttView(_srollViewer);
+//=======
+//            _gantView = new GanttView(_srollViewer);
+            GantView.DateTime= DateTime.Now;
+//>>>>>>> 15e4197158387a14fb3e1114550e2ff780f71c62
             App.AgendasModel.PropertyChanged += AgendasModel_PropertyChanged;
             Window.Current.CoreWindow.PointerWheelChanged += new TypedEventHandler<Windows.UI.Core.CoreWindow, Windows.UI.Core.PointerEventArgs>(ChangedCoreWindowPointerWheel);
         }
@@ -36,21 +46,29 @@ namespace OurSecrets
         {
             if (GantView != null)
             {
-                //DateTimeSorter sorter = new DateTimeSorter();
-                //List<Agenda> agneda = sorter.Sort(App.AgendasModel.GetAgendaList(_gantView.DateTime));
-                //_gantView.PaintGantt(agneda);
+//<<<<<<< HEAD
+//                //DateTimeSorter sorter = new DateTimeSorter();
+//                //List<Agenda> agneda = sorter.Sort(App.AgendasModel.GetAgendaList(_gantView.DateTime));
+//                //_gantView.PaintGantt(agneda);
 
+//                GantView.PaintGantt(App.AgendasModel.GetAgendaList(GantView.DateTime));
+//=======
                 GantView.PaintGantt(App.AgendasModel.GetAgendaList(GantView.DateTime));
+//>>>>>>> 15e4197158387a14fb3e1114550e2ff780f71c62
             }
         }
 
         void AgendasModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+//<<<<<<< HEAD
             //DateTimeSorter sorter = new DateTimeSorter();
             //List<Agenda> agneda = sorter.Sort(App.AgendasModel.GetAgendaList(_gantView.DateTime));
             //_gantView.PaintGantt(agneda);
 
-            GantView.PaintGantt(App.AgendasModel.GetAgendaList(GantView.DateTime));
+           // GantView.PaintGantt(App.AgendasModel.GetAgendaList(GantView.DateTime));
+//=======
+            RePaint();
+//>>>>>>> 15e4197158387a14fb3e1114550e2ff780f71c62
         }
 
         //ChangedCoreWindowPointerWheel

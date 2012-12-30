@@ -14,8 +14,12 @@
                 <ScrollViewer HorizontalContentAlignment="Stretch" ZoomMode="Disabled" VerticalScrollMode="Disabled"  Background="#FF9E1919" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Disabled"/>
             </StackPanel>
         </ScrollViewer>
+<!--<<<<<<< HEAD-->
         <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}" Margin="36,0,0,664"/>
         <TextBlock x:Name="_textBoxDate" HorizontalAlignment="Left" Margin="36,615,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Height="44" Width="257" FontSize="40"/>
+<!--=======
+        <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}" Margin="36,36,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+>>>>>>> 15e4197158387a14fb3e1114550e2ff780f71c62-->
     </Grid>
 
     <Page.BottomAppBar>

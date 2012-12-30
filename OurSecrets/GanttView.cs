@@ -64,13 +64,17 @@ namespace OurSecrets
             //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 20:00"), DateTime.Parse("12/29/2012 22:15")));
             //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 23:15"), DateTime.Parse("12/29/2012 23:50")));
 
+//<<<<<<< HEAD
 
-            //DateTimeSorter sorter = new DateTimeSorter();
-            //List<Agenda> agneda = sorter.Sort(App.AgendasModel.GetAgendaList(DateTime));//App.AgendasModel.GetAgendaList(App.MyGanttPage._gantView.DateTime));
+//            //DateTimeSorter sorter = new DateTimeSorter();
+//            //List<Agenda> agneda = sorter.Sort(App.AgendasModel.GetAgendaList(DateTime));//App.AgendasModel.GetAgendaList(App.MyGanttPage._gantView.DateTime));
             //PaintGantt(agneda);
 
 
             PaintGantt(App.AgendasModel.GetAgendaList());
+//=======
+//            Paint(App.AgendasModel.GetAgendaList(DateTime.Now));
+//>>>>>>> 15e4197158387a14fb3e1114550e2ff780f71c62
         }
 
         //InitialScrollView

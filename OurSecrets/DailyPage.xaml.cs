@@ -43,6 +43,7 @@ namespace OurSecrets
             App.AgendasModel.PropertyChanged += AgendasModel_PropertyChanged;
         }
 
+
         void AgendasModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             ;
@@ -414,9 +415,14 @@ namespace OurSecrets
             {
                 UILayout uiLayout = new UILayout();
                 uiLayout.SolidColorBrush = Colors.LightSeaGreen;
-                StackPanel stackPanel = uiLayout.GetMode_A_StackPanel(100, 100, 5, time.Month, time.Day);
+//<<<<<<< HEAD
+//                StackPanel stackPanel = uiLayout.GetMode_A_StackPanel(100, 100, 5, time.Month, time.Day);
+//=======
+                StackPanel stackPanel = uiLayout.GetMode_A_StackPanel(100, 100, 5,time.Month , time.Day);
+                stackPanel.Tapped += stackPanel_Tapped;
+//>>>>>>> 15e4197158387a14fb3e1114550e2ff780f71c62
                 dayTitles[titleIndex].Items.Add(stackPanel);
-
+                
                 dayAgendas[titleIndex].Items.Clear();
                 List<Agenda> agendaList = App.AgendasModel.GetAgendaList(time);
                 for (int agendaIndex = 0; agendaIndex < agendaList.Count; agendaIndex++)
@@ -429,17 +435,46 @@ namespace OurSecrets
                     int min2 = agendaList[agendaIndex].EndDateTime.Value.Minute;
                     StackPanel stackPanel2 = uiLayout2.GetMode_B_StackPanel(150, 100, 0, 0, hour * 60 + min, hour2 * 60 + min2, agendaList[agendaIndex].Title);
                     stackPanel2.Tag = agendaList[agendaIndex];
+                    stackPanel2.Tapped += stackPanel2_Tapped;
                     GridView agenda = new GridView();
                     agenda.AllowDrop = true;
                     agenda.DragEnter += myRectangle_DragEnter;
                     agenda.Items.Add(stackPanel2);
+                    
                     dayAgendas[titleIndex].Items.Add(agenda);
                     uiLayout2 = null;
                 }
-
                 time = time.AddDays(1);
 
             }
+        }
+
+        void stackPanel_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            DateTime Day = firstDate;
+            GridView[] days = { FirstDay, SecondDay, ThirdDay };
+            for (int DayTitleIndex = 0; DayTitleIndex < days.Length; DayTitleIndex++)
+            {
+                for (int AgendaIndex = 0; AgendaIndex < days[DayTitleIndex].Items.Count; AgendaIndex++)
+			    {
+                    if ((days[DayTitleIndex].Items[AgendaIndex] as GridView).Items.Contains(sender))
+                    {
+                        Day = firstDate.AddDays(DayTitleIndex);
+                        break;
+                    }
+			    }
+            }
+            App.MyGanttPage.GantView.DateTime = Day;
+            Window.Current.Content = App.MyGanttPage;
+        }
+
+        void stackPanel2_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            StackPanel panel = (StackPanel)sender;
+            Agenda agneda = (Agenda)(panel.Tag);
+            App.MyEditAgendaPage.SetViewState(agneda);
+            App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+            Window.Current.Content = App.MyEditAgendaPage;
         }
     }
 }

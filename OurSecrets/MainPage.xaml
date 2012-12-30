@@ -21,7 +21,7 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-        <TextBlock HorizontalAlignment="Left" Height="59" TextWrapping="Wrap" Text="CalenDrag" VerticalAlignment="Top" Width="397" FontFamily="Global User Interface" FontSize="50" Margin="45,10,0,0" />
+        <TextBlock HorizontalAlignment="Left" Height="59" TextWrapping="Wrap" Text="CalenDrag" VerticalAlignment="Top" Width="397" FontFamily="Global User Interface" FontSize="50" Margin="30,45,0,0" />
 
         <TextBlock x:Name="_textBlock" HorizontalAlignment="Left" Height="84" Margin="918,76,0,0" TextWrapping="Wrap" Text="{Binding _agendas.Count, Mode=TwoWay}" VerticalAlignment="Top" Width="179"/>
         <Button Content="NewAgenda" HorizontalAlignment="Left" Margin="1017,274,0,0" VerticalAlignment="Top" Click="ClickButtonNew" Visibility="Collapsed"/>
