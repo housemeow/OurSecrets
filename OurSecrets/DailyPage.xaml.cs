@@ -37,6 +37,12 @@ namespace OurSecrets
             AddView.DragItemsStarting += View_DragItemsStarting;
             Window.Current.CoreWindow.PointerWheelChanged += CoreWindow_PointerWheelChanged;
             //Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
+            App.AgendasModel.PropertyChanged += AgendasModel_PropertyChanged;
+        }
+
+        void AgendasModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            ;
         }
 
         void CoreWindow_PointerPressed(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)

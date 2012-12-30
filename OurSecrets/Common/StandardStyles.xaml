@@ -1368,12 +1368,13 @@
         <Setter Property="AutomationProperties.AutomationId" Value="TouchPointerAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Touch Pointer"/>
         <Setter Property="Content" Value="&#xE1E3;"/>
-    </Style>
+    </Style>-->
     <Style x:Key="GoToStartAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="GoToStartAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Go to Start"/>
         <Setter Property="Content" Value="&#xE1E4;"/>
     </Style>
+    <!--
     <Style x:Key="ZeroBarsAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="ZeroBarsAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Zero Bars"/>
@@ -1727,6 +1728,17 @@
             </StackPanel>
         </Grid>
     </DataTemplate>
+    
+    <Style x:Key="SwitchAppsAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="SwitchAppsAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Switch Apps"/>
+        <Setter Property="Content" Value="&#xE1E1;"/>
+    </Style>
+    <Style x:Key="GoToTodayAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="GoToTodayAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Today"/>
+        <Setter Property="Content" Value="&#xE184;"/>
+    </Style>
 
     <!-- List-appropriate 70 pixel high item template as seen in the SearchResultsPage when Snapped -->
     <DataTemplate x:Key="StandardSmallIcon70ItemTemplate">
