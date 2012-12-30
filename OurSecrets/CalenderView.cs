@@ -22,7 +22,7 @@ namespace OurSecrets
         //CalenderView
         public CalenderView(ItemsControl itemsConrol)
         {
-            itemsConrol.Height = (BLOCK_HEIGHT + 2 * BLOCK_THICKNESS) * 7;
+            itemsConrol.Height = (BLOCK_HEIGHT + 2 * BLOCK_THICKNESS) * 7 + 30;
             itemsConrol.Width = (BLOCK_WIDTH + 2 * BLOCK_THICKNESS) * 7;
             _itemsConrol = itemsConrol;
         }
@@ -40,7 +40,28 @@ namespace OurSecrets
             WeekAndDays(out nowMonthWeek, out nowMonthDays, year, month);
             WeekAndDays(out nextMonthWeek, out nextMonthDays, year, month + 1);
 
+            _itemsConrol.Items.Clear();
+
             int count = 0;
+            for (int i = 0; i < 7; i++)
+            {
+                UILayout uiLayout = new UILayout();
+                if (i == 6)
+                {
+                    uiLayout.SolidColorBrush = Colors.DarkGoldenrod;
+                    _itemsConrol.Items.Add(uiLayout.GetMode_A_StackPanel(BLOCK_WIDTH, BLOCK_HEIGHT, 0, 0, 0, month.ToString()+"月"));
+                }
+                else if (i == 5)
+                {
+                    uiLayout.SolidColorBrush = Colors.DarkGoldenrod;
+                    _itemsConrol.Items.Add(uiLayout.GetMode_A_StackPanel(BLOCK_WIDTH, BLOCK_HEIGHT, 0, 0, 0, year.ToString()));
+                }
+                else
+                {
+                    uiLayout.SolidColorBrush = Colors.Transparent;
+                    _itemsConrol.Items.Add(uiLayout.GetMode_A_StackPanel(BLOCK_WIDTH, BLOCK_HEIGHT, 0, 0, 0, ""));
+                }
+            }
             for (int i = 0; i < 7; i++)
             {
                 StackPanel stackPanel = CreateStackPanel(((DayOfWeek)i).ToString(), WeekColor(-1));

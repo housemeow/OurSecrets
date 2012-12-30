@@ -33,7 +33,8 @@ namespace OurSecrets
         //{
         //    get { return _agendas.GetAgendaList(); }
         //}
-
+        int i = 0;
+        CalenderView _calenderView;
         //Agendas _agendas;
         public MainPage()
         {
@@ -48,8 +49,25 @@ namespace OurSecrets
             //    Path = new PropertyPath("Count"),
             //    Mode = BindingMode.TwoWay
             //});
-            CalenderView calenderView = new CalenderView(_itemsControl);
-            calenderView.Paint(2012, 12, 28);
+            _calenderView = new CalenderView(_itemsControl);
+            _calenderView.Paint(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            Window.Current.CoreWindow.PointerWheelChanged += new TypedEventHandler<Windows.UI.Core.CoreWindow, Windows.UI.Core.PointerEventArgs>(ChangedCoreWindowPointerWheel);
+        }
+
+        private void ChangedCoreWindowPointerWheel(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
+        {
+            Windows.UI.Input.PointerPoint currentPoint = args.CurrentPoint;
+            double mouseWheelDelta = currentPoint.Properties.MouseWheelDelta;
+            if (args.KeyModifiers == Windows.System.VirtualKeyModifiers.None)
+            {
+                DateTime dateTime = DateTime.Now;
+                if(mouseWheelDelta > 0)
+                    i--;
+                else
+                    i++;
+                dateTime = dateTime.AddMonths(i);
+                _calenderView.Paint(dateTime.Year, dateTime.Month, dateTime.Day);
+            }
         }
 
         public IAsyncAction ExecuteOnUIThread(Windows.UI.Core.DispatchedHandler action)
