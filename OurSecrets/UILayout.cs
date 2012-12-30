@@ -64,7 +64,7 @@ namespace OurSecrets
         {
             InitialStackPanel(width, height, left, top);
 
-            ModeB_TextBlock_Date.Text = stratHourMin + "~" + endHourMin;
+            ModeB_TextBlock_Date.Text = HourMinToString(stratHourMin) + "~" + HourMinToString(endHourMin);
             ModeB_TextBlock_Date.Width = width;
             ModeB_TextBlock_Date.FontSize = 25;
             ModeB_TextBlock_Date.Margin = new Windows.UI.Xaml.Thickness(0, 0, 0, 0);
@@ -81,6 +81,13 @@ namespace OurSecrets
             _stackPanel.Children.Add(ModeB_TextBlock_Date);
             _stackPanel.Children.Add(ModeB_TextBlock_Title);
             return _stackPanel;
+        }
+
+        private string HourMinToString(double hourMin)
+        {
+            int hour = (int)hourMin / 60;
+            int min = (int)hourMin % 60;
+            return hour.ToString("0#") + ":" + min.ToString("0#");
         }
 
         public Color SolidColorBrush
