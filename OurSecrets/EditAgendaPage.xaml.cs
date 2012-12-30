@@ -31,10 +31,12 @@ namespace OurSecrets
 
         public void SetStartDate(DateTime dateTime)
         {
+            StartDatePicker.SelectedDate = dateTime;
             _textBoxStartDate.Text = dateTime.ToString("MM/dd/yyyy");
         }
         public void SetEndDate(DateTime dateTime)
         {
+            EndDatePicker.SelectedDate = dateTime;
             _textBoxEndDate.Text = dateTime.ToString("MM/dd/yyyy");
         }     
 
