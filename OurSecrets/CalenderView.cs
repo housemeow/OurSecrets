@@ -158,13 +158,14 @@ namespace OurSecrets
             UILayout uiLayout = new UILayout();
             uiLayout.SolidColorBrush = color;
             StackPanel stackPanel = uiLayout.GetMode_A_StackPanel(BLOCK_WIDTH, BLOCK_HEIGHT, BLOCK_THICKNESS, month, day);
-            stackPanel.PointerPressed += OnPointerPressed;
+            stackPanel.Tapped += OnPointerPressed;
             return stackPanel;
         }
 
-        private void OnPointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void OnPointerPressed(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             StackPanel stackPanel = (StackPanel)sender;
+            
             if (stackPanel.Tag != null)
             {
                 App.DailyPage.firstDate = (DateTime)stackPanel.Tag;
