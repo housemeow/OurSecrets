@@ -61,11 +61,15 @@ namespace OurSecrets
             if (args.KeyModifiers != Windows.System.VirtualKeyModifiers.Control) return;
             if (args.CurrentPoint.Properties.MouseWheelDelta < 0)
             {
+                firstDate = firstDate.AddDays(1);
+                Refresh();
                 //下一日
             }
             else
             {
                 //上一日
+                firstDate = firstDate.AddDays(-1);
+                Refresh();
             }
         }
 
@@ -121,29 +125,56 @@ namespace OurSecrets
                             {
                                 
                             }
-                            else if (dayindex == 0)
+                            else if (dayindex < 3)
                             {
-                                App.MyEditAgendaPage.SetStartDate(firstDate);
-                                App.MyEditAgendaPage.SetEndDate(firstDate);
-                                App.MyEditAgendaPage.SetNewState();
-                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
-                                Window.Current.Content = App.MyEditAgendaPage;
-                            }
-                            else if (dayindex == 1)
-                            {
-                                App.MyEditAgendaPage.SetStartDate(firstDate.AddDays(1));
-                                App.MyEditAgendaPage.SetEndDate(firstDate.AddDays(1));
-                                App.MyEditAgendaPage.SetNewState();
-                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
-                                Window.Current.Content = App.MyEditAgendaPage;
-                            }
-                            else if (dayindex == 2)
-                            {
-                                App.MyEditAgendaPage.SetStartDate(firstDate.AddDays(2));
-                                App.MyEditAgendaPage.SetEndDate(firstDate.AddDays(2));
-                                App.MyEditAgendaPage.SetNewState();
-                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
-                                Window.Current.Content = App.MyEditAgendaPage;
+                                DateTime leftTime = firstDate.AddDays(dayindex);
+                                DateTime rightTime= firstDate.AddDays(dayindex);
+
+                                if (index == -1 && Day.Items.Count==0)
+                                {
+                                    //新增第一筆資料
+
+                                }
+                                else if (index==0)
+                                {
+                                    //抓右邊
+                                    rightTime = ((Agenda)((Day.Items[1] as GridView).Items[0] as StackPanel).Tag)._startDateTime.Value;
+                                    leftTime = ((Agenda)((Day.Items[1] as GridView).Items[0] as StackPanel).Tag)._startDateTime.Value;
+                                }
+                                else if (index == Day.Items.Count - 1 || index == -1 && Day.Items.Count != 0)
+                                {
+                                    //抓左邊
+                                    if (index == -1)
+                                    {
+                                        index = Day.Items.Count;
+                                    }
+                                    StackPanel a = (StackPanel)(Day.Items[index - 1] as GridView).Items[0];
+                                    Agenda Iagenda = (Agenda)((Day.Items[index - 1] as GridView).Items[0] as StackPanel).Tag;
+                                    rightTime = Iagenda.EndDateTime.Value;
+                                    leftTime = Iagenda.EndDateTime.Value;
+                                }
+                                else
+                                {
+                                    //抓兩邊
+                                    rightTime = ((Agenda)((Day.Items[index + 1] as GridView).Items[0] as StackPanel).Tag)._startDateTime.Value;
+                                    leftTime = ((Agenda)((Day.Items[index - 1] as GridView).Items[0] as StackPanel).Tag).EndDateTime.Value;
+                                }
+                                if (index == -1 && Day.Items.Count == 0)
+                                {
+                                    App.MyEditAgendaPage.SetStartDate(firstDate.AddDays(dayindex));
+                                    App.MyEditAgendaPage.SetEndDate(firstDate.AddDays(dayindex));
+                                    App.MyEditAgendaPage.SetNewState();
+                                    App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+                                    Window.Current.Content = App.MyEditAgendaPage;
+                                }
+                                else
+                                {
+                                    App.MyEditAgendaPage.SetStartDate(leftTime);
+                                    App.MyEditAgendaPage.SetEndDate(rightTime);
+                                    App.MyEditAgendaPage.SetNewState();
+                                    App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+                                    Window.Current.Content = App.MyEditAgendaPage;
+                                }
                             }
                             else
                             {
@@ -346,7 +377,7 @@ namespace OurSecrets
             GridView[] dayTitles = { First_, Second_, Third_ };
             GridView[] dayAgendas = { FirstDay, SecondDay, ThirdDay };
             DayAgenda day = App.AgendasModel.GetDay(DateTime.Today);
-            DateTime time = DateTime.Today;
+            DateTime time = firstDate;
             for (int titleIndex = 0; titleIndex < dayTitles.Length; titleIndex++)
             {
                 UILayout uiLayout = new UILayout();
@@ -365,7 +396,7 @@ namespace OurSecrets
                     int hour2 = agendaList[agendaIndex].EndDateTime.Value.Hour;
                     int min2 = agendaList[agendaIndex].EndDateTime.Value.Minute;
                     StackPanel stackPanel2 = uiLayout2.GetMode_B_StackPanel(150, 100,0,0,hour*60+min,hour2*60+min2,agendaList[agendaIndex].Title);
-
+                    stackPanel2.Tag = agendaList[agendaIndex];
                     GridView agenda = new GridView();
                     agenda.AllowDrop = true;
                     agenda.DragEnter += myRectangle_DragEnter;
