@@ -29,7 +29,8 @@ namespace OurSecrets
         List<GridView> _timeList;
         int _collisionCount = 0;
         double _hourWidth = 100;
-        
+        public DateTime DateTime = DateTime.Today;
+
         //List<Agenda> _agendaList;
 
         //GanttView
@@ -63,7 +64,13 @@ namespace OurSecrets
             //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 20:00"), DateTime.Parse("12/29/2012 22:15")));
             //_agendaList.Add(new Agenda(DateTime.Parse("12/29/2012 23:15"), DateTime.Parse("12/29/2012 23:50")));
 
-            Paint(App.AgendasModel.GetAgendaList());
+
+            //DateTimeSorter sorter = new DateTimeSorter();
+            //List<Agenda> agneda = sorter.Sort(App.AgendasModel.GetAgendaList(DateTime));//App.AgendasModel.GetAgendaList(App.MyGanttPage._gantView.DateTime));
+            //PaintGantt(agneda);
+
+
+            PaintGantt(App.AgendasModel.GetAgendaList());
         }
 
         //InitialScrollView
@@ -142,8 +149,10 @@ namespace OurSecrets
         }
 
         //Paint
-        public void Paint(List<Agenda> agendaList)
+        public void PaintGantt(List<Agenda> agendaList)
         {
+            agendaList = App.AgendasModel.GetAgendaList(DateTime);
+
             List<StackPanel> frameList = InitialAgendaGridViewList(agendaList);
             InitialCanvas();
             InitialTimeBlock();
@@ -229,7 +238,7 @@ namespace OurSecrets
         {
             int hour = dateTime.Value.Hour;
             int min = dateTime.Value.Minute;
-            return (double)hour*60 + (double)min;
+            return (double)hour * 60 + (double)min;
         }
     }
 }

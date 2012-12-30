@@ -22,7 +22,7 @@ namespace OurSecrets
     /// </summary>
     public sealed partial class GanttPage : Page
     {
-        GanttView _gantView;
+        public GanttView _gantView;
 
         public GanttPage()
         {
@@ -36,13 +36,21 @@ namespace OurSecrets
         {
             if (_gantView != null)
             {
-                _gantView.Paint(App.AgendasModel.GetAgendaList());
+                //DateTimeSorter sorter = new DateTimeSorter();
+                //List<Agenda> agneda = sorter.Sort(App.AgendasModel.GetAgendaList(_gantView.DateTime));
+                //_gantView.PaintGantt(agneda);
+
+                _gantView.PaintGantt(App.AgendasModel.GetAgendaList(_gantView.DateTime));
             }
         }
 
         void AgendasModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            _gantView.Paint(App.AgendasModel.GetAgendaList());
+            //DateTimeSorter sorter = new DateTimeSorter();
+            //List<Agenda> agneda = sorter.Sort(App.AgendasModel.GetAgendaList(_gantView.DateTime));
+            //_gantView.PaintGantt(agneda);
+
+            _gantView.PaintGantt(App.AgendasModel.GetAgendaList(_gantView.DateTime));
         }
 
         //ChangedCoreWindowPointerWheel

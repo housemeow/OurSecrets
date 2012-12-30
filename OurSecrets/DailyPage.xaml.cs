@@ -75,7 +75,7 @@ namespace OurSecrets
 
         void View_Drop(object sender, DragEventArgs e)
         {
-            GridView[] DayViews = { FirstDay, SecondDay, ThirdDay ,AgendaList};
+            GridView[] DayViews = { FirstDay, SecondDay, ThirdDay, AgendaList };
             GridView[] ItemSources = { FirstDay, SecondDay, ThirdDay, AddView, AgendaList };
             int index = -1;
             foreach (GridView Day in DayViews)
@@ -111,27 +111,27 @@ namespace OurSecrets
                         }
                         if (IsAddNewItem)
                         {
-                            int dayindex=-1;
+                            int dayindex = -1;
                             IsAddNewItem = false;
                             //Day.Items.Add(CreateItem());
                             for (int j = 0; j < DayViews.Length; j++)
-			                {
-			                    if(Day.Equals(DayViews[j]))
+                            {
+                                if (Day.Equals(DayViews[j]))
                                 {
                                     dayindex = j;
                                 }
-			                }
+                            }
                             if (dayindex == -1)
                             {
-                                
+
                             }
                             else if (dayindex < 3)
                             {
-//<<<<<<< HEAD
+                                //<<<<<<< HEAD
                                 DateTime leftTime = firstDate.AddDays(dayindex);
-                                DateTime rightTime= firstDate.AddDays(dayindex);
+                                DateTime rightTime = firstDate.AddDays(dayindex);
 
-                                if (index == -1 && Day.Items.Count==0)
+                                if (index == -1 && Day.Items.Count == 0)
                                 {
                                     //新增第一筆資料
 
@@ -182,36 +182,36 @@ namespace OurSecrets
                                 //    App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
                                 //    Window.Current.Content = App.MyEditAgendaPage;
                                 //}
-//=======
-//                                App.MyEditAgendaPage.SetStartDate(firstDate);
-//                                App.MyEditAgendaPage.SetEndDate(firstDate);
-//                                App.MyEditAgendaPage.SetNewState();
-//                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
-//                                Window.Current.Content = App.MyEditAgendaPage;
-//                            }
-//                            else if (dayindex == 1)
-//                            {
-//                                App.MyEditAgendaPage.SetStartDate(firstDate.AddDays(1));
-//                                App.MyEditAgendaPage.SetEndDate(firstDate.AddDays(1));
-//                                App.MyEditAgendaPage.SetNewState();
-//                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
-//                                Window.Current.Content = App.MyEditAgendaPage;
-//                            }
-//                            else if (dayindex == 2)
-//                            {
-//                                App.MyEditAgendaPage.SetStartDate(firstDate.AddDays(2));
-//                                App.MyEditAgendaPage.SetEndDate(firstDate.AddDays(2));
-//                                App.MyEditAgendaPage.SetNewState();
-//                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
-//                                //App.MyEditAgendaPage.
-//                                Window.Current.Content = App.MyEditAgendaPage;
-//>>>>>>> e6102835d3c1c886f6af430444fbd69730937cd3
+                                //=======
+                                //                                App.MyEditAgendaPage.SetStartDate(firstDate);
+                                //                                App.MyEditAgendaPage.SetEndDate(firstDate);
+                                //                                App.MyEditAgendaPage.SetNewState();
+                                //                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+                                //                                Window.Current.Content = App.MyEditAgendaPage;
+                                //                            }
+                                //                            else if (dayindex == 1)
+                                //                            {
+                                //                                App.MyEditAgendaPage.SetStartDate(firstDate.AddDays(1));
+                                //                                App.MyEditAgendaPage.SetEndDate(firstDate.AddDays(1));
+                                //                                App.MyEditAgendaPage.SetNewState();
+                                //                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+                                //                                Window.Current.Content = App.MyEditAgendaPage;
+                                //                            }
+                                //                            else if (dayindex == 2)
+                                //                            {
+                                //                                App.MyEditAgendaPage.SetStartDate(firstDate.AddDays(2));
+                                //                                App.MyEditAgendaPage.SetEndDate(firstDate.AddDays(2));
+                                //                                App.MyEditAgendaPage.SetNewState();
+                                //                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+                                //                                //App.MyEditAgendaPage.
+                                //                                Window.Current.Content = App.MyEditAgendaPage;
+                                //>>>>>>> e6102835d3c1c886f6af430444fbd69730937cd3
                             }
                             else
                             {
                                 //新增代辦事項
                             }
-                            
+
                         }
                     }
                 }
@@ -387,6 +387,7 @@ namespace OurSecrets
 
         private void GoGantt(object sender, RoutedEventArgs e)
         {
+            App.MyGanttPage.RePaint();
             Window.Current.Content = App.MyGanttPage;
         }
 
@@ -394,7 +395,7 @@ namespace OurSecrets
         {
             Window.Current.Content = App.MyMainPage;
         }
-        
+
         private void GoBack(object sender, RoutedEventArgs e)
         {
             Window.Current.Content = App.MyMainPage;
@@ -413,7 +414,7 @@ namespace OurSecrets
             {
                 UILayout uiLayout = new UILayout();
                 uiLayout.SolidColorBrush = Colors.LightSeaGreen;
-                StackPanel stackPanel = uiLayout.GetMode_A_StackPanel(100, 100, 5,time.Month , time.Day);
+                StackPanel stackPanel = uiLayout.GetMode_A_StackPanel(100, 100, 5, time.Month, time.Day);
                 dayTitles[titleIndex].Items.Add(stackPanel);
 
                 dayAgendas[titleIndex].Items.Clear();
@@ -426,7 +427,7 @@ namespace OurSecrets
                     int min = agendaList[agendaIndex].StartDateTime.Value.Minute;
                     int hour2 = agendaList[agendaIndex].EndDateTime.Value.Hour;
                     int min2 = agendaList[agendaIndex].EndDateTime.Value.Minute;
-                    StackPanel stackPanel2 = uiLayout2.GetMode_B_StackPanel(150, 100,0,0,hour*60+min,hour2*60+min2,agendaList[agendaIndex].Title);
+                    StackPanel stackPanel2 = uiLayout2.GetMode_B_StackPanel(150, 100, 0, 0, hour * 60 + min, hour2 * 60 + min2, agendaList[agendaIndex].Title);
                     stackPanel2.Tag = agendaList[agendaIndex];
                     GridView agenda = new GridView();
                     agenda.AllowDrop = true;
@@ -437,7 +438,7 @@ namespace OurSecrets
                 }
 
                 time = time.AddDays(1);
-                
+
             }
         }
     }

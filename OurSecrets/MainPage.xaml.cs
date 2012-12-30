@@ -175,7 +175,7 @@ namespace OurSecrets
         }
         private void GoGantt(object sender, RoutedEventArgs e)
         {
-
+            App.MyGanttPage.RePaint();
             Window.Current.Content = App.MyGanttPage;
         }
     }
