@@ -32,6 +32,14 @@ namespace OurSecrets
             Window.Current.CoreWindow.PointerWheelChanged += new TypedEventHandler<Windows.UI.Core.CoreWindow, Windows.UI.Core.PointerEventArgs>(ChangedCoreWindowPointerWheel);
         }
 
+        public void RePaint()
+        {
+            if (_gantView != null)
+            {
+                _gantView.Paint(App.AgendasModel.GetAgendaList());
+            }
+        }
+
         void AgendasModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             _gantView.Paint(App.AgendasModel.GetAgendaList());

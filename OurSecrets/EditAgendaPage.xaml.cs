@@ -242,7 +242,6 @@ namespace OurSecrets
             {
                 nowAgenda.Title = _textBoxTitle.Text;
                 nowAgenda.Content = _textBoxContent.Text;
-
                 int year, month, day, hour;
                 DateTime startDateTime = Convert.ToDateTime(_textBoxStartDate.Text);
                 year = startDateTime.Year;
@@ -260,13 +259,13 @@ namespace OurSecrets
 
                 if (startDateTime < endDateTime)
                 {
-                    nowAgenda.StartDateTime = startDateTime;
-                    nowAgenda.EndDateTime = endDateTime;
+                    nowAgenda._startDateTime = startDateTime;
+                    nowAgenda._endDateTime = endDateTime;
                 }
                 else
                 {
-                    nowAgenda.StartDateTime = endDateTime;
-                    nowAgenda.EndDateTime = startDateTime;
+                    nowAgenda._startDateTime = endDateTime;
+                    nowAgenda._endDateTime = startDateTime;
                 }
 
                 if (_radioImportant.IsChecked.Value)
