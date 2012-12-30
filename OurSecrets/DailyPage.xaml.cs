@@ -419,6 +419,7 @@ namespace OurSecrets
 //                StackPanel stackPanel = uiLayout.GetMode_A_StackPanel(100, 100, 5, time.Month, time.Day);
 //=======
                 StackPanel stackPanel = uiLayout.GetMode_A_StackPanel(100, 100, 5,time.Month , time.Day);
+                stackPanel.Tag = time;
                 stackPanel.Tapped += stackPanel_Tapped;
 //>>>>>>> 15e4197158387a14fb3e1114550e2ff780f71c62
                 dayTitles[titleIndex].Items.Add(stackPanel);
@@ -451,20 +452,25 @@ namespace OurSecrets
 
         void stackPanel_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            DateTime Day = firstDate;
-            GridView[] days = { FirstDay, SecondDay, ThirdDay };
-            for (int DayTitleIndex = 0; DayTitleIndex < days.Length; DayTitleIndex++)
-            {
-                for (int AgendaIndex = 0; AgendaIndex < days[DayTitleIndex].Items.Count; AgendaIndex++)
-			    {
-                    if ((days[DayTitleIndex].Items[AgendaIndex] as GridView).Items.Contains(sender))
-                    {
-                        Day = firstDate.AddDays(DayTitleIndex);
-                        break;
-                    }
-			    }
-            }
+            DateTime Day = (DateTime)(((StackPanel)sender).Tag);
+            //DateTime Day = firstDate;
+            ////GridView[] days = { FirstDay, SecondDay, ThirdDay };
+            //GridView[] days = { First_, Second_, Third_ };
+
+            //for (int DayTitleIndex = 0; DayTitleIndex < days.Length; DayTitleIndex++)
+            //{
+            //    for (int AgendaIndex = 0; AgendaIndex < days[DayTitleIndex].Items.Count; AgendaIndex++)
+            //    {
+            //        if ((days[DayTitleIndex].Items[AgendaIndex] as StackPanel).Children.Contains(sender))
+            //        {
+            //            Day = firstDate.AddDays(DayTitleIndex);
+            //            break;
+            //        }
+            //    }
+            //}
             App.MyGanttPage.GantView.DateTime = Day;
+            App.MyGanttPage.SetText(Day);
+            App.MyGanttPage.RePaint();
             Window.Current.Content = App.MyGanttPage;
         }
 
