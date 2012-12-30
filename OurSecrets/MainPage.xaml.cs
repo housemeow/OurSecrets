@@ -151,7 +151,8 @@ namespace OurSecrets
 
         private void GoToDay(object sender, RoutedEventArgs e)
         {
-
+            App.DailyPage.firstDate = DateTime.Today;
+            App.DailyPage.Refresh();
             Window.Current.Content = App.DailyPage;
         }
         private void GoGantt(object sender, RoutedEventArgs e)

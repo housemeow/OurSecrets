@@ -25,8 +25,11 @@ namespace OurSecrets
     /// </summary>
     public sealed partial class DailyPage : Page
     {
+        public DateTime firstDate;
+
         public DailyPage()
         {
+            firstDate = DateTime.Today;
             this.InitializeComponent();
             GridView[] DayViews = { FirstDay, SecondDay, ThirdDay, AgendaList };
             foreach (GridView Day in DayViews)
@@ -104,9 +107,49 @@ namespace OurSecrets
                         }
                         if (IsAddNewItem)
                         {
+                            int dayindex=-1;
                             IsAddNewItem = false;
                             //Day.Items.Add(CreateItem());
-                            NewAgenda();
+                            for (int j = 0; j < DayViews.Length; j++)
+			                {
+			                    if(Day.Equals(DayViews[j]))
+                                {
+                                    dayindex = j;
+                                }
+			                }
+                            if (dayindex == -1)
+                            {
+                                
+                            }
+                            else if (dayindex == 0)
+                            {
+                                App.MyEditAgendaPage.SetStartDate(firstDate);
+                                App.MyEditAgendaPage.SetEndDate(firstDate);
+                                App.MyEditAgendaPage.SetNewState();
+                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+                                Window.Current.Content = App.MyEditAgendaPage;
+                            }
+                            else if (dayindex == 1)
+                            {
+                                App.MyEditAgendaPage.SetStartDate(firstDate.AddDays(1));
+                                App.MyEditAgendaPage.SetEndDate(firstDate.AddDays(1));
+                                App.MyEditAgendaPage.SetNewState();
+                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+                                Window.Current.Content = App.MyEditAgendaPage;
+                            }
+                            else if (dayindex == 2)
+                            {
+                                App.MyEditAgendaPage.SetStartDate(firstDate.AddDays(2));
+                                App.MyEditAgendaPage.SetEndDate(firstDate.AddDays(2));
+                                App.MyEditAgendaPage.SetNewState();
+                                App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+                                Window.Current.Content = App.MyEditAgendaPage;
+                            }
+                            else
+                            {
+                                //新增代辦事項
+                            }
+                            
                         }
                     }
                 }
@@ -168,7 +211,6 @@ namespace OurSecrets
             {
                 if (emptyIndex == 1000)
                 {
-                    textblock.Text = "part0\n" + i + "  " + i;
                     Rectangle r = new Rectangle();
                     rect = r;
                     //items.Insert(i, rect);
@@ -179,14 +221,12 @@ namespace OurSecrets
                 }
                 else if ((i < emptyIndex && rect != null) || emptyIndex == 1000)
                 {
-                    textblock.Text = "part1\n" + i + "  " + emptyIndex;
                     object a = items.ElementAt(i);
                     items.RemoveAt(i);
                     items.Insert(i + 1, a);
                 }
                 else
                 {
-                    textblock.Text = "part2\n" + i + "  " + emptyIndex;
                     if (rect != null)
                         (((Rectangle)rect).Parent as GridView).Items.Remove(rect);
                     Rectangle r = new Rectangle();
@@ -199,7 +239,6 @@ namespace OurSecrets
             }
             catch (Exception er)
             {
-                textblock.Text += er.Message;
             }
         }
 
@@ -315,6 +354,7 @@ namespace OurSecrets
                 StackPanel stackPanel = uiLayout.GetMode_A_StackPanel(100, 100, 5,time.Month , time.Day);
                 days[i].Items.Add(stackPanel);
 
+                dayLists[i].Items.Clear();
                 List<Agenda> agendaList = App.AgendasModel.GetAgendaList(time);
                 for (int j = 0; j < agendaList.Count; j++)
                 {
@@ -324,11 +364,9 @@ namespace OurSecrets
                     int min = agendaList[i].StartDateTime.Value.Minute;
                     int hour2 = agendaList[i].EndDateTime.Value.Hour;
                     int min2 = agendaList[i].EndDateTime.Value.Minute;
-                    StackPanel stackPanel2 = uiLayout2.GetMode_B_StackPanel(100, 100,0,0,hour*60+min,hour2*60+min2,agendaList[i].Title);
+                    StackPanel stackPanel2 = uiLayout2.GetMode_B_StackPanel(150, 100,0,0,hour*60+min,hour2*60+min2,agendaList[i].Title);
                     dayLists[i].Items.Add(stackPanel2);
-                    //dayLists[i].Items.Add(new StackPanel());
                 }
-
 
                 time = time.AddDays(1);
                 

@@ -112,6 +112,7 @@ namespace OurSecrets
         private void GoCalendar(object sender, RoutedEventArgs e)
         {
 
+            App.DailyPage.Refresh();
             Window.Current.Content = App.MyMainPage;
         }
     }

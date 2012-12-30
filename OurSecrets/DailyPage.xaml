@@ -55,9 +55,7 @@
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
-            <GridView x:Name="AgendaList" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" CanReorderItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" Grid.Column="2">
-                <TextBlock x:Name="textblock" TextWrapping="Wrap" Text="TextBlock" Height="128" Width="100"/>
-            </GridView>
+            <GridView x:Name="AgendaList" SelectionMode="Multiple" AllowDrop="True" CanDragItems="True" CanReorderItems="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" IsItemClickEnabled="True" Grid.Column="2"/>
             <GridView x:Name="AddView" VerticalAlignment="Top" Height="141" CanDragItems="True" IsItemClickEnabled="True" AllowDrop="True" Margin="0,-3,0,0" Grid.Column="1" ItemClick="AddAgendaClick" ManipulationMode="All">
                 <GridViewItem x:Name="AddIcon" Content="+" Margin="0,24,0,0" Background="#FF11A313" FontSize="72" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="1.02,0.93" Padding="0,-11,0,15" ManipulationMode="All"/>
             </GridView>

@@ -29,6 +29,15 @@ namespace OurSecrets
         private bool _isEdit;
         private bool _isView;
 
+        public void SetStartDate(DateTime dateTime)
+        {
+            _textBoxStartDate.Text = dateTime.ToString("MM/dd/yyyy");
+        }
+        public void SetEndDate(DateTime dateTime)
+        {
+            _textBoxEndDate.Text = dateTime.ToString("MM/dd/yyyy");
+        }     
+
         public void SetNewState()
         {
             _isNew = true;
@@ -282,8 +291,10 @@ namespace OurSecrets
                 }
             }
             //Window.Current.Content = App.MyMainPage;
+            App.DailyPage.Refresh();
             Window.Current.Content = PreviousPage;
         }
+
 
         internal void SetPreviousPage(UIElement frame)
         {
