@@ -143,6 +143,7 @@ namespace OurSecrets
                                 App.MyEditAgendaPage.SetEndDate(firstDate.AddDays(2));
                                 App.MyEditAgendaPage.SetNewState();
                                 App.MyEditAgendaPage.SetPreviousPage(App.DailyPage);
+                                //App.MyEditAgendaPage.
                                 Window.Current.Content = App.MyEditAgendaPage;
                             }
                             else
@@ -346,7 +347,7 @@ namespace OurSecrets
             GridView[] days = { First_, Second_, Third_ };
             GridView[] dayLists = { FirstDay, SecondDay, ThirdDay };
             DayAgenda day = App.AgendasModel.GetDay(DateTime.Today);
-            DateTime time = DateTime.Today;
+            DateTime time = firstDate;
             for (int i = 0; i < days.Length; i++)
             {
                 UILayout uiLayout = new UILayout();
